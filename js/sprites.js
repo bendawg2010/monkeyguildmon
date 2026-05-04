@@ -286,7 +286,39 @@ const SpriteRenderer = (() => {
       ctx.beginPath(); ctx.arc(fx-s*0.025, fy-s*0.010, s*0.012, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(fx+s*0.025, fy-s*0.010, s*0.012, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(fx, fy+s*0.022, s*0.018, 0, Math.PI); ctx.stroke();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#5fc8ff";
+        ctx.shadowColor = "#5fc8ff";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Banana_Man", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#fee75c";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("BT", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#fee75c";
+        ctx.beginPath();
+        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.025, s*0.010, 0.4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // AgentP4 — Perry the Platypus (green, fedora, bill)
     AGENTP4(ctx, sp, x, y, s, t) {
@@ -329,7 +361,38 @@ const SpriteRenderer = (() => {
       // Webbed feet
       px(ctx, x+s*0.36, y+s*0.86+bob, s*0.10, s*0.04, "#a04020");
       px(ctx, x+s*0.54, y+s*0.86+bob, s*0.10, s*0.04, "#a04020");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#5fc8ff";
+        ctx.shadowColor = "#5fc8ff";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("AgentP4", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#5fc8b8";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("KING", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#3a2010";
+        ctx.fillRect(x+s*0.06-s*0.025, y+s*0.10-s*0.005, s*0.050, s*0.008);
+        ctx.fillRect(x+s*0.06-s*0.015, y+s*0.10-s*0.020, s*0.030, s*0.018);
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // pootalker789 — Squirtle (blue turtle with brown shell)
     POOTALKER789(ctx, sp, x, y, s, t) {
@@ -378,7 +441,39 @@ const SpriteRenderer = (() => {
       // Tail curl
       ctx.fillStyle = "#7fdcff";
       ctx.beginPath(); ctx.arc(x+s*0.86, y+s*0.66+bob, s*0.05, 0, Math.PI*2); ctx.fill();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#5fc8ff";
+        ctx.shadowColor = "#5fc8ff";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("pootalker789", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#7fdcff";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("PEAK", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#a07050";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = "#5a3818"; ctx.lineWidth = Math.max(1, s*0.005);
+        ctx.beginPath(); ctx.moveTo(x+s*0.06-s*0.020, y+s*0.10); ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10); ctx.stroke();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // sussybaka — Among Us crewmate
     SUSSYBAKA(ctx, sp, x, y, s, t) {
@@ -413,7 +508,40 @@ const SpriteRenderer = (() => {
       ctx.fillStyle = "rgba(255,255,255,0.4)";
       ctx.font = `bold ${Math.floor(s*0.10)}px monospace`;
       ctx.fillText("?", x+s*0.20, y+s*0.30);
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("sussybaka", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#ed4245";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("SUS", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7fdc6a";
+        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10-s*0.005, s*0.040, s*0.018);
+        ctx.fillStyle = "#1a1a1a";
+        ctx.fillRect(x+s*0.06-s*0.016, y+s*0.10-s*0.001, s*0.032, s*0.003);
+        ctx.fillRect(x+s*0.06-s*0.016, y+s*0.10+s*0.005, s*0.032, s*0.003);
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Trees — a literal tree
     TREES(ctx, sp, x, y, s, t) {
@@ -441,7 +569,39 @@ const SpriteRenderer = (() => {
       ctx.fillStyle = "#1a1a1a";
       ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.36, s*0.014, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.36, s*0.014, 0, Math.PI*2); ctx.fill();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Trees", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#3a8838";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("TREE", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#3a8838";
+        ctx.beginPath();
+        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.022, s*0.012, 0.5, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Sineed — hamburger with a face
     SINEED(ctx, sp, x, y, s, t) {
@@ -484,7 +644,43 @@ const SpriteRenderer = (() => {
       ctx.fillStyle = "#1a1a1a";
       ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.55+bob, s*0.012, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.55+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Sineed", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#e8b070";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("BURG", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7a4828";
+        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10-s*0.012, s*0.040, s*0.010);
+        ctx.fillStyle = "#3a8838";
+        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10-s*0.002, s*0.040, s*0.005);
+        ctx.fillStyle = "#a04020";
+        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10+s*0.003, s*0.040, s*0.005);
+        ctx.fillStyle = "#e8b070";
+        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10+s*0.008, s*0.040, s*0.008);
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // frankie — giant question mark in a void
     FRANKIE(ctx, sp, x, y, s, t) {
@@ -499,7 +695,38 @@ const SpriteRenderer = (() => {
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
       ctx.fillText("?", x+s*0.5, y+s*0.5+bob);
       ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#a4b3c8";
+        ctx.shadowColor = "#a4b3c8";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("frankie", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#36393f";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#a4b3c8";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("???", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#a4b3c8";
+        ctx.font = `900 ${Math.max(10, Math.floor(s*0.080))}px monospace`;
+        ctx.fillText("?", x+s*0.06-s*0.015, y+s*0.10+s*0.020);
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Pengulite — penguin with a Minecraft sword
     PENGULITE(ctx, sp, x, y, s, t) {
@@ -558,7 +785,48 @@ const SpriteRenderer = (() => {
         ctx.fillStyle = "#a060f0";
         ctx.beginPath(); ctx.arc(sx, sy, s*0.020, 0, Math.PI*2); ctx.fill();
       }
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#5fc8ff";
+        ctx.shadowColor = "#5fc8ff";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Pengulite", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#7a5acc";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("ICE", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#5fc8ff";
+        ctx.beginPath();
+        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020);
+        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
+        ctx.moveTo(x+s*0.06-s*0.020, y+s*0.10);
+        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
+        ctx.moveTo(x+s*0.06-s*0.014, y+s*0.10-s*0.014);
+        ctx.lineTo(x+s*0.06+s*0.014, y+s*0.10+s*0.014);
+        ctx.moveTo(x+s*0.06-s*0.014, y+s*0.10+s*0.014);
+        ctx.lineTo(x+s*0.06+s*0.014, y+s*0.10-s*0.014);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.005);
+        ctx.stroke();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Yeep — sheep with a chef's hat
     YEEP(ctx, sp, x, y, s, t) {
@@ -596,7 +864,39 @@ const SpriteRenderer = (() => {
       // Stubby legs
       px(ctx, x+s*0.36, y+s*0.90+bob, s*0.08, s*0.06, "#1a1a1a");
       px(ctx, x+s*0.56, y+s*0.90+bob, s*0.08, s*0.06, "#1a1a1a");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Yeep", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#fee75c";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("CHEF", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#fff";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.018, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.008, y+s*0.10+s*0.008, s*0.008, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Kingboys — a green game controller with a face
     KINGBOYS(ctx, sp, x, y, s, t) {
@@ -638,7 +938,42 @@ const SpriteRenderer = (() => {
       ctx.textAlign = "center";
       ctx.fillText("KINGBOYS", x+s*0.5, y+s*0.30+bob);
       ctx.textAlign = "start";
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Kingboys", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#5fdc6a";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("CTRL", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7fdc6a";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.018, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.font = `bold ${Math.max(6, Math.floor(s*0.030))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillText("A", x+s*0.06, y+s*0.10+s*0.010);
+        ctx.textAlign = "start";
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Bman48 — a minecart on rails
     BMAN48(ctx, sp, x, y, s, t) {
@@ -670,7 +1005,39 @@ const SpriteRenderer = (() => {
       ctx.fillStyle = "#5a5e64";
       ctx.beginPath(); ctx.arc(x+s*0.30, y+s*0.86+bob, s*0.030, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(x+s*0.70, y+s*0.86+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Bman48", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#a08050";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("CART", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.018, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#7fdc6a";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.008, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // enderlife7770 — SpongeBob (yellow square dude)
     ENDERLIFE7770(ctx, sp, x, y, s, t) {
@@ -717,7 +1084,38 @@ const SpriteRenderer = (() => {
       // Stick legs
       px(ctx, x+s*0.30, y+s*0.88+bob, s*0.04, s*0.10, "#fec0a0");
       px(ctx, x+s*0.66, y+s*0.88+bob, s*0.04, s*0.10, "#fec0a0");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("enderlife7770", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#ed4245";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("END", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.018, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.022, y+s*0.10-s*0.005, s*0.008, 0, Math.PI*2); ctx.stroke();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Wedrftgjo / Geared / Cast — Discord default avatar (white silhouette on blurple)
     WEDRFTGJO(ctx, sp, x, y, s, t) {
@@ -773,7 +1171,41 @@ const SpriteRenderer = (() => {
       ctx.beginPath(); ctx.ellipse(x+s*0.78, y+s*0.66+bob, s*0.10, s*0.06, 0.3, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(x+s*0.36, y+s*0.86+bob, s*0.06, s*0.04, 0, 0, Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(x+s*0.62, y+s*0.86+bob, s*0.06, s*0.04, 0, 0, Math.PI*2); ctx.fill();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Forestchan", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#a09080";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("SEAL", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
+        ctx.beginPath();
+        ctx.moveTo(x+s*0.06-s*0.025, y+s*0.10);
+        ctx.quadraticCurveTo(x+s*0.06-s*0.012, y+s*0.10-s*0.012, x+s*0.06, y+s*0.10);
+        ctx.quadraticCurveTo(x+s*0.06+s*0.012, y+s*0.10+s*0.012, x+s*0.06+s*0.025, y+s*0.10);
+        ctx.stroke();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Jajooni — giraffe
     JAJOONI(ctx, sp, x, y, s, t) {
@@ -817,7 +1249,38 @@ const SpriteRenderer = (() => {
       px(ctx, x+s*0.30, y+s*0.86+bob, s*0.06, s*0.08, "#a07050");
       px(ctx, x+s*0.46, y+s*0.86+bob, s*0.06, s*0.08, "#a07050");
       px(ctx, x+s*0.62, y+s*0.86+bob, s*0.06, s*0.08, "#a07050");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Jajooni", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#e8a064";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("LONG", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7fdc6a";
+        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.010, y+s*0.10, s*0.008, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.010, y+s*0.10-s*0.005, s*0.008, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // N3gm — small dragon
     N3GM(ctx, sp, x, y, s, t) {
@@ -863,7 +1326,38 @@ const SpriteRenderer = (() => {
       ctx.fillStyle = "#1a1a1a";
       ctx.fillRect(x+s*0.434, y+s*0.350+bob, s*0.012, s*0.020);
       ctx.fillRect(x+s*0.554, y+s*0.350+bob, s*0.012, s*0.020);
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#5fc8ff";
+        ctx.shadowColor = "#5fc8ff";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("N3gm", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#a04590";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#5fc8ff";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("VALO", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#ff8a3a";
+        ctx.beginPath();
+        ctx.arc(x+s*0.06, y+s*0.10, s*0.030, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // wart — skull
     WART(ctx, sp, x, y, s, t) {
@@ -898,7 +1392,40 @@ const SpriteRenderer = (() => {
       // Teeth
       ctx.fillStyle = "#1a1a1a";
       for (let i = 0; i < 5; i++) ctx.fillRect(x+s*(0.36+i*0.06), y+s*0.70+bob, s*0.014, s*0.10);
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("wart", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#5a5e64";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("TRLL", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7fdc6a";
+        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.020, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Fart_sauce9 — tankard / mug
     FART_SAUCE9(ctx, sp, x, y, s, t) {
@@ -929,7 +1456,39 @@ const SpriteRenderer = (() => {
       // Smirk
       ctx.strokeStyle = "#1a1a1a"; ctx.lineWidth = Math.max(1, s*0.012);
       ctx.beginPath(); ctx.moveTo(x+s*0.34, y+s*0.62+bob); ctx.lineTo(x+s*0.54, y+s*0.60+bob); ctx.stroke();
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Fart_sauce9", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#ffae54";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("TANK", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#7fdc6a";
+        ctx.fillRect(x+s*0.06-s*0.015, y+s*0.10-s*0.018, s*0.030, s*0.030);
+        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.005);
+        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.020, y+s*0.10-s*0.005, s*0.008, -Math.PI*0.5, Math.PI*0.5); ctx.stroke();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // byae — alligator
     BYAE(ctx, sp, x, y, s, t) {
@@ -974,7 +1533,41 @@ const SpriteRenderer = (() => {
       // Legs
       px(ctx, x+s*0.20, y+s*0.78+bob, s*0.10, s*0.08, "#3a8838");
       px(ctx, x+s*0.50, y+s*0.78+bob, s*0.10, s*0.08, "#3a8838");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("byae", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#7fdc6a";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("GTR", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.018);
+        ctx.lineTo(x+s*0.06+s*0.012, y+s*0.10+s*0.018);
+        ctx.lineTo(x+s*0.06-s*0.012, y+s*0.10+s*0.018);
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // Quener — monkey (the OG)
     QUENER(ctx, sp, x, y, s, t) {
@@ -1020,7 +1613,39 @@ const SpriteRenderer = (() => {
       // Legs
       px(ctx, x+s*0.34, y+s*0.86+bob, s*0.10, s*0.10, "#a07a4a");
       px(ctx, x+s*0.56, y+s*0.86+bob, s*0.10, s*0.10, "#a07a4a");
-    },
+          // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // Tier-glow username label (below sprite)
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#7fdc6a";
+        ctx.shadowColor = "#7fdc6a";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("quener", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // Floating role badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#a07a4a";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#7fdc6a";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("AGMT", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        ctx.fillStyle = "#fee75c";
+        ctx.beginPath();
+        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.025, s*0.010, 0.4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
+},
 
     // ===== INHERITED BRAINROT SPRITES (kept as fallback for testing) =====
     // Three-legged shark in Nikes. Now actually shark-shaped.
@@ -1897,6 +2522,61 @@ const SpriteRenderer = (() => {
         const by = y+s*0.18 + Math.sin(a) * s*0.20;
         px(ctx, bx, by, s*0.04, s*0.10, sp.color3);
       }
+    },
+
+    // Karl — legendary final boss. Renders the parametric avatar then
+    // layers gold KING banner + flourish overlay so he's instantly
+    // recognizable at a glance.
+    KARL(ctx, sp, x, y, s, t) {
+      avatarMon(ctx, sp, x, y, s, t);
+      // === auto-flourish: identifier overlay ===
+      try {
+        ctx.save();
+        const __fb = Math.sin(t*0.0035) * (s*0.008);
+        // signature: gold KING banner (legendary)
+        ctx.fillStyle = "#ffd700";
+        ctx.fillRect(x+s*0.10, y+s*0.02, s*0.80, s*0.07);
+        ctx.strokeStyle = "#a07020";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(x+s*0.10, y+s*0.02, s*0.80, s*0.07);
+        ctx.fillStyle = "#3a1a08";
+        ctx.font = `900 ${Math.max(7, Math.floor(s*0.055))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillText("KING", x+s*0.50, y+s*0.07);
+        ctx.textAlign = "start";
+        // username label below sprite
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillStyle = "rgba(0,0,0,0.55)";
+        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
+        ctx.fillStyle = "#ffd700";
+        ctx.shadowColor = "#ffd700";
+        ctx.shadowBlur = Math.max(2, s*0.012);
+        ctx.fillText("Karl", x+s*0.50, y+s*1.020);
+        ctx.shadowBlur = 0;
+        // floating KING badge tag (top-right corner)
+        const __bx = x+s*0.66, __by = y+s*0.13+__fb;
+        const __bw = s*0.32, __bh = s*0.10;
+        ctx.fillStyle = "#ffd700";
+        ctx.fillRect(__bx, __by, __bw, __bh);
+        ctx.strokeStyle = "#ffd700";
+        ctx.lineWidth = Math.max(1, s*0.008);
+        ctx.strokeRect(__bx, __by, __bw, __bh);
+        ctx.fillStyle = "#0a0a14";
+        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
+        ctx.fillText("KING", __bx+__bw/2, __by+__bh*0.74);
+        ctx.textAlign = "start";
+        // crown accent (top-left)
+        ctx.fillStyle = "#ffd700";
+        ctx.beginPath();
+        ctx.moveTo(x+s*0.06-s*0.025, y+s*0.18+s*0.012);
+        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.18-s*0.020);
+        ctx.lineTo(x+s*0.06, y+s*0.18-s*0.005);
+        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.18-s*0.020);
+        ctx.lineTo(x+s*0.06+s*0.025, y+s*0.18+s*0.012);
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+      } catch(__e) { /* flourish fail-safe */ }
     },
   };
   // (other meme sprites use generic procedural fallback below)

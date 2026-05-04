@@ -108,6 +108,7 @@ const Battle = (() => {
       uiBlocked: false, // true while animation running
       attackAnimT: 0, // attacker forward bounce
       attackAnimWho: null,
+      moveAnim: null,  // { family, t0, dur, fromPlayer, defenderX, defenderY, attackerX, attackerY }
       shakeMagX: 0,
       catchShakes: 0,
       catchAnimT: 0,
@@ -347,6 +348,21 @@ const Battle = (() => {
     // attack lunge animation
     state.attackAnimWho = isPlayer ? "player" : "enemy";
     state.attackAnimT = 1;
+    // per-move family animation (drawn on battle canvas in drawMoveAnim)
+    // sprite centers on the 240x160 layout: player ~ (60, 112), enemy ~ (187, 56)
+    const playerCx = 60, playerCy = 112;
+    const enemyCx = 187, enemyCy = 56;
+    state.moveAnim = {
+      family: move.family || null,
+      moveId: moveSlot.id,
+      t0: performance.now(),
+      dur: 700,
+      fromPlayer: isPlayer,
+      attackerX: isPlayer ? playerCx : enemyCx,
+      attackerY: isPlayer ? playerCy : enemyCy,
+      defenderX: isPlayer ? enemyCx : playerCx,
+      defenderY: isPlayer ? enemyCy : playerCy,
+    };
     if (Math.random() > move.acc / 100) {
       enqueue("...but it missed!");
       Audio.play("miss");
@@ -838,6 +854,10 @@ const Battle = (() => {
     if (state.attackAnimT > 0) {
       state.attackAnimT = Math.max(0, state.attackAnimT - dt / 220);
     }
+    // clear per-move animation when expired
+    if (state.moveAnim && now > state.moveAnim.t0 + state.moveAnim.dur) {
+      state.moveAnim = null;
+    }
     // Smooth slide-in offsets to 0. Lerp-rate based, so it eases out
     // (slows as it approaches the target) instead of snapping at a
     // fixed pixel-per-frame rate.
@@ -945,6 +965,9 @@ const Battle = (() => {
       }
     }
 
+    // per-move family animation overlay
+    drawMoveAnim(ctx, time);
+
     // typing arrow indicator
     if (state.message && !state.typing && state.messageQueue.length >= 0) {
       const cy = H - 30;
@@ -958,6 +981,589 @@ const Battle = (() => {
       ctx.closePath();
       ctx.fill();
     }
+  }
+
+  // Per-move family animation. Each move has a `family` field that
+  // selects which visual effect plays on top of the existing shake +
+  // flash. Coordinates are in the 240x160 canvas space; we scale
+  // everything via the W/240 ratio so it survives any future canvas
+  // size changes without re-tuning every effect.
+  function drawMoveAnim(ctx, time) {
+    if (!state || !state.moveAnim) return;
+    const W = ctx.canvas.width, H = ctx.canvas.height;
+    const sc = W / 240;
+    const a = state.moveAnim;
+    const now = performance.now();
+    const p = Math.max(0, Math.min(1, (now - a.t0) / a.dur));
+    // Source/target in actual pixel coords for current canvas size
+    const ax0 = a.attackerX * sc, ay0 = a.attackerY * sc;
+    const ax1 = a.defenderX * sc, ay1 = a.defenderY * sc;
+    const fam = a.family;
+
+    ctx.save();
+
+    if (fam === "spear") {
+      // Long brown shaft + gray tip slides toward defender, peaks ~p=0.5
+      const tipP = Math.sin(p * Math.PI); // 0 → 1 → 0
+      const tx = ax0 + (ax1 - ax0) * tipP;
+      const ty = ay0 + (ay1 - ay0) * tipP;
+      const dx = ax1 - ax0, dy = ay1 - ay0;
+      const len = Math.sqrt(dx*dx + dy*dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const shaftLen = 28 * sc;
+      ctx.strokeStyle = "#7a4a1f";
+      ctx.lineWidth = 3 * sc;
+      ctx.beginPath();
+      ctx.moveTo(tx - ux * shaftLen, ty - uy * shaftLen);
+      ctx.lineTo(tx, ty);
+      ctx.stroke();
+      // tip
+      ctx.fillStyle = "#c8c8d0";
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(tx - ux * 6 * sc - uy * 3 * sc, ty - uy * 6 * sc + ux * 3 * sc);
+      ctx.lineTo(tx - ux * 6 * sc + uy * 3 * sc, ty - uy * 6 * sc - ux * 3 * sc);
+      ctx.closePath();
+      ctx.fill();
+    } else if (fam === "shield") {
+      // Bronze shield grows from attacker, slams at p=0.5
+      const tipP = Math.min(1, p * 2);
+      const x = ax0 + (ax1 - ax0) * tipP;
+      const y = ay0 + (ay1 - ay0) * tipP;
+      const r = (4 + tipP * 14) * sc;
+      ctx.fillStyle = "#b07030";
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#e0a050";
+      ctx.beginPath();
+      ctx.arc(x, y, r * 0.6, 0, Math.PI * 2);
+      ctx.fill();
+      // star burst at impact
+      if (p > 0.5) {
+        const bp = (p - 0.5) * 2;
+        ctx.strokeStyle = `rgba(255,230,150,${1 - bp})`;
+        ctx.lineWidth = 2 * sc;
+        for (let i = 0; i < 6; i++) {
+          const ang = (i / 6) * Math.PI * 2;
+          const rr = (8 + bp * 14) * sc;
+          ctx.beginPath();
+          ctx.moveTo(ax1, ay1);
+          ctx.lineTo(ax1 + Math.cos(ang) * rr, ay1 + Math.sin(ang) * rr);
+          ctx.stroke();
+        }
+      }
+    } else if (fam === "slash") {
+      // Diagonal white-yellow crescent lines across defender, p=0.3..0.7
+      if (p > 0.2 && p < 0.8) {
+        const sp = (p - 0.2) / 0.6;
+        for (let i = 0; i < 4; i++) {
+          const off = (i - 1.5) * 6 * sc;
+          const a0 = sp - i * 0.06;
+          if (a0 < 0 || a0 > 1) continue;
+          ctx.strokeStyle = `rgba(255,255,200,${1 - a0})`;
+          ctx.lineWidth = (3 - i * 0.5) * sc;
+          ctx.beginPath();
+          const r = 18 * sc;
+          ctx.arc(ax1 + off, ay1, r, Math.PI * 0.2, Math.PI * 0.8);
+          ctx.stroke();
+        }
+      }
+    } else if (fam === "buff") {
+      // 6 gold sparkles rising from attacker
+      for (let i = 0; i < 6; i++) {
+        const seed = i / 6;
+        const localT = (p * 1.4 - seed) % 1;
+        if (localT < 0 || localT > 1) continue;
+        const sx = ax0 + Math.sin(localT * 6 + i) * 8 * sc;
+        const sy = ay0 - localT * 30 * sc;
+        const al = (1 - localT) * 0.95;
+        ctx.fillStyle = `rgba(255,220,100,${al})`;
+        ctx.fillRect(sx - 1.5 * sc, sy - 1.5 * sc, 3 * sc, 3 * sc);
+        ctx.fillStyle = `rgba(255,255,200,${al})`;
+        ctx.fillRect(sx - 0.5 * sc, sy - 3 * sc, 1 * sc, 6 * sc);
+        ctx.fillRect(sx - 3 * sc, sy - 0.5 * sc, 6 * sc, 1 * sc);
+      }
+    } else if (fam === "ray") {
+      // Pink/cyan beam attacker→defender, grows then shrinks
+      const w = Math.sin(p * Math.PI) * 6 * sc;
+      const dx = ax1 - ax0, dy = ay1 - ay0;
+      const len = Math.sqrt(dx*dx + dy*dy) || 1;
+      const nx = -dy / len, ny = dx / len;
+      ctx.fillStyle = `rgba(255,120,220,${0.85})`;
+      ctx.beginPath();
+      ctx.moveTo(ax0 + nx * w, ay0 + ny * w);
+      ctx.lineTo(ax1 + nx * w, ay1 + ny * w);
+      ctx.lineTo(ax1 - nx * w, ay1 - ny * w);
+      ctx.lineTo(ax0 - nx * w, ay0 - ny * w);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = `rgba(150,255,255,0.9)`;
+      ctx.beginPath();
+      ctx.moveTo(ax0 + nx * w * 0.5, ay0 + ny * w * 0.5);
+      ctx.lineTo(ax1 + nx * w * 0.5, ay1 + ny * w * 0.5);
+      ctx.lineTo(ax1 - nx * w * 0.5, ay1 - ny * w * 0.5);
+      ctx.lineTo(ax0 - nx * w * 0.5, ay0 - ny * w * 0.5);
+      ctx.closePath();
+      ctx.fill();
+    } else if (fam === "bomb") {
+      // Black ball arcs to defender, then explodes with orange rings
+      if (p < 0.7) {
+        const fp = p / 0.7;
+        const x = ax0 + (ax1 - ax0) * fp;
+        const y = ay0 + (ay1 - ay0) * fp - Math.sin(fp * Math.PI) * 30 * sc;
+        ctx.fillStyle = "#1a1a1a";
+        ctx.beginPath();
+        ctx.arc(x, y, 4 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        // fuse spark
+        ctx.fillStyle = "#ffaa00";
+        ctx.fillRect(x - 0.5 * sc, y - 7 * sc, 1 * sc, 2 * sc);
+      } else {
+        const ep = (p - 0.7) / 0.3;
+        for (let i = 0; i < 3; i++) {
+          const r = (4 + ep * 18 + i * 3) * sc;
+          ctx.strokeStyle = `rgba(255,${140 - i * 40},40,${1 - ep})`;
+          ctx.lineWidth = 2 * sc;
+          ctx.beginPath();
+          ctx.arc(ax1, ay1, r, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.fillStyle = `rgba(255,200,80,${(1 - ep) * 0.6})`;
+        ctx.beginPath();
+        ctx.arc(ax1, ay1, 8 * sc, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (fam === "sword") {
+      // Diamond-blue swipe across defender + cyan trail particles
+      const sp = Math.sin(p * Math.PI);
+      const off = (p - 0.5) * 40 * sc;
+      ctx.strokeStyle = `rgba(180,230,255,${sp})`;
+      ctx.lineWidth = 4 * sc;
+      ctx.beginPath();
+      ctx.moveTo(ax1 - 14 * sc + off * 0.3, ay1 - 14 * sc);
+      ctx.lineTo(ax1 + 14 * sc + off * 0.3, ay1 + 14 * sc);
+      ctx.stroke();
+      ctx.strokeStyle = `rgba(255,255,255,${sp})`;
+      ctx.lineWidth = 1.5 * sc;
+      ctx.stroke();
+      // trail particles
+      for (let i = 0; i < 5; i++) {
+        const seed = i / 5;
+        const localT = (p * 1.3 - seed * 0.3);
+        if (localT < 0 || localT > 1) continue;
+        const sx = ax1 - 14 * sc + 28 * sc * localT + (Math.random() - 0.5) * 4 * sc;
+        const sy = ay1 - 14 * sc + 28 * sc * localT + (Math.random() - 0.5) * 4 * sc;
+        ctx.fillStyle = `rgba(150,220,255,${1 - localT})`;
+        ctx.fillRect(sx - 1, sy - 1, 2, 2);
+      }
+    } else if (fam === "pickaxe") {
+      // Iron pickaxe falls from above onto defender, then sparks
+      if (p < 0.6) {
+        const fp = p / 0.6;
+        const x = ax1;
+        const y = ay1 - 40 * sc + fp * 40 * sc;
+        // handle
+        ctx.strokeStyle = "#8a5a2a";
+        ctx.lineWidth = 3 * sc;
+        ctx.beginPath();
+        ctx.moveTo(x, y - 10 * sc);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        // head
+        ctx.fillStyle = "#888898";
+        ctx.fillRect(x - 8 * sc, y - 13 * sc, 16 * sc, 4 * sc);
+      } else {
+        const ep = (p - 0.6) / 0.4;
+        for (let i = 0; i < 8; i++) {
+          const ang = (i / 8) * Math.PI * 2;
+          const r = ep * 16 * sc;
+          const sx = ax1 + Math.cos(ang) * r;
+          const sy = ay1 + Math.sin(ang) * r;
+          ctx.fillStyle = `rgba(255,230,150,${1 - ep})`;
+          ctx.fillRect(sx - 1, sy - 1, 2, 2);
+        }
+      }
+    } else if (fam === "arrow") {
+      // Brown shaft + arrowhead flying straight from attacker to defender
+      const fp = Math.min(1, p * 1.4);
+      const tx = ax0 + (ax1 - ax0) * fp;
+      const ty = ay0 + (ay1 - ay0) * fp;
+      const dx = ax1 - ax0, dy = ay1 - ay0;
+      const len = Math.sqrt(dx*dx + dy*dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      ctx.strokeStyle = "#7a4a1f";
+      ctx.lineWidth = 1.5 * sc;
+      ctx.beginPath();
+      ctx.moveTo(tx - ux * 14 * sc, ty - uy * 14 * sc);
+      ctx.lineTo(tx, ty);
+      ctx.stroke();
+      // arrowhead
+      ctx.fillStyle = "#cccccc";
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(tx - ux * 4 * sc - uy * 2 * sc, ty - uy * 4 * sc + ux * 2 * sc);
+      ctx.lineTo(tx - ux * 4 * sc + uy * 2 * sc, ty - uy * 4 * sc - ux * 2 * sc);
+      ctx.closePath();
+      ctx.fill();
+      // fletching
+      ctx.fillStyle = "#dd5050";
+      const fx = tx - ux * 14 * sc, fy = ty - uy * 14 * sc;
+      ctx.fillRect(fx - 1, fy - 1, 3, 3);
+    } else if (fam === "explosion") {
+      // Big orange/red shockwave expanding from defender, all duration
+      const r = (6 + p * 28) * sc;
+      const a1 = 1 - p;
+      ctx.fillStyle = `rgba(255,180,40,${a1 * 0.6})`;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = `rgba(255,80,30,${a1})`;
+      ctx.lineWidth = 3 * sc;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeStyle = `rgba(255,230,160,${a1 * 0.8})`;
+      ctx.lineWidth = 1.5 * sc;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, r * 0.6, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (fam === "teleport") {
+      // Purple sparkle ring at attacker + purple glow on defender
+      const ringR = (4 + p * 18) * sc;
+      ctx.strokeStyle = `rgba(180,80,255,${1 - p})`;
+      ctx.lineWidth = 2 * sc;
+      ctx.beginPath();
+      ctx.arc(ax0, ay0, ringR, 0, Math.PI * 2);
+      ctx.stroke();
+      for (let i = 0; i < 8; i++) {
+        const ang = (i / 8) * Math.PI * 2 + p * 4;
+        const sx = ax0 + Math.cos(ang) * ringR;
+        const sy = ay0 + Math.sin(ang) * ringR;
+        ctx.fillStyle = `rgba(220,160,255,${1 - p})`;
+        ctx.fillRect(sx - 1, sy - 1, 2, 2);
+      }
+      // purple wash on defender
+      const dGlow = Math.sin(p * Math.PI);
+      ctx.fillStyle = `rgba(160,60,220,${dGlow * 0.45})`;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, 18 * sc, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (fam === "fireball") {
+      // Orange-red ball arcs to defender, fire splash on impact
+      if (p < 0.7) {
+        const fp = p / 0.7;
+        const x = ax0 + (ax1 - ax0) * fp;
+        const y = ay0 + (ay1 - ay0) * fp - Math.sin(fp * Math.PI) * 24 * sc;
+        ctx.fillStyle = "#ffaa30";
+        ctx.beginPath();
+        ctx.arc(x, y, 5 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#ffee80";
+        ctx.beginPath();
+        ctx.arc(x, y, 2.5 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        // tail
+        ctx.fillStyle = `rgba(255,80,30,0.6)`;
+        ctx.beginPath();
+        ctx.arc(x - (ax1-ax0)*0.05, y - (ay1-ay0)*0.05 + 2*sc, 3 * sc, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        const ep = (p - 0.7) / 0.3;
+        for (let i = 0; i < 8; i++) {
+          const ang = (i / 8) * Math.PI * 2 + ep;
+          const r = (3 + ep * 14) * sc;
+          ctx.fillStyle = `rgba(255,${120 + i * 12},30,${1 - ep})`;
+          ctx.beginPath();
+          ctx.arc(ax1 + Math.cos(ang) * r, ay1 + Math.sin(ang) * r, 3 * sc, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else if (fam === "lava") {
+      // Lava blob falls from above onto defender, drips
+      const fp = Math.min(1, p * 1.3);
+      const x = ax1;
+      const y = ay1 - 30 * sc + fp * 30 * sc;
+      ctx.fillStyle = "#dd4010";
+      ctx.beginPath();
+      ctx.arc(x, y, 7 * sc, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#ffaa30";
+      ctx.beginPath();
+      ctx.arc(x, y, 4 * sc, 0, Math.PI * 2);
+      ctx.fill();
+      if (p > 0.5) {
+        // drips
+        for (let i = 0; i < 3; i++) {
+          const dripT = Math.min(1, (p - 0.5) * 2 + i * 0.1);
+          const dx = ax1 + (i - 1) * 6 * sc;
+          const dy = ay1 + dripT * 14 * sc;
+          ctx.fillStyle = "#dd4010";
+          ctx.beginPath();
+          ctx.arc(dx, dy, (2 + (1 - dripT) * 1.5) * sc, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else if (fam === "potion") {
+      // Glass bottle arcs to defender, shatters with green/purple cloud
+      if (p < 0.6) {
+        const fp = p / 0.6;
+        const x = ax0 + (ax1 - ax0) * fp;
+        const y = ay0 + (ay1 - ay0) * fp - Math.sin(fp * Math.PI) * 26 * sc;
+        ctx.fillStyle = "rgba(180,230,255,0.85)";
+        ctx.fillRect(x - 3 * sc, y - 4 * sc, 6 * sc, 8 * sc);
+        ctx.fillStyle = "#9050d0";
+        ctx.fillRect(x - 2 * sc, y - 2 * sc, 4 * sc, 5 * sc);
+        ctx.fillStyle = "#888";
+        ctx.fillRect(x - 1 * sc, y - 6 * sc, 2 * sc, 2 * sc);
+      } else {
+        const ep = (p - 0.6) / 0.4;
+        for (let i = 0; i < 8; i++) {
+          const ang = (i / 8) * Math.PI * 2;
+          const r = ep * 16 * sc;
+          const sx = ax1 + Math.cos(ang) * r;
+          const sy = ay1 + Math.sin(ang) * r - ep * 6 * sc;
+          ctx.fillStyle = i % 2 === 0
+            ? `rgba(80,220,80,${1 - ep})`
+            : `rgba(180,80,220,${1 - ep})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, (3 - ep) * sc, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else if (fam === "heal") {
+      // Green plus signs floating up from attacker
+      for (let i = 0; i < 5; i++) {
+        const seed = i / 5;
+        const localT = (p * 1.3 - seed) % 1;
+        if (localT < 0 || localT > 1) continue;
+        const sx = ax0 + Math.sin(localT * 4 + i) * 8 * sc;
+        const sy = ay0 - localT * 28 * sc;
+        const al = (1 - localT);
+        ctx.fillStyle = `rgba(80,220,80,${al})`;
+        ctx.fillRect(sx - 0.5 * sc, sy - 3 * sc, 1 * sc, 6 * sc);
+        ctx.fillRect(sx - 3 * sc, sy - 0.5 * sc, 6 * sc, 1 * sc);
+        ctx.fillStyle = `rgba(180,255,180,${al})`;
+        ctx.fillRect(sx - 0.5 * sc, sy - 1.5 * sc, 1 * sc, 3 * sc);
+      }
+    } else if (fam === "snowball") {
+      // White ball flies to defender, splat on impact
+      if (p < 0.7) {
+        const fp = p / 0.7;
+        const x = ax0 + (ax1 - ax0) * fp;
+        const y = ay0 + (ay1 - ay0) * fp - Math.sin(fp * Math.PI) * 18 * sc;
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(x, y, 5 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#cce0ff";
+        ctx.beginPath();
+        ctx.arc(x - 1 * sc, y - 1 * sc, 2.5 * sc, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        const ep = (p - 0.7) / 0.3;
+        for (let i = 0; i < 10; i++) {
+          const ang = (i / 10) * Math.PI * 2;
+          const r = ep * 14 * sc;
+          ctx.fillStyle = `rgba(255,255,255,${1 - ep})`;
+          ctx.beginPath();
+          ctx.arc(ax1 + Math.cos(ang) * r, ay1 + Math.sin(ang) * r, (2 - ep) * sc, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else if (fam === "trident") {
+      // 3-pronged trident thrusts horizontally
+      const tipP = Math.sin(p * Math.PI);
+      const tx = ax0 + (ax1 - ax0) * tipP;
+      const ty = ay0 + (ay1 - ay0) * tipP;
+      const dx = ax1 - ax0, dy = ay1 - ay0;
+      const len = Math.sqrt(dx*dx + dy*dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const nx = -uy, ny = ux;
+      // shaft
+      ctx.strokeStyle = "#5a3a1a";
+      ctx.lineWidth = 3 * sc;
+      ctx.beginPath();
+      ctx.moveTo(tx - ux * 22 * sc, ty - uy * 22 * sc);
+      ctx.lineTo(tx, ty);
+      ctx.stroke();
+      // 3 prongs
+      ctx.strokeStyle = "#c8c8d0";
+      ctx.lineWidth = 2 * sc;
+      for (let i = -1; i <= 1; i++) {
+        const off = i * 5 * sc;
+        ctx.beginPath();
+        ctx.moveTo(tx + nx * off, ty + ny * off);
+        ctx.lineTo(tx + nx * off + ux * 6 * sc, ty + ny * off + uy * 6 * sc);
+        ctx.stroke();
+      }
+    } else if (fam === "beam") {
+      // Wide yellow beam from sky lands on defender, crackling edges
+      const w = (10 + Math.sin(p * Math.PI) * 6) * sc;
+      const beamA = Math.sin(p * Math.PI);
+      const grad = ctx.createLinearGradient(ax1, 0, ax1, ay1);
+      grad.addColorStop(0, `rgba(255,255,160,0)`);
+      grad.addColorStop(1, `rgba(255,240,80,${beamA})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(ax1 - w, 0, w * 2, ay1);
+      // crackle
+      for (let i = 0; i < 5; i++) {
+        const yy = (i / 5) * ay1 + (Math.random() - 0.5) * 6 * sc;
+        ctx.strokeStyle = `rgba(255,255,255,${beamA})`;
+        ctx.lineWidth = 1 * sc;
+        ctx.beginPath();
+        ctx.moveTo(ax1 - w + (Math.random() - 0.5) * 4 * sc, yy);
+        ctx.lineTo(ax1 + w + (Math.random() - 0.5) * 4 * sc, yy);
+        ctx.stroke();
+      }
+    } else if (fam === "swoop") {
+      // Gray angular wings sweep past defender
+      const fp = Math.min(1, p * 1.3);
+      const x = ax1 - 30 * sc + fp * 60 * sc;
+      const y = ay1 + Math.sin(fp * Math.PI) * -8 * sc;
+      ctx.fillStyle = "rgba(150,150,170,0.9)";
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x - 14 * sc, y - 8 * sc);
+      ctx.lineTo(x - 8 * sc, y + 2 * sc);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 14 * sc, y - 8 * sc);
+      ctx.lineTo(x + 8 * sc, y + 2 * sc);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = "rgba(80,80,100,0.9)";
+      ctx.fillRect(x - 1 * sc, y - 4 * sc, 2 * sc, 8 * sc);
+    } else if (fam === "notification") {
+      // Discord-style "@" + red dot pings at defender
+      const a1 = 1 - p;
+      ctx.font = `bold ${Math.floor(20 * sc)}px monospace`;
+      ctx.textAlign = "center";
+      ctx.fillStyle = `rgba(90,120,250,${a1})`;
+      ctx.fillText("@", ax1, ay1 + 5 * sc);
+      ctx.textAlign = "start";
+      // 4 red ping dots
+      for (let i = 0; i < 4; i++) {
+        const ang = (i / 4) * Math.PI * 2 + p * 2;
+        const r = (8 + p * 14) * sc;
+        ctx.fillStyle = `rgba(240,60,60,${a1})`;
+        ctx.beginPath();
+        ctx.arc(ax1 + Math.cos(ang) * r, ay1 + Math.sin(ang) * r, 2.5 * sc, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (fam === "hammer") {
+      // Big gold hammer slams down from above
+      if (p < 0.7) {
+        const fp = p / 0.7;
+        const x = ax1;
+        const y = ay1 - 40 * sc + fp * 40 * sc;
+        ctx.strokeStyle = "#7a5a2a";
+        ctx.lineWidth = 3 * sc;
+        ctx.beginPath();
+        ctx.moveTo(x, y - 12 * sc);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.fillStyle = "#e0c040";
+        ctx.fillRect(x - 10 * sc, y - 16 * sc, 20 * sc, 8 * sc);
+        ctx.fillStyle = "#a08020";
+        ctx.fillRect(x - 10 * sc, y - 16 * sc, 20 * sc, 2 * sc);
+      } else {
+        const ep = (p - 0.7) / 0.3;
+        // shockwave
+        ctx.strokeStyle = `rgba(255,220,80,${1 - ep})`;
+        ctx.lineWidth = 2 * sc;
+        ctx.beginPath();
+        ctx.arc(ax1, ay1, ep * 22 * sc, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    } else if (fam === "confuse") {
+      // Spiral question marks orbiting defender
+      ctx.font = `bold ${Math.floor(10 * sc)}px monospace`;
+      ctx.textAlign = "center";
+      for (let i = 0; i < 3; i++) {
+        const ang = p * Math.PI * 4 + (i / 3) * Math.PI * 2;
+        const r = 14 * sc;
+        const sx = ax1 + Math.cos(ang) * r;
+        const sy = ay1 - 10 * sc + Math.sin(ang) * r * 0.6;
+        ctx.fillStyle = `rgba(255,200,80,0.9)`;
+        ctx.fillText("?", sx, sy);
+      }
+      ctx.textAlign = "start";
+    } else if (fam === "spam") {
+      // Random colored circles + faces popping around defender
+      const colors = ["#ff5050", "#ffaa30", "#50dd50", "#5090ff", "#dd60dd", "#ffee30"];
+      for (let i = 0; i < 8; i++) {
+        const seed = (i * 0.7) % 1;
+        const localT = (p * 1.3 - seed * 0.6);
+        if (localT < 0 || localT > 1) continue;
+        const ang = (i / 8) * Math.PI * 2 + i;
+        const r = localT * 16 * sc;
+        const sx = ax1 + Math.cos(ang) * r;
+        const sy = ay1 + Math.sin(ang) * r;
+        ctx.globalAlpha = 1 - localT;
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        // tiny face dots
+        ctx.fillStyle = "#000";
+        ctx.fillRect(sx - 1.2 * sc, sy - 0.8 * sc, 0.6 * sc, 0.6 * sc);
+        ctx.fillRect(sx + 0.6 * sc, sy - 0.8 * sc, 0.6 * sc, 0.6 * sc);
+        ctx.globalAlpha = 1;
+      }
+    } else if (fam === "fade") {
+      // Translucent gray rectangle washes over defender
+      const al = Math.sin(p * Math.PI) * 0.7;
+      ctx.fillStyle = `rgba(120,120,130,${al})`;
+      ctx.fillRect(ax1 - 18 * sc, ay1 - 18 * sc, 36 * sc, 36 * sc);
+    } else if (fam === "emoji-burst") {
+      // 7 colored emoji-circles erupting from defender
+      const colors = ["#ff5050", "#ffaa30", "#50dd50", "#5090ff", "#dd60dd", "#ffee30", "#30ddee"];
+      for (let i = 0; i < 7; i++) {
+        const ang = (i / 7) * Math.PI * 2;
+        const r = p * 22 * sc;
+        const sx = ax1 + Math.cos(ang) * r;
+        const sy = ay1 + Math.sin(ang) * r;
+        ctx.fillStyle = colors[i];
+        ctx.globalAlpha = 1 - p;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 4 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        // smile
+        ctx.fillStyle = "#000";
+        ctx.fillRect(sx - 1.5 * sc, sy - 1 * sc, 0.6 * sc, 0.6 * sc);
+        ctx.fillRect(sx + 1 * sc, sy - 1 * sc, 0.6 * sc, 0.6 * sc);
+        ctx.globalAlpha = 1;
+      }
+    } else if (fam === "give-up") {
+      // Big "Z" letter floats up from attacker, fade out
+      const t = p;
+      const al = 1 - t;
+      const y = ay0 - 8 * sc - t * 28 * sc;
+      ctx.font = `bold ${Math.floor(20 * sc)}px monospace`;
+      ctx.textAlign = "center";
+      ctx.fillStyle = `rgba(0,0,0,${al * 0.6})`;
+      ctx.fillText("Z", ax0 + 1, y + 1);
+      ctx.fillStyle = `rgba(180,210,255,${al})`;
+      ctx.fillText("Z", ax0, y);
+      ctx.textAlign = "start";
+    } else {
+      // Fallback: small orange burst at defender
+      const r = (3 + p * 12) * sc;
+      ctx.fillStyle = `rgba(255,160,40,${1 - p})`;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = `rgba(255,220,120,${1 - p})`;
+      ctx.lineWidth = 1.5 * sc;
+      ctx.beginPath();
+      ctx.arc(ax1, ay1, r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    ctx.restore();
   }
 
   // Render the catch-ball animation overlay in front of the enemy slot.
