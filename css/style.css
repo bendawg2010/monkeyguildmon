@@ -1,0 +1,614 @@
+:root {
+  --bg: #0d0d18;
+  --panel: #181828;
+  --panel-light: #2a2a40;
+  --accent: #ffcb05;
+  --accent2: #ff4d6d;
+  --text: #f4f4f4;
+  --shadow: rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, #1b1b3a, #050510 70%);
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 8px;
+}
+
+#screen {
+  position: relative;
+  width: min(96vw, 960px);
+  aspect-ratio: 3 / 2;
+  background: #000;
+  border: 4px solid #444;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px var(--shadow), inset 0 0 0 2px #111;
+}
+
+#game {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  background: #2a8c4a;
+}
+
+.ui-box {
+  position: absolute;
+  background: var(--panel);
+  border: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: clamp(11px, 2vw, 18px);
+  line-height: 1.4;
+  color: var(--text);
+  box-shadow: 0 4px 12px var(--shadow);
+  z-index: 10;
+}
+
+#dialog {
+  left: 4%;
+  right: 4%;
+  bottom: 4%;
+  min-height: 22%;
+  white-space: pre-wrap;
+}
+
+#dialog-arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 6px;
+  color: var(--accent);
+  animation: blink 0.8s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+#menu {
+  top: 4%;
+  right: 4%;
+  min-width: 50%;
+  max-width: 70%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+#menu-list { list-style: none; }
+#menu-list li {
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 2px 0;
+}
+#menu-list li.header {
+  background: var(--accent2);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+}
+#menu-list li.footer {
+  background: transparent;
+  color: #aab;
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 6px;
+  cursor: default;
+}
+#menu-list li.selected {
+  background: var(--accent);
+  color: #000;
+}
+#menu-list li.selected small { color: #222; }
+#menu-list small { opacity: 0.8; }
+#menu-list li.dex-detail {
+  background: #251235;
+  border: 1px solid var(--accent2);
+  color: #f4d8ff;
+  font-size: 0.95em;
+  cursor: default;
+  margin-top: 6px;
+}
+#menu-list li.dex-detail b { color: var(--accent); }
+
+.hidden { display: none !important; }
+
+#battle-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.mon-info {
+  position: absolute;
+  background: var(--panel);
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: clamp(10px, 1.6vw, 14px);
+  min-width: 160px;
+  box-shadow: 0 4px 8px var(--shadow);
+}
+#enemy-info { top: 6%; left: 4%; }
+#player-info { bottom: 32%; right: 4%; }
+.mon-name { font-weight: bold; }
+.mon-lvl { font-size: 0.9em; color: #ffd; }
+.hp-bar {
+  width: 100%;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5cd765, #2ca642);
+  width: 100%;
+  transition: width 0.3s;
+}
+.hp-fill.med { background: linear-gradient(90deg, #f9d423, #e2a000); }
+.hp-fill.low { background: linear-gradient(90deg, #ff5e5e, #c0392b); }
+.hp-text { font-size: 0.8em; text-align: right; }
+.xp-bar {
+  width: 100%;
+  height: 4px;
+  background: #222;
+  border-radius: 2px;
+  margin-top: 2px;
+  overflow: hidden;
+}
+.xp-fill {
+  height: 100%;
+  background: #4fa9ff;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+#battle-text {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 4%;
+  height: 24%;
+  pointer-events: auto;
+}
+
+#battle-actions, #move-list {
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  width: 50%;
+  height: 24%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  pointer-events: auto;
+  align-content: center;
+}
+#battle-actions button, #move-list button {
+  background: var(--panel-light);
+  border: 2px solid var(--accent);
+  color: var(--text);
+  font-family: inherit;
+  font-size: clamp(11px, 1.8vw, 16px);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.1s;
+}
+#battle-actions button:hover, #move-list button:hover,
+#battle-actions button.selected, #move-list button.selected {
+  background: var(--accent);
+  color: #000;
+  transform: translateY(-1px);
+}
+
+#starter-screen {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 6, 37, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8% 6% 4% 6%;
+  text-align: center;
+  z-index: 18;
+  pointer-events: none;
+}
+#starter-screen h2 {
+  font-size: clamp(14px, 2.4vw, 22px);
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-shadow: 2px 2px 0 #2a0a3a;
+  margin-bottom: 0;
+}
+#starter-name {
+  font-size: clamp(18px, 3.2vw, 30px);
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  text-shadow: 2px 2px 0 var(--accent2);
+}
+#starter-flavor {
+  font-size: clamp(11px, 1.8vw, 16px);
+  color: #ffe;
+  max-width: 70%;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+#starter-info {
+  font-size: clamp(11px, 1.7vw, 15px);
+  color: #cfe9ff;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+#starter-screen .hint {
+  font-size: clamp(10px, 1.4vw, 13px);
+  color: #aab;
+  letter-spacing: 1px;
+}
+
+#title-screen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, #5b2d8c, #0d0625 80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 20;
+  padding: 20px;
+}
+#title-screen h1 {
+  font-size: clamp(28px, 6vw, 64px);
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-shadow: 4px 4px 0 var(--accent2), 8px 8px 0 #2a0a3a;
+  line-height: 0.9;
+  margin-bottom: 12px;
+  animation: wobble 3s ease-in-out infinite;
+}
+@keyframes wobble {
+  0%,100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+#title-screen .subtitle {
+  font-size: clamp(14px, 2.5vw, 22px);
+  color: #ffd;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+#title-screen .prompt {
+  font-size: clamp(12px, 2vw, 18px);
+  color: var(--text);
+  animation: blink 1s steps(2) infinite;
+}
+#title-screen .credits {
+  margin-top: 12px;
+  font-size: clamp(9px, 1.3vw, 12px);
+  color: #aab;
+}
+#reset-save-btn {
+  margin-top: 10px;
+  background: transparent;
+  color: #aab;
+  border: 1px solid #555;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: clamp(10px, 1.3vw, 12px);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+#reset-save-btn:hover { opacity: 1; color: var(--accent2); border-color: var(--accent2); }
+
+/* ===== Sharp DOM HUD overlays =====
+   These replace the old canvas-rendered HUD text which got blurry
+   when CSS upscaled the 240×160 canvas. CSS text stays crisp. */
+#overlay-hud, #overlay-map-name, #overlay-hint, #overlay-banner, #overlay-save-toast {
+  position: absolute;
+  z-index: 22;
+  pointer-events: none;
+  font-family: "Courier New", monospace;
+  user-select: none;
+  text-rendering: geometricPrecision;
+}
+#overlay-hud {
+  /* Pushed inward to avoid colliding with the DESKTOP EDITION corner badge */
+  top: 8px;
+  left: 132px;
+  display: flex;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffcb05;
+  font-weight: bold;
+  font-size: clamp(10px, 1.4vw, 14px);
+  padding: 6px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+}
+#overlay-hud span { white-space: nowrap; }
+#overlay-map-name {
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #cfe9ff;
+  font-weight: bold;
+  font-size: clamp(10px, 1.4vw, 14px);
+  padding: 6px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+#overlay-hint {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffd;
+  font-size: clamp(10px, 1.3vw, 13px);
+  padding: 6px 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+#overlay-hint.grass { color: #ff8a8a; font-weight: bold; }
+#overlay-banner {
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffcb05;
+  font-weight: bold;
+  font-size: clamp(18px, 3vw, 32px);
+  padding: 12px 0;
+  text-align: center;
+  letter-spacing: 4px;
+}
+#overlay-save-toast {
+  top: 44px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #78ffb4;
+  font-weight: bold;
+  font-size: clamp(9px, 1.2vw, 12px);
+  padding: 4px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: opacity 0.25s;
+}
+
+/* ===== DESKTOP EDITION ===== */
+#desktop-splash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #2a0a3a, #050510 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: splash-fade 2.4s ease forwards;
+  pointer-events: none;
+}
+.splash-inner {
+  text-align: center;
+  animation: splash-pop 0.6s cubic-bezier(.2,.8,.2,1.2) both;
+}
+.splash-title {
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: bold;
+  letter-spacing: 6px;
+  color: var(--accent);
+  text-shadow: 4px 4px 0 var(--accent2), 8px 8px 0 #1a0030;
+}
+.splash-edition {
+  font-size: clamp(12px, 1.8vw, 18px);
+  color: #cfe9ff;
+  letter-spacing: 8px;
+  margin-top: 12px;
+  font-weight: bold;
+}
+.splash-tagline {
+  font-size: clamp(11px, 1.4vw, 14px);
+  color: #aab;
+  margin-top: 16px;
+  font-style: italic;
+}
+@keyframes splash-pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes splash-fade {
+  0%, 70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* Save-protection warning banner — sits over the top of everything,
+   high z-index. Dismissed via the Got-it button (writes to localStorage). */
+#save-warning {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 5%;
+  animation: save-warn-in 0.3s ease forwards;
+}
+@keyframes save-warn-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.save-warning-inner {
+  background: linear-gradient(180deg, #1a1a30, #0d0d18);
+  border: 2px solid #ffcb05;
+  border-radius: 10px;
+  padding: 20px 24px;
+  max-width: min(440px, 92%);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+  font-family: "Courier New", monospace;
+}
+.save-warning-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #ffcb05;
+  color: #1a1a30;
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.save-warning-body p {
+  margin: 8px 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #e0e0f0;
+}
+.save-warning-body b { color: #ffcb05; }
+#save-warning-ok {
+  margin-top: 14px;
+  background: #ffcb05;
+  color: #1a1a30;
+  border: 0;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 8px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+#save-warning-ok:hover { background: #fff; }
+
+#desktop-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  color: #000;
+  font-weight: bold;
+  font-size: clamp(8px, 1vw, 10px);
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  z-index: 25;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  opacity: 0.85;
+}
+#title-screen .controls-box {
+  margin: 16px auto 16px auto;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: "Courier New", monospace;
+  font-size: clamp(11px, 1.6vw, 14px);
+  color: #fff;
+  display: inline-block;
+  text-align: left;
+  min-width: 240px;
+}
+#title-screen .controls-box .row { padding: 2px 0; }
+#title-screen .controls-box .key {
+  display: inline-block;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-right: 8px;
+  min-width: 36px;
+  text-align: center;
+}
+#title-screen .controls-box .tip {
+  margin-top: 8px;
+  color: #ffe070;
+  text-align: center;
+  font-style: italic;
+  border-top: 1px solid #444;
+  padding-top: 6px;
+}
+
+#hud {
+  /* Made redundant by the in-screen #overlay-hint footer. Hide so the
+     game window doesn't have a duplicate keyboard cheat-sheet below it. */
+  display: none;
+}
+
+#touch-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+.dpad, .actions {
+  position: absolute;
+  bottom: 8px;
+  display: grid;
+  gap: 4px;
+  pointer-events: auto;
+}
+.dpad {
+  left: 8px;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+}
+.dpad button:nth-child(1) { grid-column: 2; grid-row: 1; }
+.dpad button:nth-child(2) { grid-column: 1; grid-row: 2; }
+.dpad button:nth-child(3) { grid-column: 2; grid-row: 3; }
+.dpad button:nth-child(4) { grid-column: 3; grid-row: 2; }
+
+.actions {
+  right: 8px;
+  grid-template-columns: 50px 50px;
+}
+#touch-controls button {
+  background: rgba(40,40,60,0.85);
+  border: 2px solid var(--accent);
+  color: var(--text);
+  font-size: 18px;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  cursor: pointer;
+}
+#touch-controls button:active {
+  background: var(--accent);
+  color: #000;
+}
+
+@media (pointer: coarse) {
+  #touch-controls { display: block; }
+  #touch-controls.hidden { display: none; }
+  #hud { font-size: 10px; }
+}

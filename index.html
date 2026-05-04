@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MONKEYGUILDMON — A Discord Server Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="screen">
+      <canvas id="game" width="240" height="160"></canvas>
+
+      <!-- Desktop-only splash overlay -->
+      <div id="desktop-splash" class="hidden">
+        <div class="splash-inner">
+          <div class="splash-title">MONKEYGUILDMON</div>
+          <div class="splash-edition">DESKTOP EDITION</div>
+          <div class="splash-tagline">Welcome to the monkey guild...</div>
+        </div>
+      </div>
+
+      <div id="desktop-badge" class="hidden">DESKTOP EDITION</div>
+
+      <!-- Sharp DOM HUD overlays -->
+      <div id="overlay-hud" class="hidden">
+        <span id="overlay-hud-badges">Bdg:0/5</span>
+        <span id="overlay-hud-money">$500</span>
+        <span id="overlay-hud-team">T:1/6</span>
+      </div>
+      <div id="overlay-map-name" class="hidden">general-chat</div>
+      <div id="overlay-hint" class="hidden">
+        <span id="overlay-hint-text">Z=Talk · X=Menu · Walk INTO tall grass to find friends</span>
+      </div>
+      <div id="overlay-banner" class="hidden">
+        <span id="overlay-banner-text">general-chat</span>
+      </div>
+      <div id="overlay-save-toast" class="hidden">✓ SAVED</div>
+
+      <div id="save-warning" class="hidden">
+        <div class="save-warning-inner">
+          <div class="save-warning-icon">!</div>
+          <div class="save-warning-body">
+            <b>Heads up — your save lives in your browser.</b>
+            <p>monkeyguildmon stores your team, roles, and Guildex in this browser's <b>local storage</b>. If you clear cookies/site data for this domain, or use a different browser/device, you'll lose your save.</p>
+            <p style="opacity:.75">Tip: bookmark this page and don't "clear browsing data → site data" for it.</p>
+          </div>
+          <button id="save-warning-ok" type="button">Got it</button>
+        </div>
+      </div>
+
+      <div id="dialog" class="ui-box hidden">
+        <div id="dialog-text"></div>
+        <div id="dialog-arrow">▼</div>
+      </div>
+
+      <div id="menu" class="ui-box hidden">
+        <ul id="menu-list"></ul>
+      </div>
+
+      <div id="battle-ui" class="hidden">
+        <div id="enemy-info" class="mon-info">
+          <div class="mon-name"></div>
+          <div class="mon-lvl"></div>
+          <div class="hp-bar"><div class="hp-fill"></div></div>
+        </div>
+        <div id="player-info" class="mon-info">
+          <div class="mon-name"></div>
+          <div class="mon-lvl"></div>
+          <div class="hp-bar"><div class="hp-fill"></div></div>
+          <div class="hp-text"></div>
+          <div class="xp-bar"><div class="xp-fill"></div></div>
+        </div>
+        <div id="battle-text" class="ui-box"></div>
+        <div id="battle-actions" class="ui-box hidden">
+          <button data-action="fight">FIGHT</button>
+          <button data-action="bag">BAG</button>
+          <button data-action="team">TEAM</button>
+          <button data-action="run">RUN</button>
+        </div>
+        <div id="move-list" class="ui-box hidden"></div>
+      </div>
+
+      <div id="starter-screen" class="hidden">
+        <h2 id="starter-title">CHOOSE YOUR STARTER</h2>
+        <div id="starter-name"></div>
+        <div id="starter-flavor"></div>
+        <div id="starter-info"></div>
+        <div class="hint">LEFT/RIGHT to choose · Z/Enter to confirm</div>
+      </div>
+
+      <div id="title-screen">
+        <h1>MONKEY<br/>GUILDMON</h1>
+        <p class="subtitle">Discord Server Edition</p>
+        <div class="controls-box">
+          <div class="row"><span class="key">↑↓←→ / WASD</span> Walk</div>
+          <div class="row"><span class="key">Z / Q / Enter</span> Confirm · A</div>
+          <div class="row"><span class="key">X / E / Esc</span> Cancel · B · Menu</div>
+          <div class="row"><span class="key">F</span> Toggle Fullscreen</div>
+          <div class="row tip">Walk INTO tall grass to find wild guild members!</div>
+          <div class="row tip" style="margin-top:4px;color:#9aa;border:none">When facing an NPC, look for the [Z] bubble!</div>
+        </div>
+        <p class="prompt">Press ENTER or Tap to Start</p>
+        <button id="reset-save-btn" type="button">Delete save & start new</button>
+        <p class="credits">A monkey guild adventure</p>
+      </div>
+
+      <div id="touch-controls" class="hidden">
+        <div class="dpad">
+          <button data-key="ArrowUp">▲</button>
+          <button data-key="ArrowLeft">◀</button>
+          <button data-key="ArrowDown">▼</button>
+          <button data-key="ArrowRight">▶</button>
+        </div>
+        <div class="actions">
+          <button data-key="z">A</button>
+          <button data-key="x">B</button>
+        </div>
+      </div>
+    </div>
+    <div id="hud">
+      <span>Z = A · X = B · Arrows = Move · Enter = Start</span>
+    </div>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/extra_sprites.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/battle.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

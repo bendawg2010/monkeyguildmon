@@ -1,0 +1,26 @@
+{
+  "name": "monkeyguildmon-ad",
+  "version": "1.0.0",
+  "description": "30-second launch ad for monkeyguildmon",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render MonkeyGuildAd out/monkeyguildmon-ad.mp4 --concurrency=1 --jpeg-quality=90",
+    "render:vertical": "remotion render MonkeyGuildAdVertical out/monkeyguildmon-ad-vertical.mp4 --concurrency=1 --jpeg-quality=90",
+    "render:square": "remotion render MonkeyGuildAdSquare out/monkeyguildmon-ad-square.mp4 --concurrency=1 --jpeg-quality=90"
+  },
+  "type": "module",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.456",
+    "@remotion/cli": "^4.0.456",
+    "@remotion/google-fonts": "^4.0.456",
+    "@remotion/media": "^4.0.456",
+    "@remotion/renderer": "^4.0.456",
+    "@remotion/transitions": "^4.0.456",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "remotion": "^4.0.456",
+    "typescript": "^5.6.3"
+  }
+}
