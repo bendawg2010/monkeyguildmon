@@ -3,5 +3,9 @@
 node_modules/
 dist/
 out/
-ad/out/
 .wrangler/
+
+# Keep ad mp4s tracked, ignore everything else in ad/out/
+!ad/out/
+ad/out/*
+!ad/out/*.mp4
