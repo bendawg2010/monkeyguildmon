@@ -410,7 +410,7 @@ const FRIENDS = [
     flavor: "Default avatar. Username is a keyboard mash. Beautiful." },
   { id: "GEARED",      name: "geared",        tier: "rookie", types: ["LURKER", "BOT"],
     moves: ["SHRINK_RAY", "TYPING_DOTS", "BOW_SHOT", "PING"],
-    colors: ["#5865f2", "#3a45c0", "#ffffff"],
+    colors: ["#9aa0a8", "#5a5e64", "#ffffff"],
     flavor: "Default avatar. Pure potential." },
   { id: "CAST",        name: "Cast",          tier: "rookie", types: ["LURKER"],
     moves: ["TYPING_DOTS", "SNOWBALL", "BOW_SHOT", "REACT_SPAM"],
@@ -639,14 +639,24 @@ const SHOP_ITEMS = [
 // Wild friend encounters per channel/route. Tier-mixed so the player
 // sees a varied roster as they progress through the server.
 const ENCOUNTERS = {
-  GENERAL_CHAT: [  // early route — rookies + commons
-    { id: "FRANKIE",     weight: 22, minLvl: 2, maxLvl: 5 },
-    { id: "GEARED",      weight: 18, minLvl: 3, maxLvl: 6 },
-    { id: "WEDRFTGJO",   weight: 14, minLvl: 3, maxLvl: 6 },
-    { id: "CAST",        weight: 12, minLvl: 3, maxLvl: 6 },
-    { id: "BUTTKUN",     weight: 10, minLvl: 4, maxLvl: 7 },
-    { id: "BLU",         weight: 10, minLvl: 4, maxLvl: 7 },
-    { id: "HEADBAND_GUY", weight: 8, minLvl: 4, maxLvl: 7 },
+  GENERAL_CHAT: [  // early route — wide variety, no duplicate-looking Discord defaults
+    { id: "ADOT",         weight: 10, minLvl: 2, maxLvl: 5 },
+    { id: "BUTTKUN",      weight: 10, minLvl: 2, maxLvl: 5 },
+    { id: "BLU",          weight: 10, minLvl: 2, maxLvl: 5 },
+    { id: "HEADBAND_GUY", weight: 9,  minLvl: 3, maxLvl: 6 },
+    { id: "WALKINGGHEAD", weight: 9,  minLvl: 3, maxLvl: 6 },
+    { id: "KOYLY",        weight: 9,  minLvl: 3, maxLvl: 6 },
+    { id: "SUSSYBAKA",    weight: 9,  minLvl: 3, maxLvl: 6 },
+    { id: "DOSEY",        weight: 8,  minLvl: 3, maxLvl: 6 },
+    { id: "DUDEGUY",      weight: 8,  minLvl: 3, maxLvl: 6 },
+    { id: "FRANKIE",      weight: 6,  minLvl: 2, maxLvl: 5 },
+    { id: "IMOH",         weight: 6,  minLvl: 4, maxLvl: 7 },
+    { id: "BYAE",         weight: 5,  minLvl: 4, maxLvl: 7 },
+    { id: "BYTE",         weight: 5,  minLvl: 4, maxLvl: 7 },
+    { id: "ZENSER48",     weight: 4,  minLvl: 4, maxLvl: 7 },
+    { id: "WEDRFTGJO",    weight: 1,  minLvl: 4, maxLvl: 7 }, // rare default avatar cameo
+    { id: "GEARED",       weight: 1,  minLvl: 4, maxLvl: 7 },
+    { id: "CAST",         weight: 1,  minLvl: 4, maxLvl: 7 },
   ],
   GAMING_VC: [     // commons / rares — minecraft mains
     { id: "BMAN48",      weight: 18, minLvl: 6, maxLvl: 10 },
