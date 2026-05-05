@@ -9,6 +9,7 @@ import {
 } from "remotion";
 import { Audio } from "@remotion/media";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
+import { MonSprite } from "./MonSprite";
 
 loadInter("normal", { weights: ["400", "700", "900"] });
 
@@ -54,18 +55,25 @@ export const MonkeyGuildAd: React.FC = () => {
         <AliGiveUpGag />
       </Sequence>
 
-      {/* SCENE 5: FRIEND PARADE (17–23s) */}
-      <Sequence from={17 * fps} durationInFrames={6 * fps}>
+      {/* SCENE 5: FRIEND PARADE — long, slow scroll so every sprite is
+           clearly visible (17–37s) */}
+      <Sequence from={17 * fps} durationInFrames={20 * fps}>
         <FriendParade />
       </Sequence>
 
-      {/* SCENE 6: BATTLE HERO (23–26s) */}
-      <Sequence from={23 * fps} durationInFrames={3 * fps}>
+      {/* SCENE 6: BIG GRID — every single sprite at once on a wall, with
+           a slow camera ken-burns reveal (37–50s) */}
+      <Sequence from={37 * fps} durationInFrames={13 * fps}>
+        <BigGridScene />
+      </Sequence>
+
+      {/* SCENE 7: BATTLE HERO (50–55s) */}
+      <Sequence from={50 * fps} durationInFrames={5 * fps}>
         <BattleHero />
       </Sequence>
 
-      {/* SCENE 7: END CARD (26–30s) */}
-      <Sequence from={26 * fps} durationInFrames={4 * fps}>
+      {/* SCENE 8: END CARD (55–60s) */}
+      <Sequence from={55 * fps} durationInFrames={5 * fps}>
         <EndCard />
       </Sequence>
 
@@ -191,9 +199,9 @@ const StartersScene: React.FC = () => {
   const titleOpacity = interpolate(frame, [0, fps * 0.4], [0, 1], { extrapolateRight: "clamp" });
 
   const starters = [
-    { name: "ali", flavor: "GIVE UP. WAIT. STRIKE.", color: "#f0d8a0", spr: <AliSprite /> },
-    { name: "mxrio", flavor: "RED CAP. BIG JUMPS.", color: "#ed4245", spr: <MxrioSprite /> },
-    { name: "steel", flavor: "DENTS BUT DOES NOT BREAK.", color: "#9aa0a8", spr: <SteelSprite /> },
+    { name: "ali",   flavor: "GIVE UP. WAIT. STRIKE.",   color: "#f0d8a0", id: "NOTALI" },
+    { name: "mxrio", flavor: "RED CAP. BIG JUMPS.",      color: "#ed4245", id: "MXRIO" },
+    { name: "steel", flavor: "DENTS BUT DOES NOT BREAK.", color: "#9aa0a8", id: "STEEL" },
   ];
   const stagger = 0.5; // seconds between starters
 
@@ -259,7 +267,7 @@ const StartersScene: React.FC = () => {
                   justifyContent: "center",
                 }}
               >
-                {s.spr}
+                <MonSprite speciesId={s.id} size={220} timeOffset={i * 137} />
               </div>
               <div
                 style={{
@@ -347,18 +355,21 @@ const AliGiveUpGag: React.FC = () => {
         }}
       >
         {/* ali sprite — bigger, with Zzz on first two beats */}
-        <div style={{ width: 340, height: 340, position: "relative" }}>
-          <AliSprite big />
+        <div style={{ width: 340, height: 340, position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <MonSprite speciesId="NOTALI" size={300} />
           {beat < 2 && <FloatingZzz frame={frame} />}
           {beat === 2 && <ShrinkRayBeam frame={frame - 4 * fps} fps={fps} />}
         </div>
 
-        {/* enemy — gets smaller in beat 2 */}
+        {/* enemy — banana_man (the teddy bear), shrinks in beat 2 */}
         <div
           style={{
             width: 220,
             height: 220,
             position: "relative",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             transform:
               beat === 2
                 ? `scale(${interpolate(
@@ -370,7 +381,7 @@ const AliGiveUpGag: React.FC = () => {
                 : "scale(1)",
           }}
         >
-          <EnemySprite />
+          <MonSprite speciesId="BANANA_MAN" size={200} timeOffset={213} />
         </div>
       </div>
 
@@ -400,25 +411,42 @@ const FriendParade: React.FC = () => {
   const { fps, width } = useVideoConfig();
   const title = interpolate(frame, [0, fps * 0.4], [0, 1], { extrapolateRight: "clamp" });
 
-  const friends = [
-    "ali", "mxrio", "Steel", "Karl", "Christian", "LSM253", "Myself", "Steel (wild)",
-    "szs", "AgentP4", "Kaparking", "Bman48", "Nit", "Alxroar", "enderlife7770",
-    "Pengulite", "RangerWill", "CARRIED IN MAC", "Kingboys", "_Kee_", "_WishRam_",
-    "Just Miles", "Dudeguy", "ioio", "Banana_Man", "forgbear1", "pootalker789",
-    "sussybaka", "walkingghead", "Fart_sauce9", "wart", "Sineed", "frankie",
-    "ronic", "Black Jack", "William Gregory", "LaserFire", "F503N", "dr.yeet",
-    "Fffoost", "notaim", "oAnexity", "Evan", "zyphon_.", "sapwn", "Snail4",
-    "Zeni :3", "zenser48", "wedrftgjo", "geared", "Cast", "Adot", "imoh",
-    "dOsey", "Edwin", "byae", "Byte", "calicsized", "buttkun", "blu",
-    "Benji YT", "alrays", "1dam", "Forestchan", "breezy", "Løhr", "Yeep",
-    "Jacky", "Jajooni", "Milosivic", "N3gm", "quener", "sea11", "Trees",
-    "wifi", "xking", "XL_MATTHEW100", "headband guy", "Koyly :()", "W0rth",
+  // Each entry: [speciesId, displayName] — speciesId is what gets drawn,
+  // displayName is the chip label that shows beneath the sprite.
+  const friends: Array<[string, string]> = [
+    ["NOTALI", "ali"], ["MXRIO", "mxrio"], ["STEEL", "Steel"], ["KARL", "Karl"],
+    ["CHRISTIAN", "Christian"], ["LSM253", "LSM253"], ["MYSELF", "Myself"], ["STEEL_GAMER", "Steel (wild)"],
+    ["SZS", "szs"], ["AGENTP4", "AgentP4"], ["KAPARKING", "Kaparking"], ["BMAN48", "Bman48"],
+    ["NIT", "Nit"], ["ALXROAR", "Alxroar"], ["ENDERLIFE7770", "enderlife7770"],
+    ["PENGULITE", "Pengulite"], ["RANGERWILL", "RangerWill"], ["CARRIED", "CARRIED IN MAC"],
+    ["KINGBOYS", "Kingboys"], ["_KEE_", "_Kee_"], ["_WISHRAM_", "_WishRam_"],
+    ["JUST_MILES", "Just Miles"], ["DUDEGUY", "Dudeguy"], ["IOIO", "ioio"],
+    ["BANANA_MAN", "Banana_Man"], ["FORGBEAR1", "forgbear1"], ["POOTALKER789", "pootalker789"],
+    ["SUSSYBAKA", "sussybaka"], ["WALKINGGHEAD", "walkingghead"], ["FART_SAUCE9", "Fart_sauce9"],
+    ["WART", "wart"], ["SINEED", "Sineed"], ["FRANKIE", "frankie"],
+    ["RONIC", "ronic"], ["BLACK_JACK", "Black Jack"], ["WILLIAM_GREGORY", "William Gregory"],
+    ["LASERFIRE", "LaserFire"], ["F503N", "F503N"], ["DR_YEET", "dr.yeet"],
+    ["FFFOOST", "Fffoost"], ["NOTAIM", "notaim"], ["OANEXITY", "oAnexity"],
+    ["EVAN", "Evan"], ["ZYPHON", "zyphon_."], ["SAPWN", "sapwn"], ["SNAIL4", "Snail4"],
+    ["ZENI", "Zeni :3"], ["ZENSER48", "zenser48"], ["WEDRFTGJO", "wedrftgjo"],
+    ["GEARED", "geared"], ["CAST", "Cast"], ["ADOT", "Adot"], ["IMOH", "imoh"],
+    ["DOSEY", "dOsey"], ["EDWIN", "Edwin"], ["BYAE", "byae"], ["BYTE", "Byte"],
+    ["CALICSIZED", "calicsized"], ["BUTTKUN", "buttkun"], ["BLU", "blu"],
+    ["BENJI_YT", "Benji YT"], ["ALRAYS", "alrays"], ["_1DAM", "1dam"],
+    ["FORESTCHAN", "Forestchan"], ["BREEZY", "breezy"], ["LOHR", "Løhr"],
+    ["YEEP", "Yeep"], ["JACKY", "Jacky"], ["JAJOONI", "Jajooni"],
+    ["MILOSIVIC", "Milosivic"], ["N3GM", "N3gm"], ["QUENER", "quener"],
+    ["SEA11", "sea11"], ["TREES", "Trees"], ["WIFI", "wifi"], ["XKING", "xking"],
+    ["XL_MATTHEW100", "XL_MATTHEW100"], ["HEADBAND_GUY", "headband guy"],
+    ["KOYLY", "Koyly :()"], ["W0RTH", "W0rth"], ["SIGSTICK", "SigStick"],
   ];
   const tiers = ["#ffd755", "#7fdcff", "#7fdc6a", "#ff80c0", "#fee75c"];
 
-  // 3 rows scrolling at different speeds
-  const rows = [friends.slice(0, 26), friends.slice(26, 52), friends.slice(52)];
-  const speeds = [-300, 280, -260];
+  // 3 rows scrolling at different speeds — slow enough that each sprite
+  // is on screen for ~1 full second so the viewer can actually see them.
+  const third = Math.ceil(friends.length / 3);
+  const rows = [friends.slice(0, third), friends.slice(third, third * 2), friends.slice(third * 2)];
+  const speeds = [-140, 130, -150];
 
   return (
     <AbsoluteFill style={{ background: "#0a0a14" }}>
@@ -454,32 +482,47 @@ const FriendParade: React.FC = () => {
         {rows.map((row, ri) => {
           const offset = (frame / fps) * speeds[ri];
           return (
-            <div key={ri} style={{ position: "relative", height: 120, overflow: "hidden" }}>
+            <div key={ri} style={{ position: "relative", height: 200, overflow: "hidden" }}>
               <div
                 style={{
                   display: "flex",
-                  gap: 32,
+                  gap: 28,
                   position: "absolute",
                   left: ri % 2 === 0 ? offset : (offset + width),
                   top: 0,
                   whiteSpace: "nowrap",
+                  alignItems: "center",
                 }}
               >
-                {[...row, ...row, ...row].map((name, i) => (
+                {[...row, ...row, ...row].map(([speciesId, name], i) => (
                   <div
                     key={i}
                     style={{
-                      padding: "20px 32px",
-                      borderRadius: 100,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: 6,
+                      padding: "12px 16px",
+                      borderRadius: 18,
                       border: `2px solid ${tiers[i % tiers.length]}`,
                       background: `${tiers[i % tiers.length]}22`,
-                      fontFamily: "monospace",
-                      fontSize: 40,
-                      fontWeight: 700,
-                      color: tiers[i % tiers.length],
+                      minWidth: 140,
                     }}
                   >
-                    {name}
+                    <MonSprite speciesId={speciesId} size={120} timeOffset={i * 73 + ri * 211} />
+                    <div
+                      style={{
+                        fontFamily: "monospace",
+                        fontSize: 22,
+                        fontWeight: 700,
+                        color: tiers[i % tiers.length],
+                        maxWidth: 160,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {name}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -491,10 +534,168 @@ const FriendParade: React.FC = () => {
   );
 };
 
+// BigGridScene — every single sprite rendered at once in a wall, with a
+// slow zoom-out so the viewer first sees individual sprites then the
+// whole guild.
+const BigGridScene: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps, width, height } = useVideoConfig();
+
+  // Title fades in/out
+  const titleIn = interpolate(frame, [0, fps * 0.5], [0, 1], { extrapolateRight: "clamp" });
+  const titleOut = interpolate(
+    frame,
+    [fps * 11, fps * 12.5],
+    [1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  const titleOpacity = Math.min(titleIn, titleOut);
+
+  // Slow zoom: starts at 1.4x (cropped, you see ~half), ends at 1.0x (full grid)
+  const zoom = interpolate(frame, [0, fps * 13], [1.4, 0.95], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Slight pan top-to-bottom across the zoom
+  const panY = interpolate(frame, [0, fps * 13], [-90, 60], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // ALL species the user has hand-tuned sprites for. ~80 entries.
+  const allMons: string[] = [
+    "NOTALI", "MXRIO", "STEEL", "KARL", "CHRISTIAN", "LSM253", "MYSELF",
+    "STEEL_GAMER", "SZS", "AGENTP4", "KAPARKING", "BMAN48", "NIT",
+    "ALXROAR", "ENDERLIFE7770", "PENGULITE", "RANGERWILL", "CARRIED",
+    "KINGBOYS", "_KEE_", "_WISHRAM_", "JUST_MILES", "DUDEGUY", "IOIO",
+    "BANANA_MAN", "FORGBEAR1", "POOTALKER789", "SUSSYBAKA", "WALKINGGHEAD",
+    "FART_SAUCE9", "WART", "SINEED", "FRANKIE", "RONIC", "BLACK_JACK",
+    "WILLIAM_GREGORY", "LASERFIRE", "F503N", "DR_YEET", "FFFOOST", "NOTAIM",
+    "OANEXITY", "EVAN", "ZYPHON", "SAPWN", "SNAIL4", "ZENI", "ZENSER48",
+    "WEDRFTGJO", "GEARED", "CAST", "ADOT", "IMOH", "DOSEY", "EDWIN",
+    "BYAE", "BYTE", "CALICSIZED", "BUTTKUN", "BLU", "BENJI_YT", "ALRAYS",
+    "_1DAM", "FORESTCHAN", "BREEZY", "LOHR", "YEEP", "JACKY", "JAJOONI",
+    "MILOSIVIC", "N3GM", "QUENER", "SEA11", "TREES", "WIFI", "XKING",
+    "XL_MATTHEW100", "HEADBAND_GUY", "KOYLY", "W0RTH", "SIGSTICK",
+  ];
+
+  // Aspect-aware grid: figure cols×rows so it fills the canvas nicely
+  const aspect = width / height;
+  let cols: number;
+  if (aspect > 1.5) cols = 12;       // landscape
+  else if (aspect > 0.9) cols = 9;   // square
+  else cols = 7;                     // vertical
+  const rows = Math.ceil(allMons.length / cols);
+
+  return (
+    <AbsoluteFill
+      style={{
+        background:
+          "radial-gradient(circle at 50% 50%, #1f1f4a 0%, #0a0a14 70%)",
+        overflow: "hidden",
+      }}
+    >
+      {/* Title */}
+      <div
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          fontFamily: "Inter",
+          fontSize: 64,
+          fontWeight: 900,
+          color: "#ffffff",
+          opacity: titleOpacity,
+          zIndex: 5,
+          textShadow: "0 4px 20px rgba(0,0,0,0.8)",
+        }}
+      >
+        Every member. {allMons.length} mons.
+      </div>
+
+      {/* The grid itself, transformed for zoom + pan */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: `translateY(${panY}px) scale(${zoom})`,
+          transformOrigin: "50% 50%",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${cols}, 1fr)`,
+            gap: 14,
+            padding: 60,
+            width: "100%",
+            maxWidth: width * 0.96,
+          }}
+        >
+          {allMons.map((id, i) => {
+            // Stagger each sprite's appearance so they "pop in" in waves
+            const popStart = (i / allMons.length) * fps * 4; // first 4s
+            const sp = spring({
+              frame: frame - popStart,
+              fps,
+              config: { damping: 12, stiffness: 220 },
+            });
+            const alpha = interpolate(frame, [popStart, popStart + fps * 0.4], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            });
+            const tierColors = ["#ffd755", "#7fdcff", "#7fdc6a", "#ff80c0", "#fee75c"];
+            const tier = tierColors[i % tierColors.length];
+            const cellSize = aspect > 1.5 ? 110 : aspect > 0.9 ? 100 : 120;
+            return (
+              <div
+                key={id + i}
+                style={{
+                  width: cellSize,
+                  height: cellSize,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  border: `1.5px solid ${tier}`,
+                  background: `${tier}1a`,
+                  opacity: alpha,
+                  transform: `scale(${0.6 + sp * 0.4})`,
+                }}
+              >
+                <MonSprite
+                  speciesId={id}
+                  size={cellSize - 12}
+                  timeOffset={i * 53}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const BattleHero: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const sl = spring({ frame, fps, config: { damping: 15, stiffness: 200 } });
+
+  // Cycle through gym leaders + the champion (Karl) every 0.6s
+  const bosses = ["SAPWN", "LSM253", "RONIC", "DR_YEET", "POOTALKER789", "CHRISTIAN", "KARL"];
+  const cycleFrame = Math.floor(frame / (fps * 0.6));
+  const boss = bosses[cycleFrame % bosses.length];
+
+  // Player side cycles among funny mons too
+  const playerSide = ["NOTALI", "MXRIO", "STEEL", "AGENTP4", "BANANA_MAN"];
+  const player = playerSide[cycleFrame % playerSide.length];
 
   return (
     <AbsoluteFill style={{ background: "linear-gradient(180deg, #5865f2 0%, #1a1a3a 100%)" }}>
@@ -522,16 +723,51 @@ const BattleHero: React.FC = () => {
           <div style={{ fontSize: 28, marginTop: 6, color: "#7fdc6a", fontFamily: "monospace" }}>
             TYPE-MATCH FOR 2× DAMAGE
           </div>
+          {/* mini player sprite chip */}
+          <div style={{ marginTop: 30, display: "flex", alignItems: "center", gap: 16 }}>
+            <div
+              style={{
+                width: 96,
+                height: 96,
+                background: "rgba(255,215,85,0.12)",
+                border: "2px solid #ffd755",
+                borderRadius: 12,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <MonSprite speciesId={player} size={84} timeOffset={71} />
+            </div>
+            <div style={{ fontFamily: "monospace", fontSize: 22, color: "#ffd755" }}>
+              YOUR TEAM
+            </div>
+          </div>
         </div>
         <div
           style={{
             transform: `translateX(${(1 - sl) * 200}px)`,
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
           }}
         >
-          <div style={{ width: 320, height: 320 }}>
-            <BananaSprite big />
+          <div
+            style={{
+              width: 320,
+              height: 320,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(255,255,255,0.05)",
+              borderRadius: 16,
+            }}
+          >
+            <MonSprite speciesId={boss} size={280} timeOffset={frame} />
+          </div>
+          <div style={{ fontFamily: "monospace", fontSize: 28, fontWeight: 700, color: "#ffffff" }}>
+            ENEMY · {boss}
           </div>
         </div>
       </div>

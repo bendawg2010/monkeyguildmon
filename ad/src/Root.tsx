@@ -2,7 +2,10 @@ import { Composition } from "remotion";
 import { MonkeyGuildAd } from "./MonkeyGuildAd";
 
 const FPS = 30;
-const MGM_FRAMES = 30 * FPS; // 30 seconds
+// Extended duration so the FriendParade and the new BigGrid scene have
+// enough time to show every single sprite legibly. User said: "dont care
+// how long it is all the sprites should be in the ad".
+const MGM_FRAMES = 60 * FPS; // 60 seconds
 
 export const RemotionRoot: React.FC = () => {
   return (
