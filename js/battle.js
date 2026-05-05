@@ -389,7 +389,7 @@ const Battle = (() => {
       enqueue("It's super 2026 effective!");
     } else if (dmg.eff < 1 && dmg.eff > 0) {
       Audio.play("weakHit");
-      enqueue("It's not very brainrot...");
+      enqueue("It's not very effective...");
     } else {
       Audio.play("hit");
     }

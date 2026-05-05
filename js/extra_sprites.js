@@ -25,1442 +25,310 @@
   window.__mgmExtraSprites = {
     // ===== MODS / TOP-LIST =====
     CHRISTIAN(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // hoodie body
-      ctx.fillStyle = sp.color1 || "#3a6acc";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.72+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.18, y+s*0.62+bob, s*0.10, s*0.18, sp.color1 || "#3a6acc");
-      px(ctx, x+s*0.72, y+s*0.62+bob, s*0.10, s*0.18, sp.color1 || "#3a6acc");
-      // head — peach skin
-      ctx.fillStyle = "#ffd0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.20, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // wild fire-orange hair (jagged tufts)
-      ctx.fillStyle = "#ff7a18";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.26, y+s*0.18+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.48, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.12+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.72, y+s*0.26+bob);
-      ctx.lineTo(x+s*0.74, y+s*0.36+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hair highlight
-      ctx.fillStyle = "#ffb060";
-      px(ctx, x+s*0.40, y+s*0.20+bob, s*0.04, s*0.04, "#ffb060");
-      px(ctx, x+s*0.56, y+s*0.18+bob, s*0.04, s*0.04, "#ffb060");
-      // flickering side flames
-      const flick = 0.6 + Math.sin(t*0.012)*0.4;
-      ctx.fillStyle = `rgba(255,140,40,${flick})`;
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.40+bob);
-      ctx.quadraticCurveTo(x+s*0.10, y+s*0.30+bob, x+s*0.18, y+s*0.20+bob);
-      ctx.quadraticCurveTo(x+s*0.24, y+s*0.36+bob, x+s*0.22, y+s*0.40+bob);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.78, y+s*0.40+bob);
-      ctx.quadraticCurveTo(x+s*0.90, y+s*0.30+bob, x+s*0.82, y+s*0.20+bob);
-      ctx.quadraticCurveTo(x+s*0.76, y+s*0.36+bob, x+s*0.78, y+s*0.40+bob);
-      ctx.fill();
-      // closed-eye smile (curved arcs)
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.014);
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.030, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.030, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-      // pleasant smile
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.50+bob, s*0.04, Math.PI*0.15, Math.PI*0.85); ctx.stroke();
-      // HMOD badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.44, y+s*0.70+bob, s*0.12, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.04)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("HMOD", x+s*0.50, y+s*0.745+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#c060ff";
-        ctx.shadowColor = "#c060ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Christian", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff6a3a";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#c060ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("HMOD", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ff8a3a";
-        ctx.beginPath();
-        ctx.arc(x+s*0.06, y+s*0.10, s*0.030, 0, Math.PI*2); ctx.fill();
-        // signature: side flame emoji
-        ctx.fillStyle = "#ff6a18";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.62);
-        ctx.quadraticCurveTo(x+s*-0.02, y+s*0.48, x+s*0.04, y+s*0.36);
-        ctx.quadraticCurveTo(x+s*0.10, y+s*0.46, x+s*0.10, y+s*0.58);
-        ctx.closePath(); ctx.fill();
-        ctx.fillStyle = "#fee75c";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.05, y+s*0.58);
-        ctx.quadraticCurveTo(x+s*0.02, y+s*0.50, x+s*0.06, y+s*0.44);
-        ctx.quadraticCurveTo(x+s*0.08, y+s*0.50, x+s*0.08, y+s*0.56);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // green round head
+      px(ctx, x+s*0.18, y+s*0.20+bob, s*0.64, s*0.55, '#8bc34a');
+      px(ctx, x+s*0.22, y+s*0.18+bob, s*0.56, s*0.10, '#9ed856');
+      px(ctx, x+s*0.14, y+s*0.30+bob, s*0.06, s*0.30, '#7cb342');
+      px(ctx, x+s*0.80, y+s*0.30+bob, s*0.06, s*0.30, '#7cb342');
+      // eyes
+      px(ctx, x+s*0.32, y+s*0.36+bob, s*0.07, s*0.09, '#000');
+      px(ctx, x+s*0.61, y+s*0.36+bob, s*0.07, s*0.09, '#000');
+      px(ctx, x+s*0.34, y+s*0.37+bob, s*0.02, s*0.03, '#fff');
+      px(ctx, x+s*0.63, y+s*0.37+bob, s*0.02, s*0.03, '#fff');
+      // orange duck bill
+      px(ctx, x+s*0.30, y+s*0.52+bob, s*0.40, s*0.14, '#ff9800');
+      px(ctx, x+s*0.32, y+s*0.66+bob, s*0.36, s*0.04, '#e07d00');
+      // small smile under bill
+      px(ctx, x+s*0.42, y+s*0.72+bob, s*0.16, s*0.02, '#5b8a2a');
+      // flame icon below
+      px(ctx, x+s*0.46, y+s*0.86, s*0.08, s*0.10, '#ff5722');
+      px(ctx, x+s*0.48, y+s*0.84, s*0.04, s*0.04, '#ffeb3b');
+    },
     LSM253(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.0028) * (s*0.011);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // hoodie
-      ctx.fillStyle = "#2a3848";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.72+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.18, y+s*0.62+bob, s*0.10, s*0.18, "#2a3848");
-      px(ctx, x+s*0.72, y+s*0.62+bob, s*0.10, s*0.18, "#2a3848");
-      // pale face
-      ctx.fillStyle = "#f0e0d0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.46+bob, s*0.20, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // brown hair peeking out under cap
-      px(ctx, x+s*0.30, y+s*0.36+bob, s*0.40, s*0.06, "#5a3818");
-      // dark blue cap
-      ctx.fillStyle = "#1a2848";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.30+bob, s*0.22, s*0.12, 0, Math.PI, Math.PI*2);
-      ctx.fill();
-      // brim sticking out
-      ctx.fillStyle = "#0a1830";
-      ctx.fillRect(x+s*0.50, y+s*0.34+bob, s*0.30, s*0.04);
-      // eyes (under brim shadow)
-      ctx.fillStyle = "#1a1a1a";
-      px(ctx, x+s*0.40, y+s*0.44+bob, s*0.05, s*0.02, "rgba(0,0,0,0.3)"); // brim shadow
-      px(ctx, x+s*0.55, y+s*0.44+bob, s*0.05, s*0.02, "rgba(0,0,0,0.3)");
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.46+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.46+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      // small mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath(); ctx.moveTo(x+s*0.46, y+s*0.54+bob); ctx.lineTo(x+s*0.54, y+s*0.54+bob); ctx.stroke();
-      // mod shield badge
-      ctx.fillStyle = "#5865f2";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.69+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.80+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.69+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.05)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("M", x+s*0.50, y+s*0.755+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("LSM253", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5865f2";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("MOD", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#5865f2";
-        ctx.fillRect(x+s*0.06-s*0.025, y+s*0.10-s*0.020, s*0.050, s*0.045);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // peach face
+      px(ctx, x+s*0.20, y+s*0.26+bob, s*0.60, s*0.52, '#f3c39a');
+      px(ctx, x+s*0.18, y+s*0.34+bob, s*0.04, s*0.32, '#dca581');
+      px(ctx, x+s*0.78, y+s*0.34+bob, s*0.04, s*0.32, '#dca581');
+      // brown spiky hair
+      px(ctx, x+s*0.18, y+s*0.16+bob, s*0.64, s*0.16, '#5a3a1d');
+      px(ctx, x+s*0.24, y+s*0.10+bob, s*0.08, s*0.10, '#5a3a1d');
+      px(ctx, x+s*0.40, y+s*0.08+bob, s*0.08, s*0.10, '#6e4a25');
+      px(ctx, x+s*0.58, y+s*0.10+bob, s*0.10, s*0.10, '#5a3a1d');
+      // small eyes
+      px(ctx, x+s*0.32, y+s*0.38+bob, s*0.06, s*0.04, '#000');
+      px(ctx, x+s*0.62, y+s*0.38+bob, s*0.06, s*0.04, '#000');
+      // big open smile
+      px(ctx, x+s*0.30, y+s*0.54+bob, s*0.40, s*0.14, '#3a1a0a');
+      px(ctx, x+s*0.32, y+s*0.56+bob, s*0.36, s*0.06, '#fff');
+      px(ctx, x+s*0.40, y+s*0.56+bob, s*0.02, s*0.06, '#ddd');
+      px(ctx, x+s*0.50, y+s*0.56+bob, s*0.02, s*0.06, '#ddd');
+      px(ctx, x+s*0.60, y+s*0.56+bob, s*0.02, s*0.06, '#ddd');
+      // black shirt at bottom
+      px(ctx, x+s*0.16, y+s*0.84, s*0.68, s*0.16, '#1a1a1a');
+    },
     MYSELF(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.0;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // hoodie body
-      ctx.fillStyle = "#2a4ca0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#2a4ca0");
-      px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#2a4ca0");
-      // crystal head — hexagonal facets
-      const cx = x+s*0.5, cy = y+s*0.40+bob;
-      ctx.fillStyle = "#7fdcff";
+      // dark navy bg
+      px(ctx, x, y, s, s, '#0a0e2e');
+      const pulse = 0.6 + Math.sin(t/200) * 0.4;
+      // electric sparks/rays
+      ctx.fillStyle = `rgba(120,200,255,${0.5*pulse})`;
+      ctx.fillRect(x+s*0.48, y+s*0.05, s*0.04, s*0.18);
+      ctx.fillRect(x+s*0.48, y+s*0.77, s*0.04, s*0.18);
+      ctx.fillRect(x+s*0.05, y+s*0.48, s*0.18, s*0.04);
+      ctx.fillRect(x+s*0.77, y+s*0.48, s*0.18, s*0.04);
+      ctx.fillRect(x+s*0.18, y+s*0.20, s*0.08, s*0.04);
+      ctx.fillRect(x+s*0.74, y+s*0.76, s*0.08, s*0.04);
+      // diamond shape
+      const cx = x+s*0.5, cy = y+s*0.5+bob;
+      ctx.fillStyle = '#1ea7e8';
       ctx.beginPath();
       ctx.moveTo(cx, cy-s*0.22);
-      ctx.lineTo(cx+s*0.20, cy-s*0.10);
-      ctx.lineTo(cx+s*0.20, cy+s*0.10);
+      ctx.lineTo(cx+s*0.18, cy);
       ctx.lineTo(cx, cy+s*0.22);
-      ctx.lineTo(cx-s*0.20, cy+s*0.10);
-      ctx.lineTo(cx-s*0.20, cy-s*0.10);
+      ctx.lineTo(cx-s*0.18, cy);
       ctx.closePath();
       ctx.fill();
-      // facet lines
-      ctx.strokeStyle = "#5fa8d8";
-      ctx.lineWidth = Math.max(1, s*0.010);
+      // bright core
+      ctx.fillStyle = `rgba(255,255,255,${pulse})`;
       ctx.beginPath();
-      ctx.moveTo(cx, cy-s*0.22); ctx.lineTo(cx, cy+s*0.22);
-      ctx.moveTo(cx-s*0.20, cy-s*0.10); ctx.lineTo(cx+s*0.20, cy+s*0.10);
-      ctx.moveTo(cx+s*0.20, cy-s*0.10); ctx.lineTo(cx-s*0.20, cy+s*0.10);
-      ctx.stroke();
-      // glowing pulsing cyan eyes
-      const pulse = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(180,255,255,${pulse})`;
-      ctx.beginPath(); ctx.arc(cx-s*0.07, cy-s*0.02, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx+s*0.07, cy-s*0.02, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(cx-s*0.07, cy-s*0.02, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx+s*0.07, cy-s*0.02, s*0.014, 0, Math.PI*2); ctx.fill();
-      // headphone band
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(cx-s*0.22, cy-s*0.22, s*0.44, s*0.04);
-      // headphone cups (cyan glow)
-      ctx.fillStyle = `rgba(127,220,255,${pulse})`;
-      ctx.fillRect(cx-s*0.26, cy-s*0.10, s*0.06, s*0.16);
-      ctx.fillRect(cx+s*0.20, cy-s*0.10, s*0.06, s*0.16);
-      // orbiting sparkles
-      const sT = t*0.003;
-      for (let i = 0; i < 5; i++) {
-        const a = sT + i*(Math.PI*2/5);
-        const sxp = cx + Math.cos(a)*s*0.34;
-        const syp = cy + Math.sin(a)*s*0.20;
-        ctx.fillStyle = "#fff";
-        ctx.beginPath(); ctx.arc(sxp, syp, s*0.014, 0, Math.PI*2); ctx.fill();
-      }
-      // MINE badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.42, y+s*0.72+bob, s*0.16, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("MINE", x+s*0.50, y+s*0.765+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#c060ff";
-        ctx.shadowColor = "#c060ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Myself", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#1a3aaa";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#c060ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("FOR Q&C", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06-s*0.025, y+s*0.10+s*0.012);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06, y+s*0.10-s*0.005);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.025, y+s*0.10+s*0.012);
-        ctx.closePath(); ctx.fill();
-        // signature: "FOR QUEEN AND COUNTRY" caption banner
-        ctx.fillStyle = "rgba(26,58,170,0.85)";
-        ctx.fillRect(x+s*0.04, y+s*0.86, s*0.92, s*0.07);
-        ctx.fillStyle = "#ffd700";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.045))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("FOR QUEEN AND COUNTRY", x+s*0.50, y+s*0.910);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.42, y+s*0.04);
-        ctx.lineTo(x+s*0.46, y+s*-0.02);
-        ctx.lineTo(x+s*0.50, y+s*0.02);
-        ctx.lineTo(x+s*0.54, y+s*-0.02);
-        ctx.lineTo(x+s*0.58, y+s*0.04);
-        ctx.lineTo(x+s*0.58, y+s*0.08);
-        ctx.lineTo(x+s*0.42, y+s*0.08);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      ctx.moveTo(cx, cy-s*0.10);
+      ctx.lineTo(cx+s*0.08, cy);
+      ctx.lineTo(cx, cy+s*0.10);
+      ctx.lineTo(cx-s*0.08, cy);
+      ctx.closePath();
+      ctx.fill();
+    },
     STEEL_GAMER(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // sunset radial glow
-      const grad = ctx.createRadialGradient(x+s*0.5, y+s*0.4, s*0.10, x+s*0.5, y+s*0.4, s*0.55);
-      grad.addColorStop(0, "rgba(255,180,100,0.5)");
-      grad.addColorStop(1, "rgba(255,100,150,0.0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, y, s, s);
-      // pink/magenta top
-      ctx.fillStyle = "#ff5598";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // long flowing blonde hair (back)
-      ctx.fillStyle = "#ffd86a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.10, y+s*0.60+bob, x+s*0.20, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.90, y+s*0.60+bob, x+s*0.80, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#ffd8b8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#ffd86a";
-      px(ctx, x+s*0.32, y+s*0.26+bob, s*0.36, s*0.10, "#ffd86a");
-      // dark sunglasses bar
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.30, y+s*0.40+bob, s*0.40, s*0.06);
-      // shades highlight
-      ctx.fillStyle = "rgba(255,255,255,0.3)";
-      ctx.fillRect(x+s*0.34, y+s*0.41+bob, s*0.08, s*0.02);
-      ctx.fillRect(x+s*0.56, y+s*0.41+bob, s*0.08, s*0.02);
-      // smirk
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.52, y+s*0.58+bob, x+s*0.58, y+s*0.52+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Steel", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("5h", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#5fbc4a";
-        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10-s*0.020, s*0.040, s*0.040);
-        ctx.fillStyle = "#7a4828";
-        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10, s*0.040, s*0.020);
-        // signature: floating Minecraft grass cube
-        ctx.save();
-        ctx.translate(x+s*0.10, y+s*0.32);
-        const __cs = s*0.10;
-        ctx.fillStyle = "#5fbc4a";
-        ctx.beginPath();
-        ctx.moveTo(0, -__cs*0.5);
-        ctx.lineTo(__cs*0.6, -__cs*0.2);
-        ctx.lineTo(0, __cs*0.1);
-        ctx.lineTo(-__cs*0.6, -__cs*0.2);
-        ctx.closePath(); ctx.fill();
-        ctx.fillStyle = "#7a4828";
-        ctx.beginPath();
-        ctx.moveTo(-__cs*0.6, -__cs*0.2);
-        ctx.lineTo(0, __cs*0.1);
-        ctx.lineTo(0, __cs*0.7);
-        ctx.lineTo(-__cs*0.6, __cs*0.4);
-        ctx.closePath(); ctx.fill();
-        ctx.fillStyle = "#5a3818";
-        ctx.beginPath();
-        ctx.moveTo(__cs*0.6, -__cs*0.2);
-        ctx.lineTo(0, __cs*0.1);
-        ctx.lineTo(0, __cs*0.7);
-        ctx.lineTo(__cs*0.6, __cs*0.4);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
+      // big curly dark hair silhouette
+      px(ctx, x+s*0.10, y+s*0.18+bob, s*0.80, s*0.50, '#2b1a14');
+      px(ctx, x+s*0.06, y+s*0.30+bob, s*0.10, s*0.36, '#2b1a14');
+      px(ctx, x+s*0.84, y+s*0.30+bob, s*0.10, s*0.36, '#2b1a14');
+      // curls bumps
+      px(ctx, x+s*0.14, y+s*0.14+bob, s*0.14, s*0.10, '#1f120e');
+      px(ctx, x+s*0.36, y+s*0.10+bob, s*0.14, s*0.10, '#1f120e');
+      px(ctx, x+s*0.58, y+s*0.12+bob, s*0.14, s*0.10, '#1f120e');
+      px(ctx, x+s*0.74, y+s*0.16+bob, s*0.12, s*0.10, '#1f120e');
+      // pale face
+      px(ctx, x+s*0.26, y+s*0.36+bob, s*0.48, s*0.36, '#f0d4c0');
+      // sunglasses lenses
+      px(ctx, x+s*0.30, y+s*0.46+bob, s*0.16, s*0.10, '#000');
+      px(ctx, x+s*0.54, y+s*0.46+bob, s*0.16, s*0.10, '#000');
+      px(ctx, x+s*0.46, y+s*0.49+bob, s*0.08, s*0.02, '#000');
+      // neutral mouth
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.16, s*0.02, '#9c5a4a');
+    },
 
     // ===== MINECRAFT MAINS =====
     SZS(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.4;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark cloak/coat
-      ctx.fillStyle = "#1a0a2a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.18, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.20, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.82, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // long dark hair down sides
-      ctx.fillStyle = "#3a1a4a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.26, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.18, y+s*0.50+bob, x+s*0.24, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.66, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.72, y+s*0.50+bob, x+s*0.66, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#e8c8d0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.16, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // jagged bangs
-      ctx.fillStyle = "#3a1a4a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.34, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.40+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.40+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.22+bob);
-      ctx.closePath();
-      ctx.fill();
-      // glowing purple eyes
-      const glow = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(160,80,255,${glow})`;
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.40+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.40+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.40+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.40+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-      // small mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.moveTo(x+s*0.46, y+s*0.50+bob); ctx.lineTo(x+s*0.54, y+s*0.50+bob); ctx.stroke();
-      // tilted broadsword on right
-      ctx.save();
-      ctx.translate(x+s*0.74, y+s*0.60+bob);
-      ctx.rotate(0.4);
-      // blade
-      ctx.fillStyle = "#dadce0";
-      ctx.fillRect(-s*0.04, -s*0.32, s*0.08, s*0.50);
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(-s*0.04, -s*0.32, s*0.02, s*0.50);
-      // crossguard
-      ctx.fillStyle = "#a07050";
-      ctx.fillRect(-s*0.10, s*0.18, s*0.20, s*0.04);
-      // hilt
-      ctx.fillStyle = "#5a3818";
-      ctx.fillRect(-s*0.03, s*0.22, s*0.06, s*0.10);
-      ctx.restore();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("szs", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a045f0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("FLOW", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#5fc8ff";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.025);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.025);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // purple/pink gradient bg via stripes
+      px(ctx, x, y, s, s, '#3a1758');
+      px(ctx, x, y, s*0.6, s, '#5a1f7a');
+      px(ctx, x, y, s*0.3, s, '#7e2698');
+      // diagonal pink stripe
+      for (let i = 0; i < 12; i++) {
+        px(ctx, x+s*(0.10+i*0.05), y+s*(i*0.06), s*0.06, s*0.10, '#d05fbe');
+      }
+      // dark silhouette figure
+      px(ctx, x+s*0.40, y+s*0.18+bob, s*0.16, s*0.16, '#0a0a0a');
+      px(ctx, x+s*0.34, y+s*0.34+bob, s*0.30, s*0.30, '#0a0a0a');
+      px(ctx, x+s*0.38, y+s*0.62+bob, s*0.24, s*0.30, '#0a0a0a');
+      px(ctx, x+s*0.30, y+s*0.42+bob, s*0.06, s*0.20, '#0a0a0a');
+      px(ctx, x+s*0.64, y+s*0.42+bob, s*0.06, s*0.20, '#0a0a0a');
+    },
     KAPARKING(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.0;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // legs (cubic)
-      px(ctx, x+s*0.34, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      px(ctx, x+s*0.54, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      // body — square torso
-      px(ctx, x+s*0.30, y+s*0.46+bob, s*0.40, s*0.30, "#5fa8d8");
-      // arms
-      px(ctx, x+s*0.16, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      px(ctx, x+s*0.70, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      // cubic head
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.30, "#ffd0a8");
-      // brown hair block
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.10, "#5a3818");
-      // eyes (rectangular roblox style)
-      px(ctx, x+s*0.36, y+s*0.32+bob, s*0.08, s*0.04, "#1a1a1a");
-      px(ctx, x+s*0.56, y+s*0.32+bob, s*0.08, s*0.04, "#1a1a1a");
-      // pixel highlight
-      px(ctx, x+s*0.38, y+s*0.32+bob, s*0.02, s*0.02, "#fff");
-      px(ctx, x+s*0.58, y+s*0.32+bob, s*0.02, s*0.02, "#fff");
-      // smile
-      px(ctx, x+s*0.42, y+s*0.42+bob, s*0.16, s*0.02, "#1a1a1a");
-      // pickaxe in right hand
-      ctx.save();
-      ctx.translate(x+s*0.84, y+s*0.58+bob);
-      ctx.rotate(-0.3);
-      ctx.fillStyle = "#7a4828";
-      ctx.fillRect(-s*0.02, -s*0.18, s*0.04, s*0.30);
-      ctx.fillStyle = "#a0a0a8";
-      ctx.fillRect(-s*0.10, -s*0.20, s*0.20, s*0.06);
-      ctx.fillStyle = "#5a5a60";
-      ctx.fillRect(-s*0.10, -s*0.16, s*0.20, s*0.02);
-      ctx.restore();
-      // HOP badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("HOP", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Kaparking", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a07050";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("HOP", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#a07050";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06-s*0.020, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10-s*0.020);
-        ctx.stroke();
-        ctx.fillStyle = "#dadce0";
-        ctx.fillRect(x+s*0.06+s*0.015, y+s*0.10-s*0.025, s*0.020, s*0.012);
-        // signature: Roblox-style block grid backdrop
-        ctx.save();
-        ctx.globalAlpha = 0.18;
-        ctx.fillStyle = "#3a8838";
-        for (let __gx=0; __gx<6; __gx++) {
-          for (let __gy=0; __gy<6; __gy++) {
-            if ((__gx+__gy) % 2 === 0) continue;
-            ctx.fillRect(x+s*0.02+__gx*s*0.16, y+s*0.84+__gy*s*0.04, s*0.14, s*0.03);
-          }
-        }
-        ctx.restore();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // blocky head
+      px(ctx, x+s*0.26, y+s*0.10+bob, s*0.48, s*0.26, '#5a7a8a');
+      px(ctx, x+s*0.28, y+s*0.12+bob, s*0.44, s*0.06, '#6f8d9d');
+      // glowing cyan eyes
+      px(ctx, x+s*0.34, y+s*0.20+bob, s*0.10, s*0.08, '#00ffff');
+      px(ctx, x+s*0.56, y+s*0.20+bob, s*0.10, s*0.08, '#00ffff');
+      px(ctx, x+s*0.36, y+s*0.22+bob, s*0.06, s*0.04, '#aaffff');
+      px(ctx, x+s*0.58, y+s*0.22+bob, s*0.06, s*0.04, '#aaffff');
+      // mouth grill
+      px(ctx, x+s*0.36, y+s*0.30+bob, s*0.28, s*0.04, '#2a3a48');
+      // body
+      px(ctx, x+s*0.22, y+s*0.38+bob, s*0.56, s*0.46, '#4a6878');
+      px(ctx, x+s*0.24, y+s*0.40+bob, s*0.52, s*0.06, '#6a8898');
+      // arms hanging down
+      px(ctx, x+s*0.08, y+s*0.40+bob, s*0.16, s*0.46, '#3e5868');
+      px(ctx, x+s*0.76, y+s*0.40+bob, s*0.16, s*0.46, '#3e5868');
+      px(ctx, x+s*0.10, y+s*0.42+bob, s*0.04, s*0.40, '#557788');
+      px(ctx, x+s*0.78, y+s*0.42+bob, s*0.04, s*0.40, '#557788');
+      // chest panel
+      px(ctx, x+s*0.42, y+s*0.52+bob, s*0.16, s*0.10, '#2a3a48');
+    },
     NIT(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // legs (denim blue)
-      px(ctx, x+s*0.34, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      px(ctx, x+s*0.54, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      // cyan shirt body
-      px(ctx, x+s*0.30, y+s*0.46+bob, s*0.40, s*0.30, "#3aa8c8");
-      // arms
-      px(ctx, x+s*0.16, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      px(ctx, x+s*0.70, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      // cubic head
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.30, "#ffd0a8");
-      // brown hair (Steve-style)
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.08, "#7a4828");
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.04, s*0.10, "#7a4828");
-      px(ctx, x+s*0.66, y+s*0.18+bob, s*0.04, s*0.10, "#7a4828");
-      // eyes
-      px(ctx, x+s*0.36, y+s*0.30+bob, s*0.08, s*0.04, "#fff");
-      px(ctx, x+s*0.56, y+s*0.30+bob, s*0.08, s*0.04, "#fff");
-      px(ctx, x+s*0.40, y+s*0.30+bob, s*0.04, s*0.04, "#1a4a8a");
-      px(ctx, x+s*0.60, y+s*0.30+bob, s*0.04, s*0.04, "#1a4a8a");
-      // mouth/beard
-      px(ctx, x+s*0.40, y+s*0.40+bob, s*0.20, s*0.02, "#5a3818");
-      // diamond sword
-      ctx.save();
-      ctx.translate(x+s*0.84, y+s*0.50+bob);
-      ctx.rotate(-0.2);
-      ctx.fillStyle = "#7fdcff";
-      ctx.fillRect(-s*0.04, -s*0.26, s*0.08, s*0.40);
-      ctx.fillStyle = "#5fa8d8";
-      ctx.fillRect(-s*0.04, -s*0.26, s*0.04, s*0.40);
-      ctx.fillStyle = "#7a4828";
-      ctx.fillRect(-s*0.08, s*0.14, s*0.16, s*0.04);
-      ctx.fillStyle = "#a07050";
-      ctx.fillRect(-s*0.02, s*0.18, s*0.04, s*0.08);
-      ctx.restore();
-      // PLOT badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.84+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("PLOT", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Nit", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5865f2";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("PLOT", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#dadce0";
-        ctx.fillRect(x+s*0.06-s*0.005, y+s*0.10-s*0.025, s*0.010, s*0.040);
-        ctx.fillStyle = "#a07050";
-        ctx.fillRect(x+s*0.06-s*0.012, y+s*0.10+s*0.012, s*0.024, s*0.006);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // green hair flopping
+      px(ctx, x+s*0.12, y+s*0.10+bob, s*0.76, s*0.30, '#4caf50');
+      px(ctx, x+s*0.08, y+s*0.20+bob, s*0.10, s*0.30, '#3e9a45');
+      px(ctx, x+s*0.82, y+s*0.20+bob, s*0.10, s*0.30, '#3e9a45');
+      px(ctx, x+s*0.20, y+s*0.06+bob, s*0.16, s*0.10, '#5cc25e');
+      px(ctx, x+s*0.50, y+s*0.04+bob, s*0.16, s*0.12, '#5cc25e');
+      // pale face
+      px(ctx, x+s*0.22, y+s*0.32+bob, s*0.56, s*0.42, '#fae0d0');
+      // big crying eyes
+      px(ctx, x+s*0.30, y+s*0.40+bob, s*0.14, s*0.14, '#fff');
+      px(ctx, x+s*0.56, y+s*0.40+bob, s*0.14, s*0.14, '#fff');
+      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.06, s*0.06, '#3a6a3a');
+      px(ctx, x+s*0.60, y+s*0.46+bob, s*0.06, s*0.06, '#3a6a3a');
+      // tears streaming
+      const tearY = (t/8) % (s*0.2);
+      px(ctx, x+s*0.34, y+s*0.56+bob+tearY, s*0.04, s*0.10, '#5fc8ff');
+      px(ctx, x+s*0.62, y+s*0.56+bob+tearY, s*0.04, s*0.10, '#5fc8ff');
+      // wail mouth
+      px(ctx, x+s*0.40, y+s*0.62+bob, s*0.20, s*0.12, '#7a2020');
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.16, s*0.04, '#d04060');
+    },
     ALXROAR(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 0.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // purple wizard robe
-      ctx.fillStyle = "#6a30c0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // robe trim gold
-      ctx.fillStyle = "#ffd700";
-      ctx.fillRect(x+s*0.18, y+s*0.92+bob, s*0.66, s*0.04);
-      // sleeves
-      px(ctx, x+s*0.10, y+s*0.50+bob, s*0.14, s*0.24, "#6a30c0");
-      px(ctx, x+s*0.76, y+s*0.50+bob, s*0.14, s*0.24, "#6a30c0");
-      // face
-      ctx.fillStyle = "#ffd8b8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.16, s*0.16, 0, 0, Math.PI*2);
-      ctx.fill();
-      // wizard beard (white)
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.46+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.66+bob, x+s*0.64, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // eyes
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.42+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.42+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      // wizard hat
-      ctx.fillStyle = "#3a1a6a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.04+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hat brim
-      ctx.fillStyle = "#3a1a6a";
-      ctx.fillRect(x+s*0.24, y+s*0.28+bob, s*0.52, s*0.06);
-      // gold star wand
-      ctx.save();
-      ctx.translate(x+s*0.86, y+s*0.40+bob);
-      ctx.rotate(-0.4);
-      ctx.fillStyle = "#5a3818";
-      ctx.fillRect(-s*0.02, 0, s*0.04, s*0.30);
-      // gold star tip
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      const sx0 = 0, sy0 = -s*0.04;
-      for (let i = 0; i < 10; i++) {
-        const a = (i/10)*Math.PI*2 - Math.PI/2;
-        const r = i%2===0 ? s*0.06 : s*0.025;
-        const px2 = sx0 + Math.cos(a)*r;
-        const py2 = sy0 + Math.sin(a)*r;
-        if (i===0) ctx.moveTo(px2, py2); else ctx.lineTo(px2, py2);
-      }
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-      // orbiting sparkles
-      const sT = t*0.004;
-      for (let i = 0; i < 4; i++) {
-        const a = sT + i*(Math.PI*2/4);
-        const sxp = x+s*0.86 + Math.cos(a)*s*0.10;
-        const syp = y+s*0.40 + Math.sin(a)*s*0.10;
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath(); ctx.arc(sxp, syp, s*0.012, 0, Math.PI*2); ctx.fill();
-      }
-      // MOX badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("MOX", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Alxroar", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#c060f0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("MOX", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(8, Math.floor(s*0.065))}px monospace`;
-        ctx.fillText("*", x+s*0.06-s*0.020, y+s*0.10+s*0.020);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // night bg
+      px(ctx, x, y, s, s, '#0a1828');
+      // logs crossed
+      px(ctx, x+s*0.20, y+s*0.74, s*0.60, s*0.10, '#5a3a1a');
+      px(ctx, x+s*0.22, y+s*0.76, s*0.56, s*0.04, '#7a4e22');
+      px(ctx, x+s*0.30, y+s*0.68, s*0.10, s*0.18, '#4a2e10');
+      px(ctx, x+s*0.60, y+s*0.68, s*0.10, s*0.18, '#4a2e10');
+      // flame
+      const f = Math.sin(t/120) * 1.5;
+      px(ctx, x+s*0.36, y+s*0.42+f+bob, s*0.28, s*0.30, '#ff7020');
+      px(ctx, x+s*0.40, y+s*0.50+f+bob, s*0.20, s*0.20, '#ffc020');
+      px(ctx, x+s*0.44, y+s*0.56+f+bob, s*0.12, s*0.10, '#ffffaa');
+      px(ctx, x+s*0.42, y+s*0.34+f+bob, s*0.16, s*0.12, '#ff5010');
+      // sparks
+      const sp1 = (t/100) % (s*0.4);
+      px(ctx, x+s*0.30, y+s*0.40-sp1, s*0.03, s*0.03, '#ffeb3b');
+      px(ctx, x+s*0.66, y+s*0.50-sp1*0.7, s*0.03, s*0.03, '#ff9020');
+      px(ctx, x+s*0.50, y+s*0.30-sp1*0.5, s*0.02, s*0.02, '#ffd060');
+    },
     RANGERWILL(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // wings
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.40+bob);
-      ctx.quadraticCurveTo(x+s*0.02, y+s*0.30+bob, x+s*0.10, y+s*0.60+bob);
-      ctx.quadraticCurveTo(x+s*0.18, y+s*0.50+bob, x+s*0.28, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.40+bob);
-      ctx.quadraticCurveTo(x+s*0.98, y+s*0.30+bob, x+s*0.90, y+s*0.60+bob);
-      ctx.quadraticCurveTo(x+s*0.82, y+s*0.50+bob, x+s*0.72, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // feather lines
-      ctx.strokeStyle = "#dadce0";
-      ctx.lineWidth = Math.max(1, s*0.008);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.10, y+s*0.40+bob); ctx.lineTo(x+s*0.20, y+s*0.50+bob);
-      ctx.moveTo(x+s*0.90, y+s*0.40+bob); ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.stroke();
-      // pink robe
-      ctx.fillStyle = "#ffc0d8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#ffe0d0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // pink hair
-      ctx.fillStyle = "#ff80b8";
-      px(ctx, x+s*0.30, y+s*0.24+bob, s*0.40, s*0.10, "#ff80b8");
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.20, y+s*0.50+bob, x+s*0.30, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.46+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.80, y+s*0.50+bob, x+s*0.70, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.46+bob);
-      ctx.closePath();
-      ctx.fill();
-      // glowing pulsing halo
-      const pulse = 0.5 + Math.sin(t*0.005)*0.5;
-      ctx.strokeStyle = `rgba(255,220,120,${pulse})`;
-      ctx.lineWidth = Math.max(2, s*0.018);
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.16+bob, s*0.16, s*0.05, 0, 0, Math.PI*2);
-      ctx.stroke();
-      // big sparkly purple eyes
-      ctx.fillStyle = "#a060f0";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
+      // antennas
+      px(ctx, x+s*0.30, y+s*0.06+bob, s*0.04, s*0.10, '#222');
+      px(ctx, x+s*0.66, y+s*0.06+bob, s*0.04, s*0.10, '#222');
+      px(ctx, x+s*0.27, y+s*0.04+bob, s*0.10, s*0.06, '#222');
+      px(ctx, x+s*0.63, y+s*0.04+bob, s*0.10, s*0.06, '#222');
+      // yellow round head/body
+      px(ctx, x+s*0.16, y+s*0.18+bob, s*0.68, s*0.66, '#ffd54a');
+      px(ctx, x+s*0.20, y+s*0.16+bob, s*0.60, s*0.06, '#ffe070');
+      px(ctx, x+s*0.10, y+s*0.30+bob, s*0.08, s*0.40, '#e6b830');
+      px(ctx, x+s*0.82, y+s*0.30+bob, s*0.08, s*0.40, '#e6b830');
+      // bee stripes
+      px(ctx, x+s*0.18, y+s*0.50+bob, s*0.64, s*0.08, '#1a1a1a');
+      px(ctx, x+s*0.18, y+s*0.68+bob, s*0.64, s*0.08, '#1a1a1a');
+      // big eyes
+      px(ctx, x+s*0.28, y+s*0.32+bob, s*0.12, s*0.12, '#fff');
+      px(ctx, x+s*0.60, y+s*0.32+bob, s*0.12, s*0.12, '#fff');
+      px(ctx, x+s*0.32, y+s*0.36+bob, s*0.06, s*0.08, '#000');
+      px(ctx, x+s*0.64, y+s*0.36+bob, s*0.06, s*0.08, '#000');
       // small smile
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.50+bob, s*0.025, Math.PI*0.15, Math.PI*0.85); ctx.stroke();
-      // HOP badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("HOP", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("RangerWill", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80a8";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("HOP", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#a07050";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.beginPath();
-        ctx.arc(x+s*0.06, y+s*0.10, s*0.025, -Math.PI*0.4, Math.PI*0.4);
-        ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      px(ctx, x+s*0.42, y+s*0.46+bob, s*0.16, s*0.02, '#7a4a10');
+    },
     CARRIED(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 0.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // long brown hair (back)
-      ctx.fillStyle = "#5a3818";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.20, y+s*0.70+bob, x+s*0.30, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.86+bob);
-      ctx.quadraticCurveTo(x+s*0.80, y+s*0.70+bob, x+s*0.70, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red armor body
-      ctx.fillStyle = "#c01818";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.66+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // gold chest plate
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.66+bob);
-      ctx.closePath();
-      ctx.fill();
-      // chest plate trim
-      ctx.fillStyle = "#a07020";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.52+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.52+bob);
-      ctx.stroke();
-      // face
-      ctx.fillStyle = "#ffd8b8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.36+bob, s*0.16, s*0.16, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#5a3818";
-      px(ctx, x+s*0.32, y+s*0.20+bob, s*0.36, s*0.10, "#5a3818");
-      px(ctx, x+s*0.34, y+s*0.30+bob, s*0.06, s*0.06, "#5a3818");
-      px(ctx, x+s*0.60, y+s*0.30+bob, s*0.06, s*0.06, "#5a3818");
-      // eyes
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.36+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.36+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#a02020";
-      ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.36+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.36+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      // mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.moveTo(x+s*0.46, y+s*0.44+bob); ctx.lineTo(x+s*0.54, y+s*0.44+bob); ctx.stroke();
-      // BIG vertical broadsword on left
-      ctx.fillStyle = "#dadce0";
-      ctx.fillRect(x+s*0.10, y+s*0.16+bob, s*0.10, s*0.60);
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(x+s*0.10, y+s*0.16+bob, s*0.04, s*0.60);
-      ctx.fillStyle = "#ffd700";
-      ctx.fillRect(x+s*0.04, y+s*0.74+bob, s*0.22, s*0.06);
-      ctx.fillStyle = "#7a4828";
-      ctx.fillRect(x+s*0.12, y+s*0.80+bob, s*0.06, s*0.10);
-      // HOP badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.66, y+s*0.86+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("HOP", x+s*0.76, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("CARRIED", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a05030";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("HOP", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#dadce0";
-        ctx.fillRect(x+s*0.06-s*0.005, y+s*0.10-s*0.025, s*0.010, s*0.040);
-        ctx.fillStyle = "#a07050";
-        ctx.fillRect(x+s*0.06-s*0.012, y+s*0.10+s*0.012, s*0.024, s*0.006);
-        // signature: HOP label and floating sword icon
-        ctx.fillStyle = "rgba(26,26,34,0.7)";
-        ctx.fillRect(x+s*0.02, y+s*0.42, s*0.12, s*0.08);
-        ctx.fillStyle = "#ffd700";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.05))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("HOP", x+s*0.08, y+s*0.475);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#dadce0";
-        ctx.lineWidth = Math.max(1, s*0.014);
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.92, y+s*0.42);
-        ctx.lineTo(x+s*0.98, y+s*0.62);
-        ctx.stroke();
-        ctx.fillStyle = "#a07050";
-        ctx.fillRect(x+s*0.93, y+s*0.62, s*0.04, s*0.018);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // grey/white bg
+      px(ctx, x, y, s, s, '#d8d8d8');
+      px(ctx, x, y+s*0.7, s, s*0.3, '#9a9a9a');
+      px(ctx, x, y+s*0.68, s, s*0.02, '#7a7a7a');
+      // sitting figure side view
+      // legs (knees up)
+      px(ctx, x+s*0.36, y+s*0.50+bob, s*0.20, s*0.22, '#3a3a4a');
+      px(ctx, x+s*0.34, y+s*0.66+bob, s*0.24, s*0.08, '#2a2a3a');
+      // body bent forward
+      px(ctx, x+s*0.40, y+s*0.40+bob, s*0.18, s*0.20, '#5a5a7a');
+      // head down
+      px(ctx, x+s*0.42, y+s*0.30+bob, s*0.16, s*0.14, '#e6c8a8');
+      // hair
+      px(ctx, x+s*0.42, y+s*0.28+bob, s*0.16, s*0.06, '#3a2a1a');
+      // arms wrapped on knees
+      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.06, s*0.16, '#5a5a7a');
+    },
     _KEE_(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.4;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // pink dress
-      ctx.fillStyle = "#ffb0d0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.24, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.18, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.82, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.76, y+s*0.54+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red bow at chest
-      ctx.fillStyle = "#ed4245";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.58, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "#a01020";
-      ctx.fillRect(x+s*0.46, y+s*0.56+bob, s*0.08, s*0.06);
-      // pink twin tails
-      ctx.fillStyle = "#ff80c0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.04, y+s*0.50+bob, x+s*0.16, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.28, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.96, y+s*0.50+bob, x+s*0.84, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.72, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#ffe0e8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#ff80c0";
-      px(ctx, x+s*0.30, y+s*0.20+bob, s*0.40, s*0.12, "#ff80c0");
-      // big sparkly pink eyes
-      ctx.fillStyle = "#ff60a8";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.45, y+s*0.44+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.59, y+s*0.44+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      // small mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.moveTo(x+s*0.48, y+s*0.50+bob); ctx.lineTo(x+s*0.52, y+s*0.50+bob); ctx.stroke();
-      // floating sparkles
-      const sT = t*0.004;
-      for (let i = 0; i < 5; i++) {
-        const a = sT + i*(Math.PI*2/5);
-        const sxp = x+s*0.5 + Math.cos(a)*s*0.40;
-        const syp = y+s*0.5 + Math.sin(a)*s*0.32;
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(sxp-1, syp-1, 2, 2);
-      }
-      // JUST badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("JUST", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("_Kee_", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80a8";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("JUST", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ff80a8";
-        ctx.beginPath();
-        ctx.arc(x+s*0.06-s*0.010, y+s*0.10-s*0.005, s*0.012, 0, Math.PI*2);
-        ctx.arc(x+s*0.06+s*0.010, y+s*0.10-s*0.005, s*0.012, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // red hood big
+      px(ctx, x+s*0.10, y+s*0.14+bob, s*0.80, s*0.70, '#c41e1e');
+      px(ctx, x+s*0.14, y+s*0.10+bob, s*0.72, s*0.10, '#e63030');
+      px(ctx, x+s*0.06, y+s*0.30+bob, s*0.10, s*0.50, '#9a1010');
+      px(ctx, x+s*0.84, y+s*0.30+bob, s*0.10, s*0.50, '#9a1010');
+      // hood inner edge shadow
+      px(ctx, x+s*0.22, y+s*0.36+bob, s*0.56, s*0.04, '#7a0a0a');
+      // small face peeking, shadowed
+      px(ctx, x+s*0.30, y+s*0.40+bob, s*0.40, s*0.26, '#3a2820');
+      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.32, s*0.16, '#5a3e30');
+      // hint of mouth
+      px(ctx, x+s*0.44, y+s*0.58+bob, s*0.12, s*0.02, '#8a4a3a');
+      // hood point top
+      px(ctx, x+s*0.42, y+s*0.06+bob, s*0.16, s*0.10, '#c41e1e');
+    },
     _WISHRAM_(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const tailWag = Math.sin(t*0.005) * (s*0.04);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // chubby orange tabby body
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.66+bob, s*0.36, s*0.30, 0, 0, Math.PI*2);
-      ctx.fill();
-      // belly stripes
-      ctx.fillStyle = "#c06820";
-      for (let i = 0; i < 4; i++) {
-        ctx.fillRect(x+s*(0.32 + i*0.10), y+s*0.74+bob, s*0.04, s*0.10);
-      }
-      // tail wagging
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.84, y+s*0.66+bob);
-      ctx.quadraticCurveTo(x+s*0.96+tailWag, y+s*0.50+bob, x+s*0.88+tailWag, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.84+tailWag, y+s*0.40+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      // tail stripes
-      ctx.fillStyle = "#c06820";
-      ctx.fillRect(x+s*0.86, y+s*0.50+bob, s*0.04, s*0.04);
-      ctx.fillRect(x+s*0.86+tailWag*0.5, y+s*0.42+bob, s*0.04, s*0.04);
-      // head
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.36+bob, s*0.26, s*0.24, 0, 0, Math.PI*2);
-      ctx.fill();
-      // M forehead pattern
-      ctx.fillStyle = "#c06820";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.18+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      // triangle ears
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.32, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.72, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      // pink inner ears
-      ctx.fillStyle = "#ffb0c0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.16+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.68, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.16+bob);
-      ctx.closePath();
-      ctx.fill();
-      // big green eyes with vertical pupil
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.36+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.36+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#3aa838";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.36+bob, s*0.034, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.36+bob, s*0.034, 0, Math.PI*2); ctx.fill();
-      // vertical pupil
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.418, y+s*0.336+bob, s*0.008, s*0.044);
-      ctx.fillRect(x+s*0.578, y+s*0.336+bob, s*0.008, s*0.044);
+      // ears
+      px(ctx, x+s*0.18, y+s*0.16+bob, s*0.16, s*0.16, '#d4a880');
+      px(ctx, x+s*0.66, y+s*0.16+bob, s*0.16, s*0.16, '#d4a880');
+      px(ctx, x+s*0.22, y+s*0.20+bob, s*0.08, s*0.08, '#f0c0a0');
+      px(ctx, x+s*0.70, y+s*0.20+bob, s*0.08, s*0.08, '#f0c0a0');
+      // round face
+      px(ctx, x+s*0.16, y+s*0.26+bob, s*0.68, s*0.58, '#e8c4a0');
+      px(ctx, x+s*0.20, y+s*0.24+bob, s*0.60, s*0.06, '#f4d4b4');
+      px(ctx, x+s*0.12, y+s*0.36+bob, s*0.06, s*0.36, '#d4a880');
+      px(ctx, x+s*0.82, y+s*0.36+bob, s*0.06, s*0.36, '#d4a880');
+      // big eyes
+      px(ctx, x+s*0.28, y+s*0.42+bob, s*0.12, s*0.14, '#1a1a1a');
+      px(ctx, x+s*0.60, y+s*0.42+bob, s*0.12, s*0.14, '#1a1a1a');
+      px(ctx, x+s*0.32, y+s*0.44+bob, s*0.04, s*0.04, '#fff');
+      px(ctx, x+s*0.64, y+s*0.44+bob, s*0.04, s*0.04, '#fff');
       // pink nose
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.46+bob);
-      ctx.closePath();
-      ctx.fill();
-      // :3 mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.54+bob, x+s*0.50, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.54+bob, x+s*0.58, y+s*0.50+bob);
-      ctx.stroke();
-      // tiny gold crown on top
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.04+bob);
-      ctx.lineTo(x+s*0.48, y+s*0.08+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.02+bob);
-      ctx.lineTo(x+s*0.52, y+s*0.08+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.04+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.10+bob);
-      ctx.closePath();
-      ctx.fill();
-      // CUTE badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.86+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("CUTE", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("_WishRam_", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80c0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("CUTE", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10-s*0.006);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10-s*0.006);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      px(ctx, x+s*0.46, y+s*0.60+bob, s*0.08, s*0.06, '#ff8aa0');
+      // pink cheeks
+      px(ctx, x+s*0.22, y+s*0.58+bob, s*0.08, s*0.06, '#ffb8c8');
+      px(ctx, x+s*0.70, y+s*0.58+bob, s*0.08, s*0.06, '#ffb8c8');
+      // tiny mouth
+      px(ctx, x+s*0.44, y+s*0.68+bob, s*0.12, s*0.02, '#7a3a3a');
+    },
     JUST_MILES(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 0.8;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark cloak body
-      ctx.fillStyle = "#1a1a2a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hood
-      ctx.fillStyle = "#0a0a14";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.36+bob, s*0.26, s*0.28, 0, 0, Math.PI*2);
-      ctx.fill();
-      // shadowed face
-      ctx.fillStyle = "#3a3a4a";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.42+bob, s*0.16, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // heavy upper-face shadow
-      ctx.fillStyle = "rgba(0,0,0,0.6)";
-      ctx.fillRect(x+s*0.34, y+s*0.30+bob, s*0.32, s*0.10);
-      // glowing red eye-slits
-      const glow = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(255,40,40,${glow})`;
-      ctx.fillRect(x+s*0.40, y+s*0.40+bob, s*0.06, s*0.02);
-      ctx.fillRect(x+s*0.54, y+s*0.40+bob, s*0.06, s*0.02);
-      // gold star medal on red ribbon
-      // ribbon
-      ctx.fillStyle = "#a01020";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.38, y+s*0.60+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.60+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.58+bob);
-      ctx.closePath();
-      ctx.fill();
-      // gold star
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      const sx0 = x+s*0.50, sy0 = y+s*0.78+bob;
-      for (let i = 0; i < 10; i++) {
-        const a = (i/10)*Math.PI*2 - Math.PI/2;
-        const r = i%2===0 ? s*0.07 : s*0.030;
-        const px2 = sx0 + Math.cos(a)*r;
-        const py2 = sy0 + Math.sin(a)*r;
-        if (i===0) ctx.moveTo(px2, py2); else ctx.lineTo(px2, py2);
-      }
-      ctx.closePath();
-      ctx.fill();
-      // star center
-      ctx.fillStyle = "#a07020";
-      ctx.beginPath(); ctx.arc(sx0, sy0, s*0.020, 0, Math.PI*2); ctx.fill();
-      // JUST badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.04, y+s*0.86+bob, s*0.18, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("JUST", x+s*0.13, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Just_Miles", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#9050d0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("JUST", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "#a07020";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.030))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("1", x+s*0.06, y+s*0.10+s*0.010);
-        ctx.textAlign = "start";
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
+      // dark sky bg
+      px(ctx, x, y, s, s, '#0e0e3e');
+      px(ctx, x, y, s, s*0.5, '#1a1050');
+      // crescent moon top-right
+      px(ctx, x+s*0.62, y+s*0.12, s*0.22, s*0.22, '#fffae0');
+      px(ctx, x+s*0.66, y+s*0.10, s*0.18, s*0.20, '#fff8d0');
+      px(ctx, x+s*0.58, y+s*0.16, s*0.16, s*0.16, '#0e0e3e');
+      // twinkle stars
+      const tw = (Math.sin(t/300) + 1) / 2;
+      const tw2 = (Math.sin(t/500 + 1) + 1) / 2;
+      ctx.fillStyle = `rgba(255,255,255,${0.6 + tw*0.4})`;
+      ctx.fillRect(x+s*0.10, y+s*0.16, s*0.04, s*0.04);
+      ctx.fillRect(x+s*0.30, y+s*0.30, s*0.03, s*0.03);
+      ctx.fillRect(x+s*0.20, y+s*0.50, s*0.04, s*0.04);
+      ctx.fillStyle = `rgba(255,255,200,${0.5 + tw2*0.5})`;
+      ctx.fillRect(x+s*0.50, y+s*0.40, s*0.03, s*0.03);
+      ctx.fillRect(x+s*0.80, y+s*0.56, s*0.04, s*0.04);
+      ctx.fillRect(x+s*0.16, y+s*0.66, s*0.03, s*0.03);
+      ctx.fillRect(x+s*0.40, y+s*0.20, s*0.02, s*0.02);
+      // tiny silhouette at bottom
+      px(ctx, x+s*0.44, y+s*0.80+bob, s*0.12, s*0.16, '#000');
+      px(ctx, x+s*0.46, y+s*0.74+bob, s*0.08, s*0.08, '#000');
+    },
 
     DUDEGUY(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t*0.003) * (s*0.012);
@@ -1656,1688 +524,469 @@
         ctx.restore();
       } catch(__e) { /* flourish fail-safe */ }
 },
-
     XL_MATTHEW100(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // green pants
-      px(ctx, x+s*0.32, y+s*0.74+bob, s*0.14, s*0.22, "#3a8838");
-      px(ctx, x+s*0.54, y+s*0.74+bob, s*0.14, s*0.22, "#3a8838");
-      // yellow open shirt
-      ctx.fillStyle = "#ffd86a";
+      // wild dark hair
+      px(ctx, x+s*0.12, y+s*0.10+bob, s*0.76, s*0.26, '#3a2818');
+      px(ctx, x+s*0.18, y+s*0.04+bob, s*0.10, s*0.10, '#2a1e10');
+      px(ctx, x+s*0.36, y+s*0.02+bob, s*0.12, s*0.10, '#4a3424');
+      px(ctx, x+s*0.56, y+s*0.04+bob, s*0.10, s*0.10, '#2a1e10');
+      px(ctx, x+s*0.72, y+s*0.06+bob, s*0.10, s*0.10, '#4a3424');
+      // pale round face
+      px(ctx, x+s*0.20, y+s*0.28+bob, s*0.60, s*0.50, '#f4d8c4');
+      px(ctx, x+s*0.16, y+s*0.36+bob, s*0.06, s*0.30, '#d8b894');
+      px(ctx, x+s*0.78, y+s*0.36+bob, s*0.06, s*0.30, '#d8b894');
+      // round black-frame glasses
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.22, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.54+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red stripe
-      ctx.fillStyle = "#ed4245";
-      ctx.fillRect(x+s*0.22, y+s*0.62+bob, s*0.56, s*0.04);
-      // skin chest
-      ctx.fillStyle = "#ffd0a8";
-      ctx.fillRect(x+s*0.42, y+s*0.54+bob, s*0.16, s*0.18);
-      // arms
-      px(ctx, x+s*0.10, y+s*0.56+bob, s*0.12, s*0.20, "#ffd86a");
-      px(ctx, x+s*0.78, y+s*0.56+bob, s*0.12, s*0.20, "#ffd86a");
-      // face
-      ctx.fillStyle = "#ffd0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // messy brown/blonde hair
-      ctx.fillStyle = "#a07028";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.32, y+s*0.18+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red bandana with white dots
-      ctx.fillStyle = "#ed4245";
-      ctx.fillRect(x+s*0.30, y+s*0.28+bob, s*0.40, s*0.04);
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.36, y+s*0.30+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.46, y+s*0.30+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.30+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.66, y+s*0.30+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      // sharper angled eyebrows
-      ctx.strokeStyle = "#5a3818";
-      ctx.lineWidth = Math.max(1, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.36+bob); ctx.lineTo(x+s*0.46, y+s*0.38+bob);
-      ctx.moveTo(x+s*0.60, y+s*0.36+bob); ctx.lineTo(x+s*0.54, y+s*0.38+bob);
+      ctx.arc(x+s*0.36, y+s*0.48+bob, s*0.10, 0, Math.PI*2);
       ctx.stroke();
-      // eyes
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.025, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.025, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-      // smirk
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
       ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.52, y+s*0.54+bob, x+s*0.58, y+s*0.48+bob);
+      ctx.arc(x+s*0.64, y+s*0.48+bob, s*0.10, 0, Math.PI*2);
       ctx.stroke();
-      // FM badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.86+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("FM", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("XL_MATTHEW100", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("PIRATE", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#f0d090";
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.030, s*0.010, 0, 0, Math.PI*2);
-        ctx.fill();
-        ctx.fillRect(x+s*0.06-s*0.014, y+s*0.10-s*0.018, s*0.028, s*0.018);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
+      px(ctx, x+s*0.46, y+s*0.47+bob, s*0.08, s*0.02, '#000');
+      // eyes inside glasses
+      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.04, s*0.04, '#1a1a1a');
+      px(ctx, x+s*0.62, y+s*0.46+bob, s*0.04, s*0.04, '#1a1a1a');
+      // small pink mouth
+      px(ctx, x+s*0.44, y+s*0.66+bob, s*0.12, s*0.04, '#d06a78');
+    },
 
     // ===== MEMERS / STREAMERS / CODERS =====
     FORGBEAR1(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.005) * (s*0.018);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // bulbous lopsided green head
-      ctx.fillStyle = "#5fa838";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.48, y+s*0.50+bob, s*0.34, s*0.30, 0.2, 0, Math.PI*2);
-      ctx.fill();
-      // sickly yellow-green chin
-      ctx.fillStyle = "#a8c838";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.66+bob, s*0.22, s*0.10, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bulging too-big white eyes
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.36, y+s*0.36+bob, s*0.10, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.62, y+s*0.34+bob, s*0.10, 0, Math.PI*2); ctx.fill();
-      // bloodshot streaks
-      ctx.strokeStyle = "#c01818";
-      ctx.lineWidth = Math.max(1, s*0.006);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.32+bob); ctx.lineTo(x+s*0.38, y+s*0.36+bob);
-      ctx.moveTo(x+s*0.32, y+s*0.42+bob); ctx.lineTo(x+s*0.38, y+s*0.38+bob);
-      ctx.moveTo(x+s*0.66, y+s*0.30+bob); ctx.lineTo(x+s*0.62, y+s*0.34+bob);
-      ctx.moveTo(x+s*0.68, y+s*0.40+bob); ctx.lineTo(x+s*0.62, y+s*0.36+bob);
-      ctx.stroke();
-      // tiny crazed pupils darting
-      const dart = Math.sin(t*0.020)*s*0.015;
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath(); ctx.arc(x+s*0.36+dart, y+s*0.36+bob, s*0.015, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.62-dart, y+s*0.34+bob, s*0.015, 0, Math.PI*2); ctx.fill();
-      // massive unhinged grin
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.48, y+s*0.60+bob, s*0.20, s*0.10, 0, 0, Math.PI*2);
-      ctx.fill();
-      // jagged teeth
-      ctx.fillStyle = "#fff";
-      for (let i = 0; i < 7; i++) {
-        ctx.beginPath();
-        ctx.moveTo(x+s*(0.30+i*0.06), y+s*0.54+bob);
-        ctx.lineTo(x+s*(0.33+i*0.06), y+s*0.62+bob);
-        ctx.lineTo(x+s*(0.36+i*0.06), y+s*0.54+bob);
-        ctx.closePath();
-        ctx.fill();
-      }
-      // tongue lolling
-      ctx.fillStyle = "#ff5598";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.54, y+s*0.66+bob, s*0.06, s*0.10, 0.3, 0, Math.PI*2);
-      ctx.fill();
-      // drool drop
-      ctx.fillStyle = "rgba(180,220,255,0.8)";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.58, y+s*0.78+bob, s*0.020, s*0.040, 0, 0, Math.PI*2);
-      ctx.fill();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("forgbear1", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#9adc4a";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("COPY", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#5fc8ff";
-        ctx.font = `bold ${Math.max(8, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("LOL", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // dark suit collar
+      px(ctx, x+s*0.18, y+s*0.78+bob, s*0.64, s*0.22, '#1a1a22');
+      px(ctx, x+s*0.42, y+s*0.82+bob, s*0.16, s*0.12, '#e8e0d0');
+      // peach face
+      px(ctx, x+s*0.22, y+s*0.28+bob, s*0.56, s*0.5, '#f5c9a0');
+      px(ctx, x+s*0.18, y+s*0.4+bob, s*0.06, s*0.3, '#f5c9a0');
+      px(ctx, x+s*0.76, y+s*0.4+bob, s*0.06, s*0.3, '#f5c9a0');
+      // dark hair combed forward
+      px(ctx, x+s*0.2, y+s*0.2+bob, s*0.6, s*0.16, '#2a1810');
+      px(ctx, x+s*0.28, y+s*0.16+bob, s*0.44, s*0.08, '#2a1810');
+      px(ctx, x+s*0.32, y+s*0.34+bob, s*0.36, s*0.04, '#2a1810');
+      // raised eyebrows
+      px(ctx, x+s*0.3, y+s*0.42+bob, s*0.12, s*0.04, '#2a1810');
+      px(ctx, x+s*0.58, y+s*0.42+bob, s*0.12, s*0.04, '#2a1810');
+      // big wide eyes
+      px(ctx, x+s*0.3, y+s*0.5+bob, s*0.12, s*0.1, '#fff');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.12, s*0.1, '#fff');
+      px(ctx, x+s*0.34, y+s*0.53+bob, s*0.05, s*0.06, '#1a1208');
+      px(ctx, x+s*0.62, y+s*0.53+bob, s*0.05, s*0.06, '#1a1208');
+      // mouth slightly open
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.16, s*0.06, '#5a3020');
+      px(ctx, x+s*0.44, y+s*0.67+bob, s*0.12, s*0.02, '#fff');
+    },
     WALKINGGHEAD(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const stride = Math.sin(t*0.008) * (s*0.04);
-      shadow(ctx, x+s/2, y+s-4, s*0.30, 5);
-      // stick legs
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.36-stride, y+s*0.92+bob);
-      ctx.moveTo(x+s*0.58, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.64+stride, y+s*0.92+bob);
-      ctx.stroke();
-      // shoes
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.30-stride, y+s*0.90+bob, s*0.10, s*0.04);
-      ctx.fillRect(x+s*0.60+stride, y+s*0.90+bob, s*0.10, s*0.04);
-      // yellow emoji head
-      ctx.fillStyle = "#ffd86a";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.40+bob, s*0.30, 0, Math.PI*2);
-      ctx.fill();
-      // shading
-      ctx.fillStyle = "#e8b048";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.46+bob, s*0.30, 0, Math.PI);
-      ctx.fill();
-      // big black dot eyes
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.36+bob, s*0.04, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.36+bob, s*0.04, 0, Math.PI*2); ctx.fill();
-      // big curved arc smile
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.020);
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.46+bob, s*0.12, Math.PI*0.15, Math.PI*0.85);
-      ctx.stroke();
-      ctx.lineCap = "butt";
-      // stick arms swinging
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.18+stride, y+s*0.74+bob);
-      ctx.moveTo(x+s*0.70, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.82-stride, y+s*0.74+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("walkingghead", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ffd755";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("WLK", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "#1a1a1a";
-        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.008, y+s*0.10-s*0.005, s*0.003, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.008, y+s*0.10-s*0.005, s*0.003, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    RONIC(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // legs
-      px(ctx, x+s*0.34, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      px(ctx, x+s*0.54, y+s*0.74+bob, s*0.12, s*0.20, "#2a4868");
-      // body
-      px(ctx, x+s*0.30, y+s*0.46+bob, s*0.40, s*0.30, "#a04590");
-      // arms
-      px(ctx, x+s*0.16, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      px(ctx, x+s*0.70, y+s*0.46+bob, s*0.14, s*0.24, "#ffd0a8");
-      // cubic head
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.30, "#ffd0a8");
-      // dark hair
-      px(ctx, x+s*0.30, y+s*0.18+bob, s*0.40, s*0.04, "#1a1a1a");
-      // gold crown
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.18+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.04+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red gem on crown
-      ctx.fillStyle = "#ed4245";
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.10+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-      // sunglasses bar
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.32, y+s*0.30+bob, s*0.36, s*0.06);
-      // shades highlight
-      ctx.fillStyle = "rgba(255,255,255,0.3)";
-      ctx.fillRect(x+s*0.34, y+s*0.31+bob, s*0.06, s*0.02);
-      ctx.fillRect(x+s*0.54, y+s*0.31+bob, s*0.06, s*0.02);
-      // smug smirk
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.42+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.46+bob, x+s*0.58, y+s*0.40+bob);
-      ctx.stroke();
-      // controller in hands
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.32, y+s*0.62+bob, s*0.36, s*0.10);
-      ctx.fillStyle = "#5865f2";
-      ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.66+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#ed4245";
-      ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.66+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      // KING badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.86+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("KING", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("ronic", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ffd700";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("KING", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06-s*0.025, y+s*0.10+s*0.012);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06, y+s*0.10-s*0.005);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.025, y+s*0.10+s*0.012);
-        ctx.closePath(); ctx.fill();
-        // signature: ROBLOX banner under crown
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(x+s*0.20, y+s*0.10, s*0.60, s*0.06);
-        ctx.fillStyle = "#fff";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.045))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("ROBLOX", x+s*0.50, y+s*0.145);
-        ctx.textAlign = "start";
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    BLACK_JACK(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark red moon backdrop
-      ctx.fillStyle = "#3a0810";
-      ctx.beginPath();
-      ctx.arc(x+s*0.78, y+s*0.20, s*0.18, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#a01020";
-      ctx.beginPath();
-      ctx.arc(x+s*0.76, y+s*0.18, s*0.16, 0, Math.PI*2);
-      ctx.fill();
-      // dark cloak with crimson inner
-      ctx.fillStyle = "#a01020";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // outer cloak
-      ctx.fillStyle = "#1a0510";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.30, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // long black hair
-      ctx.fillStyle = "#0a0510";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.18, y+s*0.60+bob, x+s*0.30, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.72, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.82, y+s*0.60+bob, x+s*0.70, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // pale face
-      ctx.fillStyle = "#f0e0d8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.16, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#0a0510";
-      px(ctx, x+s*0.34, y+s*0.26+bob, s*0.32, s*0.10, "#0a0510");
-      // glowing red eyes
-      const glow = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(255,40,40,${glow})`;
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      // tiny smirk
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.52+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.55+bob, x+s*0.54, y+s*0.50+bob);
-      ctx.stroke();
-      // fang
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.48, y+s*0.52+bob);
-      ctx.lineTo(x+s*0.49, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.52+bob);
-      ctx.closePath();
-      ctx.fill();
-      // cherry-blossom petals drifting
-      const pT = (t*0.001) % 1;
-      ctx.fillStyle = "#ffc0d8";
-      for (let i = 0; i < 5; i++) {
-        const py2 = (pT + i*0.2) % 1;
-        const pxp = x + s*(0.10 + i*0.18) + Math.sin(t*0.003 + i)*s*0.04;
-        const pyp = y + py2*s*0.8;
-        ctx.beginPath();
-        ctx.ellipse(pxp, pyp, s*0.012, s*0.020, py2*Math.PI, 0, Math.PI*2);
-        ctx.fill();
-      }
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.shadowColor = "#5fc8ff";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Black_Jack", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#c060d0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("S1", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ff80c0";
-        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.012, y+s*0.10, s*0.010, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.012, y+s*0.10, s*0.010, 0, Math.PI*2); ctx.fill();
-        ctx.strokeStyle = "#5a3818"; ctx.lineWidth = Math.max(1, s*0.005);
-        ctx.beginPath(); ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020); ctx.lineTo(x+s*0.06-s*0.012, y+s*0.10-s*0.005); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020); ctx.lineTo(x+s*0.06+s*0.012, y+s*0.10-s*0.005); ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    WILLIAM_GREGORY(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.0028) * (s*0.010);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // black suit jacket
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // white shirt collar V
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // black tie
-      ctx.fillStyle = "#0a0a0a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.52, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.48, y+s*0.74+bob);
-      ctx.closePath();
-      ctx.fill();
-      // jacket lapels
-      ctx.fillStyle = "#0a0a0a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.30, y+s*0.66+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.78, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.66+bob);
-      ctx.closePath();
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#e8c4a0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.36+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // slick dark hair
-      ctx.fillStyle = "#1a1a1a";
-      px(ctx, x+s*0.32, y+s*0.18+bob, s*0.36, s*0.08, "#1a1a1a");
-      ctx.fillStyle = "#3a3a3a";
-      px(ctx, x+s*0.38, y+s*0.20+bob, s*0.20, s*0.04, "#3a3a3a");
-      // wide aviator sunglasses
-      ctx.fillStyle = "#0a0a0a";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.36+bob, s*0.06, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.36+bob, s*0.06, 0, Math.PI*2); ctx.fill();
-      // bridge
-      ctx.fillRect(x+s*0.46, y+s*0.34+bob, s*0.08, s*0.02);
-      // lens reflections
-      ctx.fillStyle = "rgba(255,255,255,0.3)";
-      ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.34+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.34+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      // stoic mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.44, y+s*0.48+bob); ctx.lineTo(x+s*0.56, y+s*0.48+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("William_G", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#3a4258";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("WG", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#1a1a1a";
-        ctx.fillRect(x+s*0.06-s*0.022, y+s*0.10-s*0.005, s*0.018, s*0.012);
-        ctx.fillRect(x+s*0.06+s*0.004, y+s*0.10-s*0.005, s*0.018, s*0.012);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    LASERFIRE(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // animated flame ring aura
-      const flick = 0.5 + Math.sin(t*0.012)*0.5;
-      ctx.fillStyle = `rgba(255,80,40,${flick*0.6})`;
-      for (let i = 0; i < 8; i++) {
-        const a = i*(Math.PI*2/8) + t*0.003;
-        const r = s*0.40 + Math.sin(t*0.008+i)*s*0.04;
-        const fx = x+s*0.50 + Math.cos(a)*r;
-        const fy = y+s*0.50 + Math.sin(a)*r;
-        ctx.beginPath();
-        ctx.moveTo(fx, fy);
-        ctx.lineTo(fx-s*0.04, fy-s*0.08);
-        ctx.lineTo(fx+s*0.04, fy-s*0.04);
-        ctx.closePath();
-        ctx.fill();
-      }
-      // black jacket
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // red zipper
-      ctx.fillStyle = "#ed4245";
-      ctx.fillRect(x+s*0.49, y+s*0.54+bob, s*0.02, s*0.30);
-      // pale face
-      ctx.fillStyle = "#f0d8c0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // spiky pink/red hair
-      ctx.fillStyle = "#ff3060";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.24, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.76, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.34+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hair highlight
-      ctx.fillStyle = "#ff80a0";
-      px(ctx, x+s*0.40, y+s*0.18+bob, s*0.04, s*0.04, "#ff80a0");
-      // glowing red anime eyes
-      const eglow = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(255,40,40,${eglow})`;
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.41, y+s*0.41+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.41+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      // smug smirk
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.44, y+s*0.52+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.56+bob, x+s*0.58, y+s*0.50+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("LaserFire", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80a0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("JEW", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ff8a3a";
-        ctx.beginPath();
-        ctx.arc(x+s*0.06, y+s*0.10, s*0.030, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    F503N(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // brown boots
-      px(ctx, x+s*0.30, y+s*0.86+bob, s*0.16, s*0.10, "#5a3818");
-      px(ctx, x+s*0.54, y+s*0.86+bob, s*0.16, s*0.10, "#5a3818");
-      // tan vest
-      ctx.fillStyle = "#c8a070";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.20, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // shirt under vest
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(x+s*0.40, y+s*0.50+bob, s*0.20, s*0.34);
-      // sheriff star on vest
-      ctx.fillStyle = "#ffd700";
-      const sx0 = x+s*0.30, sy0 = y+s*0.62+bob;
-      ctx.beginPath();
-      for (let i = 0; i < 10; i++) {
-        const a = (i/10)*Math.PI*2 - Math.PI/2;
-        const r = i%2===0 ? s*0.05 : s*0.022;
-        const px2 = sx0 + Math.cos(a)*r;
-        const py2 = sy0 + Math.sin(a)*r;
-        if (i===0) ctx.moveTo(px2, py2); else ctx.lineTo(px2, py2);
-      }
-      ctx.closePath();
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.10, y+s*0.52+bob, s*0.12, s*0.22, "#fff");
-      px(ctx, x+s*0.78, y+s*0.52+bob, s*0.12, s*0.22, "#fff");
-      // face
-      ctx.fillStyle = "#d8a070";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.36+bob, s*0.16, s*0.16, 0, 0, Math.PI*2);
-      ctx.fill();
-      // red bandana with white dots
-      ctx.fillStyle = "#ed4245";
-      ctx.fillRect(x+s*0.32, y+s*0.46+bob, s*0.36, s*0.06);
-      ctx.fillStyle = "#fff";
-      for (let i = 0; i < 4; i++) {
-        ctx.beginPath();
-        ctx.arc(x+s*(0.36+i*0.08), y+s*0.49+bob, s*0.008, 0, Math.PI*2);
-        ctx.fill();
-      }
-      // wide-brim cowboy hat
-      ctx.fillStyle = "#7a4828";
-      ctx.fillRect(x+s*0.18, y+s*0.22+bob, s*0.64, s*0.04);
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.18+bob, s*0.18, s*0.10, 0, 0, Math.PI*2);
-      ctx.fill();
-      // hat band
-      ctx.fillStyle = "#3a1818";
-      ctx.fillRect(x+s*0.32, y+s*0.22+bob, s*0.36, s*0.02);
-      // squinty eyes
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.36+bob); ctx.lineTo(x+s*0.46, y+s*0.36+bob);
-      ctx.moveTo(x+s*0.54, y+s*0.36+bob); ctx.lineTo(x+s*0.60, y+s*0.36+bob);
-      ctx.stroke();
-      // mouth
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.42+bob); ctx.lineTo(x+s*0.54, y+s*0.42+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("F503N", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a08050";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("503", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#f0d090";
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.030, s*0.010, 0, 0, Math.PI*2);
-        ctx.fill();
-        ctx.fillRect(x+s*0.06-s*0.014, y+s*0.10-s*0.018, s*0.028, s*0.018);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    DR_YEET(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.0028) * (s*0.010);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.36, 5);
-      // fat round body
-      ctx.fillStyle = "#9aa0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.66+bob, s*0.40, s*0.30, 0, 0, Math.PI*2);
-      ctx.fill();
-      // lighter belly
-      ctx.fillStyle = "#c4c8d0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.28, s*0.16, 0, 0, Math.PI*2);
-      ctx.fill();
-      // tail wrapping around
-      ctx.fillStyle = "#9aa0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.16, y+s*0.78+bob, s*0.12, s*0.06, 0.2, 0, Math.PI*2);
-      ctx.fill();
-      // head
-      ctx.fillStyle = "#9aa0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.36+bob, s*0.30, s*0.26, 0, 0, Math.PI*2);
-      ctx.fill();
-      // cheek tufts
-      ctx.fillStyle = "#c4c8d0";
-      ctx.beginPath(); ctx.arc(x+s*0.28, y+s*0.42+bob, s*0.06, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.72, y+s*0.42+bob, s*0.06, 0, Math.PI*2); ctx.fill();
+      // bright yellow round head
+      px(ctx, x+s*0.14, y+s*0.18+bob, s*0.72, s*0.7, '#ffd83a');
+      px(ctx, x+s*0.08, y+s*0.28+bob, s*0.06, s*0.5, '#ffd83a');
+      px(ctx, x+s*0.86, y+s*0.28+bob, s*0.06, s*0.5, '#ffd83a');
+      px(ctx, x+s*0.22, y+s*0.12+bob, s*0.56, s*0.06, '#ffd83a');
+      px(ctx, x+s*0.22, y+s*0.88+bob, s*0.56, s*0.06, '#ffd83a');
+      // shadow on yellow
+      px(ctx, x+s*0.14, y+s*0.74+bob, s*0.72, s*0.14, '#e8b820');
+      // huge white eyes
+      px(ctx, x+s*0.2, y+s*0.26+bob, s*0.22, s*0.22, '#fff');
+      px(ctx, x+s*0.58, y+s*0.26+bob, s*0.22, s*0.22, '#fff');
+      // pupils
+      px(ctx, x+s*0.28, y+s*0.34+bob, s*0.08, s*0.08, '#000');
+      px(ctx, x+s*0.66, y+s*0.34+bob, s*0.08, s*0.08, '#000');
+      // huge open mouth
+      px(ctx, x+s*0.22, y+s*0.56+bob, s*0.56, s*0.26, '#c01838');
+      // teeth band on top
+      px(ctx, x+s*0.22, y+s*0.56+bob, s*0.56, s*0.06, '#fff');
+      // tooth lines
+      px(ctx, x+s*0.36, y+s*0.56+bob, s*0.02, s*0.06, '#d0d0d0');
+      px(ctx, x+s*0.5, y+s*0.56+bob, s*0.02, s*0.06, '#d0d0d0');
+      px(ctx, x+s*0.64, y+s*0.56+bob, s*0.02, s*0.06, '#d0d0d0');
+    },
+    RONIC(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // greyscale background
+      px(ctx, x, y, s, s, '#1a1a1a');
+      // grey-brown skin face
+      px(ctx, x+s*0.26, y+s*0.32+bob, s*0.48, s*0.5, '#5a4a40');
+      px(ctx, x+s*0.22, y+s*0.42+bob, s*0.06, s*0.3, '#5a4a40');
+      px(ctx, x+s*0.72, y+s*0.42+bob, s*0.06, s*0.3, '#5a4a40');
+      // dreadlock silhouette
+      px(ctx, x+s*0.18, y+s*0.16+bob, s*0.64, s*0.22, '#0a0a0a');
+      px(ctx, x+s*0.14, y+s*0.22+bob, s*0.08, s*0.3, '#0a0a0a');
+      px(ctx, x+s*0.78, y+s*0.22+bob, s*0.08, s*0.3, '#0a0a0a');
+      // dread coils as small dots
+      px(ctx, x+s*0.22, y+s*0.18+bob, s*0.06, s*0.06, '#1a1a1a');
+      px(ctx, x+s*0.36, y+s*0.14+bob, s*0.06, s*0.06, '#1a1a1a');
+      px(ctx, x+s*0.54, y+s*0.14+bob, s*0.06, s*0.06, '#1a1a1a');
+      px(ctx, x+s*0.7, y+s*0.18+bob, s*0.06, s*0.06, '#1a1a1a');
+      // confident eyes
+      px(ctx, x+s*0.34, y+s*0.48+bob, s*0.08, s*0.04, '#fff');
+      px(ctx, x+s*0.58, y+s*0.48+bob, s*0.08, s*0.04, '#fff');
+      px(ctx, x+s*0.36, y+s*0.48+bob, s*0.04, s*0.04, '#1a1208');
+      px(ctx, x+s*0.6, y+s*0.48+bob, s*0.04, s*0.04, '#1a1208');
+      // mouth
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.16, s*0.04, '#2a1a14');
+      // hand near chin
+      px(ctx, x+s*0.6, y+s*0.74+bob, s*0.18, s*0.14, '#5a4a40');
+    },
+    BLACK_JACK(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark purple bg
+      px(ctx, x, y, s, s, '#2a1438');
+      // branches in corners
+      px(ctx, x, y+s*0.1, s*0.2, s*0.04, '#3a2820');
+      px(ctx, x+s*0.18, y+s*0.04, s*0.04, s*0.18, '#3a2820');
+      px(ctx, x+s*0.8, y+s*0.1, s*0.2, s*0.04, '#3a2820');
+      px(ctx, x+s*0.78, y+s*0.04, s*0.04, s*0.18, '#3a2820');
+      // silhouette head
+      px(ctx, x+s*0.26, y+s*0.28+bob, s*0.48, s*0.54, '#1a0a24');
+      px(ctx, x+s*0.22, y+s*0.4+bob, s*0.06, s*0.34, '#1a0a24');
+      px(ctx, x+s*0.74, y+s*0.4+bob, s*0.06, s*0.34, '#1a0a24');
+      // dim eyes
+      px(ctx, x+s*0.36, y+s*0.5+bob, s*0.06, s*0.04, '#5a3060');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.06, s*0.04, '#5a3060');
+      // cherry blossoms scattered
+      px(ctx, x+s*0.08, y+s*0.3, s*0.04, s*0.04, '#ff9ec0');
+      px(ctx, x+s*0.12, y+s*0.5, s*0.03, s*0.03, '#ffb8d0');
+      px(ctx, x+s*0.86, y+s*0.34, s*0.04, s*0.04, '#ff9ec0');
+      px(ctx, x+s*0.9, y+s*0.56, s*0.03, s*0.03, '#ffb8d0');
+      px(ctx, x+s*0.5, y+s*0.06, s*0.04, s*0.04, '#ff9ec0');
+      px(ctx, x+s*0.3, y+s*0.92, s*0.03, s*0.03, '#ffb8d0');
+      px(ctx, x+s*0.7, y+s*0.94, s*0.03, s*0.03, '#ff9ec0');
+    },
+    WILLIAM_GREGORY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark moody bg
+      px(ctx, x, y, s, s, '#181818');
+      // weathered grey face
+      px(ctx, x+s*0.24, y+s*0.3+bob, s*0.52, s*0.52, '#5a5048');
+      px(ctx, x+s*0.2, y+s*0.42+bob, s*0.06, s*0.32, '#5a5048');
+      px(ctx, x+s*0.76, y+s*0.42+bob, s*0.06, s*0.32, '#5a5048');
+      // grey hair
+      px(ctx, x+s*0.22, y+s*0.18+bob, s*0.56, s*0.16, '#7a7570');
+      px(ctx, x+s*0.28, y+s*0.14+bob, s*0.44, s*0.06, '#7a7570');
+      px(ctx, x+s*0.3, y+s*0.32+bob, s*0.4, s*0.04, '#6a6560');
+      // dark serious eyes
+      px(ctx, x+s*0.32, y+s*0.5+bob, s*0.1, s*0.04, '#1a1a1a');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.1, s*0.04, '#1a1a1a');
+      // grey beard
+      px(ctx, x+s*0.3, y+s*0.66+bob, s*0.4, s*0.16, '#8a8580');
+      px(ctx, x+s*0.34, y+s*0.78+bob, s*0.32, s*0.06, '#7a7570');
+      // no smile (flat mouth line)
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.16, s*0.02, '#2a2018');
+      // shadowing
+      px(ctx, x+s*0.24, y+s*0.7+bob, s*0.06, s*0.1, '#403830');
+      px(ctx, x+s*0.7, y+s*0.7+bob, s*0.06, s*0.1, '#403830');
+    },
+    LASERFIRE(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      const pulse = 0.7 + Math.sin(t / 280) * 0.3;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark bg
+      px(ctx, x, y, s, s, '#1a1218');
+      // cherry branches bg
+      px(ctx, x+s*0.04, y+s*0.2, s*0.04, s*0.3, '#3a2820');
+      px(ctx, x+s*0.88, y+s*0.16, s*0.04, s*0.34, '#3a2820');
+      px(ctx, x+s*0.06, y+s*0.24, s*0.04, s*0.04, '#ff9ec0');
+      px(ctx, x+s*0.06, y+s*0.42, s*0.04, s*0.04, '#ffb8d0');
+      px(ctx, x+s*0.9, y+s*0.28, s*0.04, s*0.04, '#ff9ec0');
+      px(ctx, x+s*0.9, y+s*0.46, s*0.04, s*0.04, '#ffb8d0');
+      // pale face
+      px(ctx, x+s*0.28, y+s*0.34+bob, s*0.44, s*0.5, '#f0e0d8');
+      px(ctx, x+s*0.24, y+s*0.46+bob, s*0.06, s*0.3, '#f0e0d8');
+      px(ctx, x+s*0.7, y+s*0.46+bob, s*0.06, s*0.3, '#f0e0d8');
+      // black hair flopping forward
+      px(ctx, x+s*0.22, y+s*0.18+bob, s*0.6, s*0.22, '#0a0810');
+      px(ctx, x+s*0.18, y+s*0.26+bob, s*0.06, s*0.24, '#0a0810');
+      px(ctx, x+s*0.76, y+s*0.26+bob, s*0.06, s*0.24, '#0a0810');
+      // hair flop over forehead
+      px(ctx, x+s*0.32, y+s*0.36+bob, s*0.18, s*0.06, '#0a0810');
+      px(ctx, x+s*0.54, y+s*0.34+bob, s*0.16, s*0.04, '#0a0810');
+      // mysterious eyes
+      px(ctx, x+s*0.34, y+s*0.5+bob, s*0.08, s*0.04, '#2a2030');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.08, s*0.04, '#2a2030');
+      // small mouth
+      px(ctx, x+s*0.46, y+s*0.7+bob, s*0.08, s*0.02, '#a06070');
+      // online green dot pulsing
+      ctx.fillStyle = `rgba(60, 220, 80, ${pulse})`;
+      ctx.fillRect(x+s*0.78, y+s*0.78, s*0.1, s*0.1);
+    },
+    F503N(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // sepia bg
+      px(ctx, x, y, s, s, '#4a3820');
+      // wide brim hat
+      px(ctx, x+s*0.08, y+s*0.26+bob, s*0.84, s*0.08, '#3a2810');
+      px(ctx, x+s*0.18, y+s*0.1+bob, s*0.64, s*0.18, '#5a3818');
+      px(ctx, x+s*0.18, y+s*0.22+bob, s*0.64, s*0.06, '#3a2810');
+      // hat band
+      px(ctx, x+s*0.18, y+s*0.24+bob, s*0.64, s*0.04, '#2a1808');
+      // shadowed face under hat
+      px(ctx, x+s*0.26, y+s*0.34+bob, s*0.48, s*0.46, '#7a5838');
+      px(ctx, x+s*0.22, y+s*0.44+bob, s*0.06, s*0.3, '#7a5838');
+      px(ctx, x+s*0.74, y+s*0.44+bob, s*0.06, s*0.3, '#7a5838');
+      // shadow under hat brim
+      px(ctx, x+s*0.26, y+s*0.34+bob, s*0.48, s*0.08, '#5a3820');
+      // eyes in shadow
+      px(ctx, x+s*0.34, y+s*0.48+bob, s*0.08, s*0.04, '#1a1008');
+      px(ctx, x+s*0.58, y+s*0.48+bob, s*0.08, s*0.04, '#1a1008');
+      // moustache
+      px(ctx, x+s*0.36, y+s*0.66+bob, s*0.28, s*0.04, '#3a2810');
+      // mouth
+      px(ctx, x+s*0.44, y+s*0.72+bob, s*0.12, s*0.02, '#2a1808');
+      // leather collar
+      px(ctx, x+s*0.2, y+s*0.84+bob, s*0.6, s*0.12, '#5a3818');
+      px(ctx, x+s*0.2, y+s*0.84+bob, s*0.6, s*0.04, '#3a2810');
+    },
+    DR_YEET(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // grey tabby face
+      px(ctx, x+s*0.18, y+s*0.3+bob, s*0.64, s*0.58, '#8a8278');
+      px(ctx, x+s*0.14, y+s*0.42+bob, s*0.06, s*0.34, '#8a8278');
+      px(ctx, x+s*0.8, y+s*0.42+bob, s*0.06, s*0.34, '#8a8278');
       // ears
-      ctx.fillStyle = "#9aa0a8";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.32, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.72, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.18+bob);
-      ctx.closePath();
-      ctx.fill();
-      // pink inner ears
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.16+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.68, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.16+bob);
-      ctx.closePath();
-      ctx.fill();
-      // half-closed grumpy slit eyes
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.018);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.34+bob);
-      ctx.moveTo(x+s*0.56, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.34+bob);
-      ctx.stroke();
+      px(ctx, x+s*0.16, y+s*0.16+bob, s*0.16, s*0.18, '#7a7268');
+      px(ctx, x+s*0.68, y+s*0.16+bob, s*0.16, s*0.18, '#7a7268');
+      px(ctx, x+s*0.2, y+s*0.22+bob, s*0.08, s*0.1, '#d090a0');
+      px(ctx, x+s*0.72, y+s*0.22+bob, s*0.08, s*0.1, '#d090a0');
+      // tabby stripes
+      px(ctx, x+s*0.32, y+s*0.32+bob, s*0.04, s*0.1, '#5a5248');
+      px(ctx, x+s*0.5, y+s*0.3+bob, s*0.04, s*0.08, '#5a5248');
+      px(ctx, x+s*0.66, y+s*0.32+bob, s*0.04, s*0.1, '#5a5248');
+      // huge yellow-green eyes (looking up dramatically)
+      px(ctx, x+s*0.24, y+s*0.46+bob, s*0.18, s*0.16, '#e8e030');
+      px(ctx, x+s*0.58, y+s*0.46+bob, s*0.18, s*0.16, '#e8e030');
+      // pupils looking up
+      px(ctx, x+s*0.3, y+s*0.46+bob, s*0.06, s*0.06, '#0a0a08');
+      px(ctx, x+s*0.64, y+s*0.46+bob, s*0.06, s*0.06, '#0a0a08');
       // pink nose
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.46+bob);
-      ctx.closePath();
-      ctx.fill();
-      // frown
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.42, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.50+bob, x+s*0.58, y+s*0.54+bob);
-      ctx.stroke();
-      // whiskers
-      ctx.lineWidth = Math.max(1, s*0.006);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.46+bob); ctx.lineTo(x+s*0.34, y+s*0.46+bob);
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob); ctx.lineTo(x+s*0.34, y+s*0.50+bob);
-      ctx.moveTo(x+s*0.66, y+s*0.46+bob); ctx.lineTo(x+s*0.80, y+s*0.46+bob);
-      ctx.moveTo(x+s*0.66, y+s*0.50+bob); ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-      ctx.stroke();
-      // //WD label
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.84+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("//WD", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("dr.yeet", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("//WD", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.050))}px monospace`;
-        ctx.fillText("</>", x+s*0.06-s*0.030, y+s*0.10+s*0.015);
-        // signature: //WD code-snippet bubble
-        ctx.fillStyle = "rgba(20,20,30,0.85)";
-        ctx.fillRect(x+s*0.65, y+s*0.30, s*0.30, s*0.14);
-        ctx.strokeStyle = "#5fc8ff";
-        ctx.lineWidth = Math.max(1, s*0.006);
-        ctx.strokeRect(x+s*0.65, y+s*0.30, s*0.30, s*0.14);
-        ctx.fillStyle = "#5fc8ff";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.040))}px monospace`;
-        ctx.fillText("//WD", x+s*0.685, y+s*0.345);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.fillText(">deploy()", x+s*0.685, y+s*0.395);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      px(ctx, x+s*0.44, y+s*0.66+bob, s*0.12, s*0.06, '#e890a0');
+      // small mouth
+      px(ctx, x+s*0.42, y+s*0.74+bob, s*0.06, s*0.04, '#3a2820');
+      px(ctx, x+s*0.52, y+s*0.74+bob, s*0.06, s*0.04, '#3a2820');
+    },
     FFFOOST(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // school outfit
-      ctx.fillStyle = "#3a4868";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.54+bob);
-      ctx.lineTo(x+s*0.18, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.82, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.54+bob);
-      ctx.closePath();
-      ctx.fill();
-      // collar
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(x+s*0.34, y+s*0.54+bob, s*0.32, s*0.08);
-      ctx.fillStyle = "#ed4245";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.66+bob);
-      ctx.closePath();
-      ctx.fill();
-      // pink twin tails
-      ctx.fillStyle = "#ff80c0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.04, y+s*0.50+bob, x+s*0.14, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.26, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.96, y+s*0.50+bob, x+s*0.86, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.74, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red ribbon ties
-      ctx.fillStyle = "#ed4245";
-      ctx.fillRect(x+s*0.18, y+s*0.40+bob, s*0.06, s*0.04);
-      ctx.fillRect(x+s*0.76, y+s*0.40+bob, s*0.06, s*0.04);
-      // face
-      ctx.fillStyle = "#ffe0e8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#ff80c0";
-      px(ctx, x+s*0.30, y+s*0.20+bob, s*0.40, s*0.12, "#ff80c0");
-      // pink cheek blush
-      ctx.fillStyle = "rgba(255,140,180,0.6)";
-      ctx.beginPath(); ctx.arc(x+s*0.34, y+s*0.46+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.66, y+s*0.46+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-      // big sparkly purple eyes
-      ctx.fillStyle = "#a060f0";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.41, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.45+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.45+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      // tiny smile
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.50+bob, s*0.020, Math.PI*0.15, Math.PI*0.85); ctx.stroke();
-      // orbiting sparkles
-      const sT = t*0.004;
-      for (let i = 0; i < 4; i++) {
-        const a = sT + i*(Math.PI*2/4);
-        const sxp = x+s*0.5 + Math.cos(a)*s*0.40;
-        const syp = y+s*0.5 + Math.sin(a)*s*0.32;
-        ctx.fillStyle = "#ffc0e0";
-        ctx.fillRect(sxp-1, syp-1, 3, 3);
-      }
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Fffoost", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80a0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("ML", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10-s*0.006);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10-s*0.006);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // pale pastel bg
+      px(ctx, x, y, s, s, '#fde8f0');
+      // long flowing pink hair (back)
+      px(ctx, x+s*0.1, y+s*0.18+bob, s*0.8, s*0.7, '#ffa8d0');
+      px(ctx, x+s*0.06, y+s*0.3+bob, s*0.06, s*0.5, '#ffa8d0');
+      px(ctx, x+s*0.88, y+s*0.3+bob, s*0.06, s*0.5, '#ffa8d0');
+      // pale face
+      px(ctx, x+s*0.28, y+s*0.34+bob, s*0.44, s*0.46, '#fef0e8');
+      px(ctx, x+s*0.24, y+s*0.46+bob, s*0.06, s*0.26, '#fef0e8');
+      px(ctx, x+s*0.7, y+s*0.46+bob, s*0.06, s*0.26, '#fef0e8');
+      // pink hair fringe
+      px(ctx, x+s*0.24, y+s*0.28+bob, s*0.52, s*0.14, '#ff90c8');
+      px(ctx, x+s*0.36, y+s*0.4+bob, s*0.08, s*0.06, '#ff90c8');
+      px(ctx, x+s*0.56, y+s*0.4+bob, s*0.08, s*0.06, '#ff90c8');
+      // bow/ribbon
+      px(ctx, x+s*0.18, y+s*0.24+bob, s*0.1, s*0.08, '#ff5090');
+      px(ctx, x+s*0.16, y+s*0.26+bob, s*0.04, s*0.04, '#ff5090');
+      // big eyes
+      px(ctx, x+s*0.32, y+s*0.5+bob, s*0.1, s*0.1, '#fff');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.1, s*0.1, '#fff');
+      px(ctx, x+s*0.34, y+s*0.52+bob, s*0.06, s*0.08, '#a050c0');
+      px(ctx, x+s*0.6, y+s*0.52+bob, s*0.06, s*0.08, '#a050c0');
+      px(ctx, x+s*0.36, y+s*0.54+bob, s*0.02, s*0.02, '#fff');
+      px(ctx, x+s*0.62, y+s*0.54+bob, s*0.02, s*0.02, '#fff');
+      // small mouth
+      px(ctx, x+s*0.46, y+s*0.7+bob, s*0.08, s*0.02, '#e07090');
+    },
     NOTAIM(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // wispy shadow trails
-      ctx.fillStyle = "rgba(40,0,0,0.4)";
-      for (let i = 0; i < 4; i++) {
-        const wy = y+s*0.74 + Math.sin(t*0.004+i)*s*0.04;
-        ctx.beginPath();
-        ctx.ellipse(x+s*(0.30+i*0.14), wy+bob, s*0.06, s*0.03, 0, 0, Math.PI*2);
-        ctx.fill();
-      }
-      // dark hooded body
-      ctx.fillStyle = "#0a0a0a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.10+bob, x+s*0.80, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.86+bob);
-      ctx.closePath();
-      ctx.fill();
-      // red glow halo
-      const pulse = 0.5 + Math.sin(t*0.008)*0.5;
-      const grad = ctx.createRadialGradient(x+s*0.5, y+s*0.40, s*0.05, x+s*0.5, y+s*0.40, s*0.30);
-      grad.addColorStop(0, `rgba(255,40,40,${pulse*0.6})`);
-      grad.addColorStop(1, "rgba(255,40,40,0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, y, s, s);
-      // crosshair eye
-      const cx = x+s*0.50, cy = y+s*0.42+bob;
-      ctx.strokeStyle = `rgba(255,40,40,${pulse})`;
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.arc(cx, cy, s*0.10, 0, Math.PI*2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx-s*0.14, cy); ctx.lineTo(cx-s*0.06, cy);
-      ctx.moveTo(cx+s*0.06, cy); ctx.lineTo(cx+s*0.14, cy);
-      ctx.moveTo(cx, cy-s*0.14); ctx.lineTo(cx, cy-s*0.06);
-      ctx.moveTo(cx, cy+s*0.06); ctx.lineTo(cx, cy+s*0.14);
-      ctx.stroke();
-      ctx.fillStyle = `rgba(255,40,40,${pulse})`;
-      ctx.beginPath(); ctx.arc(cx, cy, s*0.014, 0, Math.PI*2); ctx.fill();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("notaim", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("AIM", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.020, 0, Math.PI*2); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(x+s*0.06-s*0.026, y+s*0.10); ctx.lineTo(x+s*0.06+s*0.026, y+s*0.10); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(x+s*0.06, y+s*0.10-s*0.026); ctx.lineTo(x+s*0.06, y+s*0.10+s*0.026); ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // dark fluffy blob
+      px(ctx, x+s*0.18, y+s*0.22+bob, s*0.64, s*0.66, '#1a1208');
+      px(ctx, x+s*0.14, y+s*0.34+bob, s*0.06, s*0.46, '#1a1208');
+      px(ctx, x+s*0.8, y+s*0.34+bob, s*0.06, s*0.46, '#1a1208');
+      px(ctx, x+s*0.26, y+s*0.16+bob, s*0.48, s*0.08, '#1a1208');
+      // fuzzy texture (pseudo-random small dark rects)
+      px(ctx, x+s*0.24, y+s*0.28+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.4, y+s*0.24+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.6, y+s*0.28+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.7, y+s*0.4+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.22, y+s*0.5+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.5, y+s*0.5+bob, s*0.04, s*0.04, '#0a0604');
+      px(ctx, x+s*0.34, y+s*0.6+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.66, y+s*0.62+bob, s*0.04, s*0.04, '#0a0604');
+      px(ctx, x+s*0.28, y+s*0.72+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.56, y+s*0.74+bob, s*0.04, s*0.04, '#2a2018');
+      px(ctx, x+s*0.74, y+s*0.74+bob, s*0.04, s*0.04, '#0a0604');
+      // very subtle eye glints
+      px(ctx, x+s*0.36, y+s*0.46+bob, s*0.04, s*0.02, '#403830');
+      px(ctx, x+s*0.6, y+s*0.46+bob, s*0.04, s*0.02, '#403830');
+    },
     OANEXITY(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // gradient halo backdrop
-      const grad = ctx.createRadialGradient(x+s*0.5, y+s*0.4, s*0.10, x+s*0.5, y+s*0.4, s*0.55);
-      grad.addColorStop(0, "rgba(255,220,100,0.4)");
-      grad.addColorStop(1, "rgba(80,140,255,0.0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, y, s, s);
-      // hoodie body
-      ctx.fillStyle = "#3a6acc";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#3a6acc");
-      px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#3a6acc");
-      // hood
-      ctx.fillStyle = "#2a4a8c";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.34+bob, s*0.26, s*0.28, 0, 0, Math.PI*2);
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#ffd0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // brown hair tuft
-      ctx.fillStyle = "#7a4828";
-      px(ctx, x+s*0.42, y+s*0.26+bob, s*0.16, s*0.06, "#7a4828");
-      // big round glasses
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.06, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.06, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.48, y+s*0.42+bob); ctx.lineTo(x+s*0.52, y+s*0.42+bob);
-      ctx.stroke();
-      // glass shine
-      ctx.fillStyle = "rgba(255,255,255,0.3)";
-      ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.40+bob, s*0.020, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.020, 0, Math.PI*2); ctx.fill();
-      // tiny dot pupils
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      // small smile
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.52+bob, s*0.025, Math.PI*0.15, Math.PI*0.85); ctx.stroke();
-      // CRIB badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("CRIB", x+s*0.50, y+s*0.885+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("oAnexity", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("CRIB", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#3a3a3a";
-        ctx.fillRect(x+s*0.06-s*0.025, y+s*0.10-s*0.018, s*0.050, s*0.030);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.fillRect(x+s*0.06-s*0.022, y+s*0.10-s*0.015, s*0.044, s*0.024);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // pale skin round head
+      px(ctx, x+s*0.22, y+s*0.22+bob, s*0.56, s*0.66, '#f0d4b8');
+      px(ctx, x+s*0.18, y+s*0.32+bob, s*0.06, s*0.46, '#f0d4b8');
+      px(ctx, x+s*0.78, y+s*0.32+bob, s*0.06, s*0.46, '#f0d4b8');
+      px(ctx, x+s*0.3, y+s*0.16+bob, s*0.4, s*0.08, '#f0d4b8');
+      // bald shine
+      px(ctx, x+s*0.36, y+s*0.22+bob, s*0.16, s*0.04, '#ffe8c8');
+      // round black-rim glasses (left)
+      px(ctx, x+s*0.22, y+s*0.42+bob, s*0.22, s*0.04, '#0a0a0a');
+      px(ctx, x+s*0.22, y+s*0.42+bob, s*0.04, s*0.18, '#0a0a0a');
+      px(ctx, x+s*0.4, y+s*0.42+bob, s*0.04, s*0.18, '#0a0a0a');
+      px(ctx, x+s*0.22, y+s*0.56+bob, s*0.22, s*0.04, '#0a0a0a');
+      px(ctx, x+s*0.26, y+s*0.46+bob, s*0.14, s*0.1, '#d8e8f0');
+      // round glasses (right)
+      px(ctx, x+s*0.56, y+s*0.42+bob, s*0.22, s*0.04, '#0a0a0a');
+      px(ctx, x+s*0.56, y+s*0.42+bob, s*0.04, s*0.18, '#0a0a0a');
+      px(ctx, x+s*0.74, y+s*0.42+bob, s*0.04, s*0.18, '#0a0a0a');
+      px(ctx, x+s*0.56, y+s*0.56+bob, s*0.22, s*0.04, '#0a0a0a');
+      px(ctx, x+s*0.6, y+s*0.46+bob, s*0.14, s*0.1, '#d8e8f0');
+      // bridge
+      px(ctx, x+s*0.44, y+s*0.46+bob, s*0.12, s*0.04, '#0a0a0a');
+      // tiny eyes behind glasses
+      px(ctx, x+s*0.32, y+s*0.49+bob, s*0.04, s*0.04, '#0a0a0a');
+      px(ctx, x+s*0.64, y+s*0.49+bob, s*0.04, s*0.04, '#0a0a0a');
+      // small neutral mouth
+      px(ctx, x+s*0.44, y+s*0.74+bob, s*0.12, s*0.02, '#8a5040');
+    },
     EVAN(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // long purple hair (back)
-      ctx.fillStyle = "#a060f0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.16, y+s*0.60+bob, x+s*0.26, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.74, y+s*0.86+bob);
-      ctx.quadraticCurveTo(x+s*0.84, y+s*0.60+bob, x+s*0.72, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // soft purple outfit
-      ctx.fillStyle = "#c8a8e8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.18, y+s*0.62+bob, s*0.10, s*0.20, "#c8a8e8");
-      px(ctx, x+s*0.72, y+s*0.62+bob, s*0.10, s*0.20, "#c8a8e8");
-      // face
-      ctx.fillStyle = "#ffe0d0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // bangs
-      ctx.fillStyle = "#a060f0";
-      px(ctx, x+s*0.30, y+s*0.24+bob, s*0.40, s*0.10, "#a060f0");
-      // big anime eyes
-      ctx.fillStyle = "#ff80b8";
-      ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.42+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.40+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      // small smile
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.52+bob, s*0.020, Math.PI*0.15, Math.PI*0.85); ctx.stroke();
-      // gold trophy
-      ctx.fillStyle = "#ffd700";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.78, y+s*0.60+bob);
-      ctx.lineTo(x+s*0.92, y+s*0.60+bob);
-      ctx.lineTo(x+s*0.88, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.82, y+s*0.74+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillRect(x+s*0.80, y+s*0.74+bob, s*0.10, s*0.02);
-      ctx.fillRect(x+s*0.82, y+s*0.76+bob, s*0.06, s*0.04);
-      ctx.strokeStyle = "#ffd700";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath(); ctx.arc(x+s*0.78, y+s*0.64+bob, s*0.020, Math.PI*0.5, Math.PI*1.5); ctx.stroke();
-      ctx.beginPath(); ctx.arc(x+s*0.92, y+s*0.64+bob, s*0.020, Math.PI*1.5, Math.PI*0.5); ctx.stroke();
-      // MESA badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.04, y+s*0.86+bob, s*0.20, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("MESA", x+s*0.14, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Evan", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a04090";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("MESA", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.fillRect(x+s*0.06-s*0.015, y+s*0.10-s*0.020, s*0.030, s*0.025);
-        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10+s*0.005, s*0.040, s*0.008);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // soft bg
+      px(ctx, x, y, s, s, '#2a3020');
+      // green leaves around
+      px(ctx, x+s*0.04, y+s*0.16, s*0.14, s*0.06, '#3a8030');
+      px(ctx, x+s*0.06, y+s*0.22, s*0.1, s*0.04, '#4a9038');
+      px(ctx, x+s*0.82, y+s*0.7, s*0.14, s*0.06, '#3a8030');
+      px(ctx, x+s*0.84, y+s*0.76, s*0.1, s*0.04, '#4a9038');
+      px(ctx, x+s*0.04, y+s*0.78, s*0.12, s*0.06, '#3a8030');
+      // bright pink hair (flowing)
+      px(ctx, x+s*0.16, y+s*0.28+bob, s*0.7, s*0.6, '#ff60b0');
+      px(ctx, x+s*0.1, y+s*0.4+bob, s*0.08, s*0.4, '#ff60b0');
+      px(ctx, x+s*0.84, y+s*0.4+bob, s*0.08, s*0.4, '#ff60b0');
+      // hair shine
+      px(ctx, x+s*0.24, y+s*0.32+bob, s*0.4, s*0.04, '#ff90c8');
+      // pale face
+      px(ctx, x+s*0.3, y+s*0.4+bob, s*0.4, s*0.4, '#fff0e0');
+      px(ctx, x+s*0.26, y+s*0.5+bob, s*0.06, s*0.22, '#fff0e0');
+      px(ctx, x+s*0.68, y+s*0.5+bob, s*0.06, s*0.22, '#fff0e0');
+      // pink fringe
+      px(ctx, x+s*0.3, y+s*0.4+bob, s*0.4, s*0.08, '#ff60b0');
+      // big eyes (lying down vibe - half closed)
+      px(ctx, x+s*0.34, y+s*0.54+bob, s*0.1, s*0.04, '#fff');
+      px(ctx, x+s*0.56, y+s*0.54+bob, s*0.1, s*0.04, '#fff');
+      px(ctx, x+s*0.36, y+s*0.54+bob, s*0.06, s*0.04, '#c84090');
+      px(ctx, x+s*0.58, y+s*0.54+bob, s*0.06, s*0.04, '#c84090');
+      // mouth
+      px(ctx, x+s*0.46, y+s*0.7+bob, s*0.08, s*0.02, '#d05080');
+    },
     ZYPHON(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // misty dark aura
-      const grad = ctx.createRadialGradient(x+s*0.5, y+s*0.5, s*0.10, x+s*0.5, y+s*0.5, s*0.50);
-      grad.addColorStop(0, "rgba(120,60,160,0.4)");
-      grad.addColorStop(1, "rgba(40,20,60,0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, y, s, s);
-      // long curling tail
-      ctx.fillStyle = "#1a0a1a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.78, y+s*0.66+bob);
-      ctx.quadraticCurveTo(x+s*0.96, y+s*0.50+bob, x+s*0.86, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.80, y+s*0.40+bob, x+s*0.74, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      // sleek black body
-      ctx.fillStyle = "#0a0510";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.66+bob, s*0.28, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // head
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.24, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // pointed ears
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.28+bob);
-      ctx.lineTo(x+s*0.30, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.68, y+s*0.28+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // faint purple inner ears
-      ctx.fillStyle = "#5a2a6a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.38, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.68, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // sleepy glowing purple half-closed eyes
-      const eglow2 = 0.6 + Math.sin(t*0.005)*0.4;
-      ctx.fillStyle = `rgba(160,80,255,${eglow2})`;
-      ctx.fillRect(x+s*0.36, y+s*0.40+bob, s*0.10, s*0.02);
-      ctx.fillRect(x+s*0.54, y+s*0.40+bob, s*0.10, s*0.02);
-      // smug mouth
-      ctx.strokeStyle = "#5a2a6a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.54+bob, x+s*0.54, y+s*0.50+bob);
-      ctx.stroke();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("zyphon_.", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5a5e64";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("...", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("zzz", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // dark moody bg
+      px(ctx, x, y, s, s, '#101010');
+      // ears up
+      px(ctx, x+s*0.18, y+s*0.14+bob, s*0.16, s*0.2, '#3a2818');
+      px(ctx, x+s*0.66, y+s*0.14+bob, s*0.16, s*0.2, '#3a2818');
+      px(ctx, x+s*0.22, y+s*0.2+bob, s*0.08, s*0.1, '#1a1008');
+      px(ctx, x+s*0.7, y+s*0.2+bob, s*0.08, s*0.1, '#1a1008');
+      // brown/black dog face
+      px(ctx, x+s*0.22, y+s*0.3+bob, s*0.56, s*0.54, '#3a2818');
+      px(ctx, x+s*0.18, y+s*0.42+bob, s*0.06, s*0.34, '#3a2818');
+      px(ctx, x+s*0.78, y+s*0.42+bob, s*0.06, s*0.34, '#3a2818');
+      // dramatic shadow/lighting
+      px(ctx, x+s*0.22, y+s*0.3+bob, s*0.28, s*0.5, '#1a1008');
+      // muzzle
+      px(ctx, x+s*0.34, y+s*0.62+bob, s*0.32, s*0.22, '#2a1c10');
+      // nose
+      px(ctx, x+s*0.44, y+s*0.66+bob, s*0.12, s*0.08, '#0a0604');
+      // eyes barely visible (small glints)
+      px(ctx, x+s*0.32, y+s*0.5+bob, s*0.04, s*0.03, '#a08060');
+      px(ctx, x+s*0.64, y+s*0.5+bob, s*0.04, s*0.03, '#a08060');
+      // mouth
+      px(ctx, x+s*0.42, y+s*0.78+bob, s*0.16, s*0.02, '#0a0604');
+    },
     SAPWN(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
+      const bob = Math.sin(t / 320) * 1.6;
+      const drip = Math.sin(t / 400) * 2;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // red moon backdrop
-      ctx.fillStyle = "#a01020";
-      ctx.beginPath(); ctx.arc(x+s*0.78, y+s*0.20, s*0.16, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = "#601018";
-      ctx.beginPath(); ctx.arc(x+s*0.74, y+s*0.18, s*0.04, 0, Math.PI*2); ctx.fill();
-      // hooded silhouette
-      ctx.fillStyle = "#0a0a14";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.10+bob, x+s*0.80, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.84, y+s*0.86+bob);
-      ctx.lineTo(x+s*0.16, y+s*0.86+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hood inner shadow
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.40+bob, s*0.16, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // glowing red eye dots
-      const eglow3 = 0.6 + Math.sin(t*0.006)*0.4;
-      ctx.fillStyle = `rgba(255,40,40,${eglow3})`;
-      ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-      // hourglass
-      const hT = (t*0.0008) % 1;
-      ctx.save();
-      ctx.translate(x+s*0.32, y+s*0.62+bob);
-      ctx.fillStyle = "#a07050";
-      ctx.fillRect(-s*0.08, -s*0.14, s*0.16, s*0.02);
-      ctx.fillRect(-s*0.08, s*0.12, s*0.16, s*0.02);
-      ctx.fillStyle = "rgba(220,200,160,0.4)";
-      ctx.beginPath();
-      ctx.moveTo(-s*0.08, -s*0.12);
-      ctx.lineTo(s*0.08, -s*0.12);
-      ctx.lineTo(0, 0);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(-s*0.08, s*0.12);
-      ctx.lineTo(s*0.08, s*0.12);
-      ctx.lineTo(0, 0);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = "#dcb878";
-      const topH = (1 - hT) * s*0.10;
-      const topW = s*0.08*topH/(s*0.10);
-      ctx.beginPath();
-      ctx.moveTo(-topW, -s*0.12);
-      ctx.lineTo(topW, -s*0.12);
-      ctx.lineTo(0.01, -s*0.12 + topH);
-      ctx.lineTo(-0.01, -s*0.12 + topH);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillRect(-1, -s*0.04, 2, s*0.08);
-      const botH = hT * s*0.10;
-      const botW = s*0.08*botH/(s*0.10);
-      ctx.beginPath();
-      ctx.moveTo(0, s*0.12 - botH);
-      ctx.lineTo(botW, s*0.12);
-      ctx.lineTo(-botW, s*0.12);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("sapwn", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a01020";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("6/5", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "rgba(0,0,0,0.5)";
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.008, y+s*0.10-s*0.004, s*0.018, 0, Math.PI*2); ctx.fill();
-        // signature: big "JUNE 5TH!!" overlay
-        ctx.save();
-        ctx.translate(x+s*0.50, y+s*0.16);
-        ctx.rotate(-0.12);
-        ctx.font = `900 ${Math.max(8, Math.floor(s*0.090))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#000";
-        ctx.fillText("JUNE 5TH!!", 2, 2);
-        ctx.fillStyle = "#ed4245";
-        ctx.fillText("JUNE 5TH!!", 0, 0);
-        ctx.restore();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
+      // red drippy bg
+      px(ctx, x, y, s, s, '#3a0810');
+      // drips
+      px(ctx, x+s*0.1, y, s*0.04, s*0.4+drip, '#a01828');
+      px(ctx, x+s*0.3, y, s*0.04, s*0.3+drip, '#a01828');
+      px(ctx, x+s*0.5, y, s*0.04, s*0.5+drip, '#a01828');
+      px(ctx, x+s*0.7, y, s*0.04, s*0.34+drip, '#a01828');
+      px(ctx, x+s*0.86, y, s*0.04, s*0.42+drip, '#a01828');
+      // gold hourglass mid layer
+      px(ctx, x+s*0.34, y+s*0.18+bob, s*0.32, s*0.04, '#e8c040');
+      px(ctx, x+s*0.34, y+s*0.78+bob, s*0.32, s*0.04, '#e8c040');
+      px(ctx, x+s*0.36, y+s*0.22+bob, s*0.28, s*0.14, '#f0d860');
+      px(ctx, x+s*0.42, y+s*0.36+bob, s*0.16, s*0.04, '#c89830');
+      px(ctx, x+s*0.46, y+s*0.4+bob, s*0.08, s*0.16, '#c89830');
+      px(ctx, x+s*0.42, y+s*0.56+bob, s*0.16, s*0.04, '#c89830');
+      px(ctx, x+s*0.36, y+s*0.6+bob, s*0.28, s*0.18, '#f0d860');
+      // anime girl face in front
+      px(ctx, x+s*0.3, y+s*0.36+bob, s*0.4, s*0.42, '#fde8d8');
+      // dark hair
+      px(ctx, x+s*0.26, y+s*0.3+bob, s*0.48, s*0.12, '#1a0a14');
+      px(ctx, x+s*0.24, y+s*0.38+bob, s*0.06, s*0.3, '#1a0a14');
+      px(ctx, x+s*0.7, y+s*0.38+bob, s*0.06, s*0.3, '#1a0a14');
+      // big eyes
+      px(ctx, x+s*0.32, y+s*0.5+bob, s*0.1, s*0.08, '#fff');
+      px(ctx, x+s*0.58, y+s*0.5+bob, s*0.1, s*0.08, '#fff');
+      px(ctx, x+s*0.34, y+s*0.52+bob, s*0.06, s*0.06, '#a01838');
+      px(ctx, x+s*0.6, y+s*0.52+bob, s*0.06, s*0.06, '#a01838');
+      // mouth
+      px(ctx, x+s*0.44, y+s*0.7+bob, s*0.12, s*0.02, '#c04060');
+    },
     SNAIL4(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.0028) * (s*0.010);
+      const bob = Math.sin(t / 320) * 1.6;
+      const zfloat = Math.sin(t / 500) * 2;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // pink hoodie
-      ctx.fillStyle = "#ffa0c0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#ffa0c0");
-      px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#ffa0c0");
-      // long pink drooping hair
-      ctx.fillStyle = "#ff80a8";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.26, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.16, y+s*0.66+bob, x+s*0.28, y+s*0.80+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.74, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.84, y+s*0.66+bob, x+s*0.72, y+s*0.80+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // face
-      ctx.fillStyle = "#ffe0d8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // droopy bangs
-      ctx.fillStyle = "#ff80a8";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.42+bob, x+s*0.68, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.32, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // eyebags
-      ctx.fillStyle = "rgba(120,80,100,0.4)";
-      ctx.fillRect(x+s*0.38, y+s*0.46+bob, s*0.08, s*0.02);
-      ctx.fillRect(x+s*0.54, y+s*0.46+bob, s*0.08, s*0.02);
-      // half-closed sleepy eyes
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.38, y+s*0.42+bob); ctx.lineTo(x+s*0.46, y+s*0.42+bob);
-      ctx.moveTo(x+s*0.54, y+s*0.42+bob); ctx.lineTo(x+s*0.62, y+s*0.42+bob);
-      ctx.stroke();
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.52+bob); ctx.lineTo(x+s*0.54, y+s*0.52+bob);
-      ctx.stroke();
-      // tiny snail in hand
-      const sxh = x+s*0.18, syh = y+s*0.78+bob;
-      ctx.fillStyle = "#a0c8a0";
-      ctx.beginPath();
-      ctx.ellipse(sxh, syh, s*0.08, s*0.04, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#a07050";
-      ctx.beginPath();
-      ctx.arc(sxh-s*0.02, syh-s*0.03, s*0.05, 0, Math.PI*2);
-      ctx.fill();
-      ctx.strokeStyle = "#5a3818";
-      ctx.lineWidth = Math.max(1, s*0.006);
-      ctx.beginPath();
-      ctx.arc(sxh-s*0.02, syh-s*0.03, s*0.025, 0, Math.PI*1.5);
-      ctx.stroke();
-      ctx.strokeStyle = "#3a8838";
-      ctx.beginPath();
-      ctx.moveTo(sxh+s*0.04, syh-s*0.02); ctx.lineTo(sxh+s*0.06, syh-s*0.06);
-      ctx.moveTo(sxh+s*0.06, syh-s*0.02); ctx.lineTo(sxh+s*0.08, syh-s*0.06);
-      ctx.stroke();
-      // floating Z
-      const zT = (t*0.001) % 1;
-      const zY = y + s*0.20 - zT * s*0.12;
-      const zA = (1 - zT) * 0.7;
-      ctx.fillStyle = `rgba(160,140,180,${zA})`;
-      ctx.font = `bold ${Math.max(6, Math.floor(s*0.10))}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("z", x+s*0.80, zY);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Snail4", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ff80a0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("ATSM", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("zzz", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        // signature: "...tired" speech bubble
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.78, y+s*0.20, s*0.18, s*0.08, 0, 0, Math.PI*2);
-        ctx.fill();
-        ctx.strokeStyle = "#1a1a1a";
-        ctx.lineWidth = Math.max(1, s*0.005);
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.78, y+s*0.20, s*0.18, s*0.08, 0, 0, Math.PI*2);
-        ctx.stroke();
-        ctx.fillStyle = "#1a1a1a";
-        ctx.font = `bold ${Math.max(6, Math.floor(s*0.045))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("...tired", x+s*0.78, y+s*0.215);
-        ctx.textAlign = "start";
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
+      // soft pink bg
+      px(ctx, x, y, s, s, '#ffd8e8');
+      // crescent moon
+      px(ctx, x+s*0.78, y+s*0.12, s*0.12, s*0.12, '#fff8c0');
+      px(ctx, x+s*0.82, y+s*0.14, s*0.08, s*0.08, '#ffd8e8');
+      // pink hair
+      px(ctx, x+s*0.16, y+s*0.22+bob, s*0.7, s*0.66, '#ffa0c8');
+      px(ctx, x+s*0.1, y+s*0.34+bob, s*0.08, s*0.5, '#ffa0c8');
+      px(ctx, x+s*0.84, y+s*0.34+bob, s*0.08, s*0.5, '#ffa0c8');
+      // hair shine
+      px(ctx, x+s*0.28, y+s*0.26+bob, s*0.3, s*0.04, '#ffc0d8');
+      // pale face
+      px(ctx, x+s*0.3, y+s*0.4+bob, s*0.4, s*0.4, '#fff4ec');
+      px(ctx, x+s*0.26, y+s*0.5+bob, s*0.06, s*0.22, '#fff4ec');
+      px(ctx, x+s*0.68, y+s*0.5+bob, s*0.06, s*0.22, '#fff4ec');
+      // pink fringe
+      px(ctx, x+s*0.3, y+s*0.4+bob, s*0.4, s*0.06, '#ffa0c8');
+      // sleepy half-closed eyes (curves)
+      px(ctx, x+s*0.32, y+s*0.56+bob, s*0.12, s*0.02, '#a04070');
+      px(ctx, x+s*0.32, y+s*0.58+bob, s*0.04, s*0.02, '#a04070');
+      px(ctx, x+s*0.4, y+s*0.58+bob, s*0.04, s*0.02, '#a04070');
+      px(ctx, x+s*0.56, y+s*0.56+bob, s*0.12, s*0.02, '#a04070');
+      px(ctx, x+s*0.56, y+s*0.58+bob, s*0.04, s*0.02, '#a04070');
+      px(ctx, x+s*0.64, y+s*0.58+bob, s*0.04, s*0.02, '#a04070');
+      // small drowsy mouth
+      px(ctx, x+s*0.46, y+s*0.7+bob, s*0.08, s*0.02, '#c06090');
+      // floating Z's
+      px(ctx, x+s*0.16+zfloat, y+s*0.22+zfloat, s*0.08, s*0.02, '#7050a0');
+      px(ctx, x+s*0.18+zfloat, y+s*0.24+zfloat, s*0.04, s*0.02, '#7050a0');
+      px(ctx, x+s*0.16+zfloat, y+s*0.26+zfloat, s*0.08, s*0.02, '#7050a0');
+      px(ctx, x+s*0.08-zfloat, y+s*0.34-zfloat, s*0.06, s*0.02, '#7050a0');
+      px(ctx, x+s*0.08-zfloat, y+s*0.38-zfloat, s*0.06, s*0.02, '#7050a0');
+    },
 
     ZENI(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t*0.003) * (s*0.012);
@@ -3455,2989 +1104,553 @@
         ctx.restore();
       } catch(__e) { /* flourish fail-safe */ }
 },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ZENSER48(ctx, sp, x, y, s, t) {
-  const bob = Math.sin(t*0.003) * (s*0.012);
-  shadow(ctx, x+s/2, y+s-4, s*0.36, 6);
-  // wispy shadow tendrils at base (animated)
-  const wisp = Math.sin(t*0.004)*0.5+0.5;
-  ctx.fillStyle = `rgba(60,20,40,${0.3+wisp*0.2})`;
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.20, y+s*0.92+bob);
-  ctx.quadraticCurveTo(x+s*0.10, y+s*0.86+bob, x+s*0.16, y+s*0.78+bob);
-  ctx.quadraticCurveTo(x+s*0.22, y+s*0.86+bob, x+s*0.20, y+s*0.92+bob);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.80, y+s*0.92+bob);
-  ctx.quadraticCurveTo(x+s*0.90, y+s*0.86+bob, x+s*0.84, y+s*0.78+bob);
-  ctx.quadraticCurveTo(x+s*0.78, y+s*0.86+bob, x+s*0.80, y+s*0.92+bob);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.50, y+s*0.96+bob);
-  ctx.quadraticCurveTo(x+s*0.40, y+s*0.92+bob, x+s*0.46, y+s*0.84+bob);
-  ctx.quadraticCurveTo(x+s*0.54, y+s*0.92+bob, x+s*0.50, y+s*0.96+bob);
-  ctx.fill();
-  // tapered cloak silhouette
-  ctx.fillStyle = "#0a0512";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.36, y+s*0.18+bob);
-  ctx.lineTo(x+s*0.30, y+s*0.40+bob);
-  ctx.lineTo(x+s*0.18, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.82, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.70, y+s*0.40+bob);
-  ctx.lineTo(x+s*0.64, y+s*0.18+bob);
-  ctx.closePath();
-  ctx.fill();
-  // hood drape over head
-  ctx.fillStyle = "#0a0512";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.30, y+s*0.40+bob);
-  ctx.quadraticCurveTo(x+s*0.30, y+s*0.16+bob, x+s*0.50, y+s*0.10+bob);
-  ctx.quadraticCurveTo(x+s*0.70, y+s*0.16+bob, x+s*0.70, y+s*0.40+bob);
-  ctx.lineTo(x+s*0.62, y+s*0.42+bob);
-  ctx.quadraticCurveTo(x+s*0.62, y+s*0.28+bob, x+s*0.50, y+s*0.24+bob);
-  ctx.quadraticCurveTo(x+s*0.38, y+s*0.28+bob, x+s*0.38, y+s*0.42+bob);
-  ctx.closePath();
-  ctx.fill();
-  // hood drape highlight (subtle edge)
-  ctx.fillStyle = "#2a1638";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.30, y+s*0.40+bob);
-  ctx.quadraticCurveTo(x+s*0.30, y+s*0.18+bob, x+s*0.42, y+s*0.12+bob);
-  ctx.lineTo(x+s*0.40, y+s*0.18+bob);
-  ctx.quadraticCurveTo(x+s*0.34, y+s*0.24+bob, x+s*0.34, y+s*0.40+bob);
-  ctx.closePath();
-  ctx.fill();
-  // inner hood shadow (deep)
-  ctx.fillStyle = "#000";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.50, y+s*0.40+bob, s*0.13, s*0.12, 0, 0, Math.PI*2);
-  ctx.fill();
-  // pulsing red glowing eyes
-  const pulse = 0.5 + Math.sin(t*0.008)*0.5;
-  // outer glow
-  ctx.fillStyle = `rgba(255,40,60,${0.25+pulse*0.25})`;
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.045, 0, Math.PI*2); ctx.fill();
-  // inner eye
-  ctx.fillStyle = `rgba(255,80,90,${0.7+pulse*0.3})`;
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-  // hot core
-  ctx.fillStyle = "#fff";
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-  // floating dark sparks
-  for (let i = 0; i < 4; i++) {
-    const a = t*0.002 + i*Math.PI*0.5;
-    const fx = x+s*0.5 + Math.cos(a)*s*0.36;
-    const fy = y+s*0.5 + Math.sin(a)*s*0.30;
-    ctx.fillStyle = `rgba(120,40,80,${0.3+pulse*0.3})`;
-    ctx.beginPath(); ctx.arc(fx, fy, s*0.012, 0, Math.PI*2); ctx.fill();
-  }
-      // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("zenser48", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5865f2";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("48", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("zzz", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-ADOT(ctx, sp, x, y, s, t) {
-  const bob = Math.sin(t*0.003) * (s*0.012);
-  shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-  // dark backdrop circle (the "page")
-  ctx.fillStyle = "#1a1626";
-  ctx.beginPath();
-  ctx.arc(x+s*0.5, y+s*0.5+bob, s*0.42, 0, Math.PI*2);
-  ctx.fill();
-  // page subtle inner ring
-  ctx.strokeStyle = "#2a2436";
-  ctx.lineWidth = Math.max(1, s*0.008);
-  ctx.beginPath();
-  ctx.arc(x+s*0.5, y+s*0.5+bob, s*0.40, 0, Math.PI*2);
-  ctx.stroke();
-  // big white dot (main body)
-  ctx.fillStyle = "#f8f8fa";
-  ctx.beginPath();
-  ctx.arc(x+s*0.5, y+s*0.46+bob, s*0.22, 0, Math.PI*2);
-  ctx.fill();
-  // subtle gloss highlight (offset ellipse)
-  ctx.fillStyle = "rgba(255,255,255,0.7)";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.42, y+s*0.38+bob, s*0.08, s*0.05, -0.4, 0, Math.PI*2);
-  ctx.fill();
-  // softer secondary highlight
-  ctx.fillStyle = "rgba(255,255,255,0.35)";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.56, y+s*0.52+bob, s*0.06, s*0.03, 0.3, 0, Math.PI*2);
-  ctx.fill();
-  // soft shadow under dot (on the page)
-  ctx.fillStyle = "rgba(0,0,0,0.25)";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.66+bob, s*0.18, s*0.04, 0, 0, Math.PI*2);
-  ctx.fill();
-  // cute eyes (small black dots)
-  ctx.fillStyle = "#1a1a26";
-  ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.44+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.44+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-  // eye shines
-  ctx.fillStyle = "#fff";
-  ctx.beginPath(); ctx.arc(x+s*0.435, y+s*0.435+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.575, y+s*0.435+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-  // tiny smile
-  ctx.strokeStyle = "#1a1a26";
-  ctx.lineWidth = Math.max(1, s*0.012);
-  ctx.beginPath();
-  ctx.arc(x+s*0.50, y+s*0.50+bob, s*0.04, Math.PI*0.15, Math.PI*0.85);
-  ctx.stroke();
-  // tiny pink cheeks
-  ctx.fillStyle = "rgba(255,160,180,0.45)";
-  ctx.beginPath(); ctx.arc(x+s*0.39, y+s*0.50+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.61, y+s*0.50+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-  // "Adot" tiny label below
-  ctx.fillStyle = "#c8c0d8";
-  ctx.font = `${Math.floor(s*0.06)}px monospace`;
-  ctx.textAlign = "center";
-  ctx.fillText("Adot", x+s*0.50, y+s*0.86+bob);
-  ctx.textAlign = "start";
-  // tiny sparkle around the dot
-  const spark = 0.4 + Math.sin(t*0.005)*0.6;
-  ctx.fillStyle = `rgba(255,255,255,${spark})`;
-  px(ctx, x+s*0.74, y+s*0.30+bob, s*0.012, s*0.012, `rgba(255,255,255,${spark})`);
-  px(ctx, x+s*0.24, y+s*0.62+bob, s*0.010, s*0.010, `rgba(255,255,255,${spark*0.7})`);
-      // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Adot", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#3a3a3a";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("DOT", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.014, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-IMOH(ctx, sp, x, y, s, t) {
-  const bob = Math.sin(t*0.003) * (s*0.012);
-  shadow(ctx, x+s/2, y+s-4, s*0.30, 5);
-  // faint lavender aura (radial)
-  const auraGrad = ctx.createRadialGradient(x+s*0.5, y+s*0.5+bob, s*0.10, x+s*0.5, y+s*0.5+bob, s*0.55);
-  auraGrad.addColorStop(0, "rgba(180,140,220,0.30)");
-  auraGrad.addColorStop(1, "rgba(180,140,220,0.00)");
-  ctx.fillStyle = auraGrad;
-  ctx.fillRect(x, y, s, s);
-  // tall slim purple silhouette body (slumped)
-  ctx.fillStyle = "#3a1c4a";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.42, y+s*0.32+bob);
-  ctx.lineTo(x+s*0.36, y+s*0.94+bob);
-  ctx.lineTo(x+s*0.62, y+s*0.94+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.32+bob);
-  ctx.closePath();
-  ctx.fill();
-  // body highlight (a little lighter on right)
-  ctx.fillStyle = "#522866";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.54, y+s*0.34+bob);
-  ctx.lineTo(x+s*0.50, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.34+bob);
-  ctx.closePath();
-  ctx.fill();
-  // droopy arms (long, hanging)
-  ctx.fillStyle = "#3a1c4a";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.36, y+s*0.40+bob);
-  ctx.quadraticCurveTo(x+s*0.22, y+s*0.62+bob, x+s*0.26, y+s*0.84+bob);
-  ctx.lineTo(x+s*0.32, y+s*0.84+bob);
-  ctx.quadraticCurveTo(x+s*0.30, y+s*0.62+bob, x+s*0.42, y+s*0.46+bob);
-  ctx.closePath();
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.64, y+s*0.40+bob);
-  ctx.quadraticCurveTo(x+s*0.78, y+s*0.62+bob, x+s*0.74, y+s*0.84+bob);
-  ctx.lineTo(x+s*0.68, y+s*0.84+bob);
-  ctx.quadraticCurveTo(x+s*0.70, y+s*0.62+bob, x+s*0.58, y+s*0.46+bob);
-  ctx.closePath();
-  ctx.fill();
-  // head (tilted forward — slight offset)
-  ctx.fillStyle = "#c8a8d0";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.50, y+s*0.30+bob, s*0.13, s*0.14, 0.15, 0, Math.PI*2);
-  ctx.fill();
-  // dark purple hair (covers top, drooping over forward-tilted head)
-  ctx.fillStyle = "#1a0826";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.38, y+s*0.20+bob);
-  ctx.quadraticCurveTo(x+s*0.42, y+s*0.10+bob, x+s*0.54, y+s*0.12+bob);
-  ctx.quadraticCurveTo(x+s*0.62, y+s*0.18+bob, x+s*0.62, y+s*0.30+bob);
-  ctx.lineTo(x+s*0.56, y+s*0.34+bob);
-  ctx.quadraticCurveTo(x+s*0.54, y+s*0.24+bob, x+s*0.46, y+s*0.26+bob);
-  ctx.lineTo(x+s*0.40, y+s*0.30+bob);
-  ctx.closePath();
-  ctx.fill();
-  // hair bangs drooping over eyes
-  ctx.fillStyle = "#1a0826";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.40, y+s*0.28+bob);
-  ctx.quadraticCurveTo(x+s*0.50, y+s*0.36+bob, x+s*0.60, y+s*0.28+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.22+bob);
-  ctx.lineTo(x+s*0.42, y+s*0.22+bob);
-  ctx.closePath();
-  ctx.fill();
-  // sleepy half-closed lavender eye lines (thin slits)
-  ctx.strokeStyle = "#7a4a9a";
-  ctx.lineWidth = Math.max(1, s*0.012);
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.42, y+s*0.32+bob);
-  ctx.lineTo(x+s*0.47, y+s*0.33+bob);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.53, y+s*0.32+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.33+bob);
-  ctx.stroke();
-  // tiny flat mouth
-  ctx.strokeStyle = "#5a2870";
-  ctx.lineWidth = Math.max(1, s*0.010);
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.47, y+s*0.38+bob);
-  ctx.lineTo(x+s*0.53, y+s*0.38+bob);
-  ctx.stroke();
-  // floating Z (sleepy)
-  const zBob = Math.sin(t*0.004) * (s*0.02);
-  ctx.fillStyle = "#9c80c0";
-  ctx.font = `bold ${Math.floor(s*0.10)}px monospace`;
-  ctx.fillText("Z", x+s*0.74, y+s*0.18+bob+zBob);
-  ctx.fillStyle = "#b8a0d8";
-  ctx.font = `bold ${Math.floor(s*0.06)}px monospace`;
-  ctx.fillText("z", x+s*0.82, y+s*0.10+bob+zBob*0.7);
-      // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("imoh", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a07ad8";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("IMH", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("zzz", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-DOSEY(ctx, sp, x, y, s, t) {
-  const bob = Math.sin(t*0.003) * (s*0.012);
-  shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-  // mischievous body (kid-sized hoodie, slightly small)
-  ctx.fillStyle = "#3a4a78";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.76+bob, s*0.30, s*0.20, 0, 0, Math.PI*2);
-  ctx.fill();
-  // arms
-  px(ctx, x+s*0.20, y+s*0.66+bob, s*0.10, s*0.18, "#3a4a78");
-  px(ctx, x+s*0.70, y+s*0.66+bob, s*0.10, s*0.18, "#3a4a78");
-  // pointy red devil tail (tip)
-  ctx.fillStyle = "#d8202a";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.78, y+s*0.74+bob);
-  ctx.quadraticCurveTo(x+s*0.92, y+s*0.78+bob, x+s*0.86, y+s*0.66+bob);
-  ctx.quadraticCurveTo(x+s*0.84, y+s*0.72+bob, x+s*0.78, y+s*0.74+bob);
-  ctx.closePath();
-  ctx.fill();
-  // tail arrow tip
-  ctx.fillStyle = "#a8101a";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.86, y+s*0.66+bob);
-  ctx.lineTo(x+s*0.92, y+s*0.62+bob);
-  ctx.lineTo(x+s*0.88, y+s*0.70+bob);
-  ctx.closePath();
-  ctx.fill();
-  // face
-  ctx.fillStyle = "#ffd8b8";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.46+bob, s*0.18, s*0.18, 0, 0, Math.PI*2);
-  ctx.fill();
-  // tiny red devil horns peeking from cap
-  ctx.fillStyle = "#d8202a";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.36, y+s*0.24+bob);
-  ctx.lineTo(x+s*0.32, y+s*0.16+bob);
-  ctx.lineTo(x+s*0.40, y+s*0.22+bob);
-  ctx.closePath();
-  ctx.fill();
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.64, y+s*0.24+bob);
-  ctx.lineTo(x+s*0.68, y+s*0.16+bob);
-  ctx.lineTo(x+s*0.60, y+s*0.22+bob);
-  ctx.closePath();
-  ctx.fill();
-  // red BACKWARDS baseball cap (button on back at front since backwards)
-  // brim sticking out the BACK (right side here for backwards effect)
-  ctx.fillStyle = "#a8101a";
-  ctx.fillRect(x+s*0.10, y+s*0.32+bob, s*0.20, s*0.04);
-  // cap dome
-  ctx.fillStyle = "#d8202a";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.50, y+s*0.28+bob, s*0.24, s*0.13, 0, Math.PI, Math.PI*2);
-  ctx.fill();
-  // cap bottom band
-  px(ctx, x+s*0.26, y+s*0.28+bob, s*0.48, s*0.04, "#d8202a");
-  // backwards button (front = visible adjustment strap)
-  ctx.fillStyle = "#a8101a";
-  px(ctx, x+s*0.62, y+s*0.30+bob, s*0.10, s*0.04, "#a8101a");
-  // strap hole
-  ctx.fillStyle = "#1a1a1a";
-  px(ctx, x+s*0.66, y+s*0.31+bob, s*0.02, s*0.02, "#1a1a1a");
-  // glasses (round black frames)
-  ctx.strokeStyle = "#1a1a1a";
-  ctx.lineWidth = Math.max(1, s*0.014);
-  ctx.beginPath();
-  ctx.arc(x+s*0.42, y+s*0.46+bob, s*0.05, 0, Math.PI*2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(x+s*0.58, y+s*0.46+bob, s*0.05, 0, Math.PI*2);
-  ctx.stroke();
-  // bridge
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.47, y+s*0.46+bob);
-  ctx.lineTo(x+s*0.53, y+s*0.46+bob);
-  ctx.stroke();
-  // glasses lens shine
-  ctx.fillStyle = "rgba(255,255,255,0.4)";
-  ctx.beginPath();
-  ctx.arc(x+s*0.40, y+s*0.44+bob, s*0.014, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(x+s*0.56, y+s*0.44+bob, s*0.014, 0, Math.PI*2);
-  ctx.fill();
-  // eyes behind glasses (small dots)
-  ctx.fillStyle = "#1a1a1a";
-  ctx.beginPath(); ctx.arc(x+s*0.43, y+s*0.47+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.57, y+s*0.47+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-  // smirk (asymmetric mouth — left up, right normal)
-  ctx.strokeStyle = "#1a1a1a";
-  ctx.lineWidth = Math.max(1, s*0.014);
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.44, y+s*0.58+bob);
-  ctx.quadraticCurveTo(x+s*0.50, y+s*0.62+bob, x+s*0.56, y+s*0.55+bob);
-  ctx.stroke();
-  // little tooth peeking
-  ctx.fillStyle = "#fff";
-  px(ctx, x+s*0.54, y+s*0.575+bob, s*0.012, s*0.014, "#fff");
-  // mischievous cheek blush
-  ctx.fillStyle = "rgba(255,140,150,0.40)";
-  ctx.beginPath(); ctx.arc(x+s*0.36, y+s*0.54+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.64, y+s*0.54+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-      // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("dOsey", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("DSY", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.005);
-        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.012, y+s*0.10, s*0.010, 0, Math.PI*2); ctx.stroke();
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.012, y+s*0.10, s*0.010, 0, Math.PI*2); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(x+s*0.06-s*0.002, y+s*0.10); ctx.lineTo(x+s*0.06+s*0.002, y+s*0.10); ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-EDWIN(ctx, sp, x, y, s, t) {
-  const bob = Math.sin(t*0.003) * (s*0.012);
-  shadow(ctx, x+s/2, y+s-4, s*0.36, 5);
-  // dark coat body
-  ctx.fillStyle = "#0e1422";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.20, y+s*0.52+bob);
-  ctx.lineTo(x+s*0.16, y+s*0.96+bob);
-  ctx.lineTo(x+s*0.84, y+s*0.96+bob);
-  ctx.lineTo(x+s*0.80, y+s*0.52+bob);
-  ctx.closePath();
-  ctx.fill();
-  // coat lapel highlight (cool tone)
-  ctx.fillStyle = "#1c2a44";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.40, y+s*0.58+bob);
-  ctx.lineTo(x+s*0.36, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.42, y+s*0.92+bob);
-  ctx.lineTo(x+s*0.46, y+s*0.60+bob);
-  ctx.closePath();
-  ctx.fill();
-  // arms / coat sleeves
-  px(ctx, x+s*0.14, y+s*0.54+bob, s*0.12, s*0.28, "#0e1422");
-  px(ctx, x+s*0.74, y+s*0.54+bob, s*0.12, s*0.28, "#0e1422");
-  // big black scarf wrapped around neck
-  ctx.fillStyle = "#000";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.56+bob, s*0.26, s*0.10, 0, 0, Math.PI*2);
-  ctx.fill();
-  // scarf fold
-  ctx.fillStyle = "#1a1a22";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.54+bob, s*0.22, s*0.05, 0, 0, Math.PI*2);
-  ctx.fill();
-  // scarf tail (hanging on left)
-  ctx.fillStyle = "#000";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.30, y+s*0.58+bob);
-  ctx.lineTo(x+s*0.22, y+s*0.78+bob);
-  ctx.lineTo(x+s*0.34, y+s*0.80+bob);
-  ctx.lineTo(x+s*0.40, y+s*0.60+bob);
-  ctx.closePath();
-  ctx.fill();
-  // scarf tail fringe
-  px(ctx, x+s*0.22, y+s*0.78+bob, s*0.014, s*0.04, "#1a1a22");
-  px(ctx, x+s*0.26, y+s*0.79+bob, s*0.014, s*0.04, "#1a1a22");
-  px(ctx, x+s*0.30, y+s*0.80+bob, s*0.014, s*0.04, "#1a1a22");
-  // face (cool-tone highlight side)
-  ctx.fillStyle = "#a8b2c4";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.16, s*0.18, 0, 0, Math.PI*2);
-  ctx.fill();
-  // face cool-tone highlight (bluish on right cheek)
-  ctx.fillStyle = "rgba(140,180,220,0.35)";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.56, y+s*0.42+bob, s*0.07, s*0.10, 0, 0, Math.PI*2);
-  ctx.fill();
-  // face shadow side (left, darker)
-  ctx.fillStyle = "rgba(40,50,70,0.35)";
-  ctx.beginPath();
-  ctx.ellipse(x+s*0.42, y+s*0.42+bob, s*0.05, s*0.10, 0, 0, Math.PI*2);
-  ctx.fill();
-  // dark slick hair sweep (stylish side-swept)
-  ctx.fillStyle = "#0a0a14";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.34, y+s*0.34+bob);
-  ctx.quadraticCurveTo(x+s*0.30, y+s*0.20+bob, x+s*0.46, y+s*0.18+bob);
-  ctx.quadraticCurveTo(x+s*0.62, y+s*0.16+bob, x+s*0.68, y+s*0.30+bob);
-  ctx.quadraticCurveTo(x+s*0.60, y+s*0.26+bob, x+s*0.50, y+s*0.30+bob);
-  ctx.quadraticCurveTo(x+s*0.42, y+s*0.32+bob, x+s*0.34, y+s*0.34+bob);
-  ctx.closePath();
-  ctx.fill();
-  // hair sweep highlight
-  ctx.fillStyle = "#2a3048";
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.46, y+s*0.20+bob);
-  ctx.quadraticCurveTo(x+s*0.56, y+s*0.18+bob, x+s*0.62, y+s*0.24+bob);
-  ctx.lineTo(x+s*0.58, y+s*0.26+bob);
-  ctx.quadraticCurveTo(x+s*0.52, y+s*0.22+bob, x+s*0.46, y+s*0.24+bob);
-  ctx.closePath();
-  ctx.fill();
-  // faint glowing cool-tone eyes
-  const glow = 0.6 + Math.sin(t*0.005)*0.4;
-  ctx.fillStyle = `rgba(140,200,240,${0.3+glow*0.3})`;
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.030, 0, Math.PI*2); ctx.fill();
-  // inner eye (cyan)
-  ctx.fillStyle = `rgba(180,230,255,${0.7+glow*0.3})`;
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-  // pupil core
-  ctx.fillStyle = "#fff";
-  ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.40+bob, s*0.005, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.40+bob, s*0.005, 0, Math.PI*2); ctx.fill();
-  // subtle stoic mouth line
-  ctx.strokeStyle = "#3a3848";
-  ctx.lineWidth = Math.max(1, s*0.010);
-  ctx.beginPath();
-  ctx.moveTo(x+s*0.46, y+s*0.50+bob);
-  ctx.lineTo(x+s*0.54, y+s*0.50+bob);
-  ctx.stroke();
-  // FC badge
-  ctx.fillStyle = "#5865f2";
-  ctx.fillRect(x+s*0.42, y+s*0.84+bob, s*0.16, s*0.06);
-  ctx.fillStyle = "#fff";
-  ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-  ctx.textAlign = "center";
-  ctx.fillText("FC", x+s*0.50, y+s*0.885+bob);
-  ctx.textAlign = "start";
-      // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Edwin", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#3a3a3a";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("FC", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "rgba(20,20,30,0.6)";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-    BYTE(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const tailWag = Math.sin(t*0.005) * (s*0.04);
-      const pulse = 0.6 + Math.sin(t*0.008)*0.4;
+    ZENSER48(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // sleek black cat body
-      ctx.fillStyle = "#0a0a12";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.68+bob, s*0.30, s*0.24, 0, 0, Math.PI*2);
-      ctx.fill();
-      // body subtle highlight
-      ctx.fillStyle = "#1a1a26";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.46, y+s*0.62+bob, s*0.16, s*0.10, 0, 0, Math.PI*2);
-      ctx.fill();
-      // tiny cyan circuit dots on body
-      ctx.fillStyle = `rgba(80,240,255,${pulse})`;
-      px(ctx, x+s*0.36, y+s*0.66+bob, s*0.014, s*0.014, `rgba(80,240,255,${pulse})`);
-      px(ctx, x+s*0.50, y+s*0.74+bob, s*0.014, s*0.014, `rgba(80,240,255,${pulse})`);
-      px(ctx, x+s*0.62, y+s*0.66+bob, s*0.014, s*0.014, `rgba(80,240,255,${pulse})`);
-      px(ctx, x+s*0.44, y+s*0.78+bob, s*0.014, s*0.014, `rgba(80,240,255,${pulse})`);
-      // circuit trace lines
-      ctx.strokeStyle = `rgba(80,240,255,${pulse*0.6})`;
-      ctx.lineWidth = Math.max(1, s*0.006);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.74+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.66+bob);
-      ctx.stroke();
-      // tail with cyan glowing tip
-      ctx.fillStyle = "#0a0a12";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.80, y+s*0.66+bob);
-      ctx.quadraticCurveTo(x+s*0.94+tailWag, y+s*0.50+bob, x+s*0.86+tailWag, y+s*0.32+bob);
-      ctx.lineTo(x+s*0.82+tailWag, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      // glowing cyan tail tip
-      ctx.fillStyle = `rgba(80,240,255,${pulse})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.84+tailWag, y+s*0.32+bob, s*0.030, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.84+tailWag, y+s*0.32+bob, s*0.012, 0, Math.PI*2);
-      ctx.fill();
-      // head
-      ctx.fillStyle = "#0a0a12";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.24, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // pointed ears
-      ctx.fillStyle = "#0a0a12";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.06+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // dim cyan inner ears
-      ctx.fillStyle = "#1a3a48";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.34, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.66, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // glowing cyan cat-slit eyes
-      ctx.fillStyle = `rgba(80,240,255,${pulse})`;
-      ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.40+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.40+bob, s*0.040, 0, Math.PI*2); ctx.fill();
-      // cat-slit pupils
-      ctx.fillStyle = "#0a0a12";
-      ctx.fillRect(x+s*0.416, y+s*0.376+bob, s*0.008, s*0.048);
-      ctx.fillRect(x+s*0.576, y+s*0.376+bob, s*0.008, s*0.048);
-      // pink nose triangle
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // whiskers
-      ctx.strokeStyle = "#aaa";
-      ctx.lineWidth = Math.max(1, s*0.008);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.48+bob); ctx.lineTo(x+s*0.42, y+s*0.50+bob);
-      ctx.moveTo(x+s*0.30, y+s*0.52+bob); ctx.lineTo(x+s*0.42, y+s*0.52+bob);
-      ctx.moveTo(x+s*0.70, y+s*0.48+bob); ctx.lineTo(x+s*0.58, y+s*0.50+bob);
-      ctx.moveTo(x+s*0.70, y+s*0.52+bob); ctx.lineTo(x+s*0.58, y+s*0.52+bob);
-      ctx.stroke();
-      // small mouth
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.50+bob); ctx.lineTo(x+s*0.50, y+s*0.54+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.54+bob); ctx.quadraticCurveTo(x+s*0.46, y+s*0.56+bob, x+s*0.44, y+s*0.54+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.54+bob); ctx.quadraticCurveTo(x+s*0.54, y+s*0.56+bob, x+s*0.56, y+s*0.54+bob);
-      ctx.stroke();
-      // ALTR badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.86+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("ALTR", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Byte", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5865f2";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("ALTR", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#1a1a22";
-        ctx.fillRect(x+s*0.06-s*0.020, y+s*0.10-s*0.020, s*0.040, s*0.040);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.fillRect(x+s*0.06-s*0.014, y+s*0.10-s*0.012, s*0.006, s*0.005);
-        ctx.fillRect(x+s*0.06-s*0.014, y+s*0.10, s*0.006, s*0.005);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    CALICSIZED(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.0028) * (s*0.011);
-      const glow = 0.6 + Math.sin(t*0.007)*0.4;
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark cloak body
-      ctx.fillStyle = "#1a1424";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.18, y+s*0.92+bob);
-      ctx.lineTo(x+s*0.22, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.82, y+s*0.92+bob);
-      ctx.closePath();
-      ctx.fill();
-      // cloak shadow folds
-      ctx.fillStyle = "#0a0612";
-      px(ctx, x+s*0.36, y+s*0.62+bob, s*0.04, s*0.30, "#0a0612");
-      px(ctx, x+s*0.60, y+s*0.62+bob, s*0.04, s*0.30, "#0a0612");
-      // hood (large, casts deep shadow)
-      ctx.fillStyle = "#1a1424";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.20, y+s*0.14+bob, x+s*0.50, y+s*0.10+bob);
-      ctx.quadraticCurveTo(x+s*0.80, y+s*0.14+bob, x+s*0.80, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.72, y+s*0.46+bob);
-      ctx.quadraticCurveTo(x+s*0.72, y+s*0.26+bob, x+s*0.50, y+s*0.22+bob);
-      ctx.quadraticCurveTo(x+s*0.28, y+s*0.26+bob, x+s*0.28, y+s*0.46+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hood inner shadow (very dark)
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.40+bob, s*0.18, s*0.18, 0, 0, Math.PI*2);
-      ctx.fill();
-      // silver hair strands escaping the hood
-      ctx.fillStyle = "#c8c8d8";
-      px(ctx, x+s*0.30, y+s*0.42+bob, s*0.02, s*0.12, "#c8c8d8");
-      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.02, s*0.10, "#c8c8d8");
-      px(ctx, x+s*0.66, y+s*0.46+bob, s*0.02, s*0.10, "#c8c8d8");
-      px(ctx, x+s*0.70, y+s*0.42+bob, s*0.02, s*0.12, "#c8c8d8");
-      px(ctx, x+s*0.46, y+s*0.50+bob, s*0.02, s*0.06, "#c8c8d8");
-      px(ctx, x+s*0.54, y+s*0.50+bob, s*0.02, s*0.06, "#c8c8d8");
-      // single glowing red eye inside hood
-      ctx.fillStyle = `rgba(255,40,40,${glow})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.40+bob, s*0.040, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = `rgba(255,160,160,${glow})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.40+bob, s*0.020, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.40+bob, s*0.008, 0, Math.PI*2);
-      ctx.fill();
-      // mace handle (diagonal)
-      ctx.strokeStyle = "#6a4a2a";
-      ctx.lineWidth = Math.max(2, s*0.020);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.20, y+s*0.92+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.50+bob);
-      ctx.stroke();
-      // mace handle wraps
-      ctx.strokeStyle = "#3a2a1a";
-      ctx.lineWidth = Math.max(1, s*0.008);
-      for (let i = 0; i < 5; i++) {
-        const t1 = 0.15 + i*0.10;
-        const px1 = x+s*(0.20 + (0.62-0.20)*t1);
-        const py1 = y+s*(0.92 + (0.50-0.92)*t1)+bob;
-        ctx.beginPath();
-        ctx.moveTo(px1-s*0.014, py1+s*0.014);
-        ctx.lineTo(px1+s*0.014, py1-s*0.014);
-        ctx.stroke();
-      }
-      // spiked metal ball
-      ctx.fillStyle = "#6a6a78";
-      ctx.beginPath();
-      ctx.arc(x+s*0.66, y+s*0.46+bob, s*0.10, 0, Math.PI*2);
-      ctx.fill();
-      // ball highlight
-      ctx.fillStyle = "#9aa0a8";
-      ctx.beginPath();
-      ctx.arc(x+s*0.62, y+s*0.42+bob, s*0.040, 0, Math.PI*2);
-      ctx.fill();
-      // 6 spikes radiating
-      ctx.fillStyle = "#8a8a98";
-      const cx = x+s*0.66, cy = y+s*0.46+bob;
-      for (let i = 0; i < 6; i++) {
-        const a = (i/6)*Math.PI*2;
-        const sx1 = cx + Math.cos(a)*s*0.10;
-        const sy1 = cy + Math.sin(a)*s*0.10;
-        const sx2 = cx + Math.cos(a)*s*0.18;
-        const sy2 = cy + Math.sin(a)*s*0.18;
-        const pa = a + Math.PI/2;
-        ctx.beginPath();
-        ctx.moveTo(sx1 + Math.cos(pa)*s*0.020, sy1 + Math.sin(pa)*s*0.020);
-        ctx.lineTo(sx2, sy2);
-        ctx.lineTo(sx1 - Math.cos(pa)*s*0.020, sy1 - Math.sin(pa)*s*0.020);
-        ctx.closePath();
-        ctx.fill();
-      }
-      // Mace badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.86+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("MACE", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("calicsized", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#3a4258";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("MACE", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#dadce0";
-        ctx.fillRect(x+s*0.06-s*0.005, y+s*0.10-s*0.025, s*0.010, s*0.040);
-        ctx.fillStyle = "#a07050";
-        ctx.fillRect(x+s*0.06-s*0.012, y+s*0.10+s*0.012, s*0.024, s*0.006);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    BUTTKUN(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.014);
-      const sparkle = 0.5 + Math.sin(t*0.008)*0.5;
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // solid blue circle body
-      ctx.fillStyle = "#3aa0ff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.5, y+s*0.52+bob, s*0.36, 0, Math.PI*2);
-      ctx.fill();
-      // body outline
-      ctx.strokeStyle = "#1a60c0";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.arc(x+s*0.5, y+s*0.52+bob, s*0.36, 0, Math.PI*2);
-      ctx.stroke();
-      // lighter inner highlight
-      ctx.fillStyle = "#7ac4ff";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.40, y+s*0.40+bob, s*0.14, s*0.10, -0.4, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#a8dcff";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.36, y+s*0.36+bob, s*0.06, s*0.04, -0.4, 0, Math.PI*2);
-      ctx.fill();
-      // pink cheek blush
-      ctx.fillStyle = "rgba(255,140,180,0.8)";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.30, y+s*0.58+bob, s*0.05, s*0.03, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.70, y+s*0.58+bob, s*0.05, s*0.03, 0, 0, Math.PI*2);
-      ctx.fill();
-      // sparkly oval eyes
-      ctx.fillStyle = "#0a0a1a";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.40, y+s*0.50+bob, s*0.04, s*0.06, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.60, y+s*0.50+bob, s*0.04, s*0.06, 0, 0, Math.PI*2);
-      ctx.fill();
-      // eye sparkles
-      ctx.fillStyle = `rgba(255,255,255,${sparkle})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.41, y+s*0.48+bob, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.61, y+s*0.48+bob, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.39, y+s*0.52+bob, s*0.008, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.59, y+s*0.52+bob, s*0.008, 0, Math.PI*2);
-      ctx.fill();
-      // simple smile
-      ctx.strokeStyle = "#0a0a1a";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.58+bob, s*0.06, Math.PI*0.15, Math.PI*0.85);
-      ctx.stroke();
-      // BTR! badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.90+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("BTR!", x+s*0.50, y+s*0.945+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#a4b3c8";
-        ctx.shadowColor = "#a4b3c8";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("buttkun", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#a4b3c8";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("BTR!", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#a4b3c8";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10-s*0.006);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10-s*0.006);
-        ctx.closePath(); ctx.fill();
-        // signature: GIANT BTR! badge floating beside
-        ctx.save();
-        ctx.translate(x+s*0.04, y+s*0.30);
-        ctx.rotate(-0.15);
-        ctx.fillStyle = "#ffd700";
-        ctx.fillRect(0, 0, s*0.22, s*0.14);
-        ctx.strokeStyle = "#a07020";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(0, 0, s*0.22, s*0.14);
-        ctx.fillStyle = "#1a1a1a";
-        ctx.font = `900 ${Math.max(8, Math.floor(s*0.075))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("BTR!", s*0.11, s*0.10);
-        ctx.textAlign = "start";
-        ctx.restore();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    BLU(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.014);
-      const sparkle = 0.5 + Math.sin(t*0.008)*0.5;
-      shadow(ctx, x+s/2, y+s-4, s*0.32, 5);
-      // egg-shaped blue blob body
-      ctx.fillStyle = "#5ab8ff";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.54+bob, s*0.30, s*0.36, 0, 0, Math.PI*2);
-      ctx.fill();
-      // body outline
-      ctx.strokeStyle = "#2a78c0";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.54+bob, s*0.30, s*0.36, 0, 0, Math.PI*2);
-      ctx.stroke();
-      // inner highlight
-      ctx.fillStyle = "#a0d8ff";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.40, y+s*0.40+bob, s*0.10, s*0.14, -0.3, 0, Math.PI*2);
-      ctx.fill();
-      // tiny hair tuft
-      ctx.fillStyle = "#5ab8ff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.20+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.10+bob, x+s*0.56, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.52, y+s*0.22+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.strokeStyle = "#2a78c0";
-      ctx.lineWidth = Math.max(1, s*0.008);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.20+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.10+bob, x+s*0.56, y+s*0.16+bob);
-      ctx.stroke();
-      // pink heart-shaped cheeks
-      ctx.fillStyle = "#ff80b0";
-      // left heart
-      let chx = x+s*0.28, chy = y+s*0.58+bob;
-      ctx.beginPath();
-      ctx.arc(chx-s*0.012, chy-s*0.004, s*0.018, 0, Math.PI*2);
-      ctx.arc(chx+s*0.012, chy-s*0.004, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(chx-s*0.026, chy+s*0.004);
-      ctx.lineTo(chx, chy+s*0.030);
-      ctx.lineTo(chx+s*0.026, chy+s*0.004);
-      ctx.closePath();
-      ctx.fill();
-      // right heart
-      chx = x+s*0.72; chy = y+s*0.58+bob;
-      ctx.beginPath();
-      ctx.arc(chx-s*0.012, chy-s*0.004, s*0.018, 0, Math.PI*2);
-      ctx.arc(chx+s*0.012, chy-s*0.004, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(chx-s*0.026, chy+s*0.004);
-      ctx.lineTo(chx, chy+s*0.030);
-      ctx.lineTo(chx+s*0.026, chy+s*0.004);
-      ctx.closePath();
-      ctx.fill();
-      // big sparkly black eyes
-      ctx.fillStyle = "#0a0a1a";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.40, y+s*0.50+bob, s*0.05, s*0.07, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.60, y+s*0.50+bob, s*0.05, s*0.07, 0, 0, Math.PI*2);
-      ctx.fill();
-      // pink inner sparkle
-      ctx.fillStyle = "#ff80b0";
-      ctx.beginPath();
-      ctx.arc(x+s*0.41, y+s*0.51+bob, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.61, y+s*0.51+bob, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      // white eye sparkle
-      ctx.fillStyle = `rgba(255,255,255,${sparkle})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.395, y+s*0.48+bob, s*0.012, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.595, y+s*0.48+bob, s*0.012, 0, Math.PI*2);
-      ctx.fill();
-      // tiny round open mouth (o-shape)
-      ctx.fillStyle = "#0a0a1a";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.62+bob, s*0.018, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.62+bob, s*0.010, 0, Math.PI*2);
-      ctx.fill();
-      // floating sparkles
-      const sT = t*0.003;
-      for (let i = 0; i < 4; i++) {
-        const a = sT + i*(Math.PI*2/4);
-        const sxp = x+s*0.5 + Math.cos(a)*s*0.42;
-        const syp = y+s*0.5 + Math.sin(a)*s*0.30+bob;
-        ctx.fillStyle = `rgba(255,255,200,${0.4+Math.sin(t*0.01+i)*0.4})`;
-        ctx.beginPath();
-        ctx.moveTo(sxp, syp-s*0.020);
-        ctx.lineTo(sxp+s*0.008, syp);
-        ctx.lineTo(sxp+s*0.020, syp);
-        ctx.lineTo(sxp+s*0.010, syp+s*0.008);
-        ctx.lineTo(sxp+s*0.014, syp+s*0.020);
-        ctx.lineTo(sxp, syp+s*0.010);
-        ctx.lineTo(sxp-s*0.014, syp+s*0.020);
-        ctx.lineTo(sxp-s*0.010, syp+s*0.008);
-        ctx.lineTo(sxp-s*0.020, syp);
-        ctx.lineTo(sxp-s*0.008, syp);
-        ctx.closePath();
-        ctx.fill();
-      }
-      // Cute badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.92+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("CUTE", x+s*0.50, y+s*0.965+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#a4b3c8";
-        ctx.shadowColor = "#a4b3c8";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("blu", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#a4b3c8";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("CUTE", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#a4b3c8";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10-s*0.006);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06+s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06, y+s*0.10+s*0.020);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10+s*0.006);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10);
-        ctx.lineTo(x+s*0.06-s*0.006, y+s*0.10-s*0.006);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    BENJI_YT(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const eyeGlow = 0.5 + Math.sin(t*0.008)*0.5;
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // hoodie body
-      ctx.fillStyle = "#1a1a22";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // arms
-      px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#1a1a22");
-      px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#1a1a22");
-      // hoodie strings
-      ctx.strokeStyle = "#0a0a12";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.74+bob);
-      ctx.moveTo(x+s*0.54, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.74+bob);
-      ctx.stroke();
-      // hood up (around head)
-      ctx.fillStyle = "#1a1a22";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.56+bob);
-      ctx.quadraticCurveTo(x+s*0.22, y+s*0.16+bob, x+s*0.50, y+s*0.12+bob);
-      ctx.quadraticCurveTo(x+s*0.78, y+s*0.16+bob, x+s*0.78, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.70, y+s*0.26+bob, x+s*0.50, y+s*0.22+bob);
-      ctx.quadraticCurveTo(x+s*0.30, y+s*0.26+bob, x+s*0.30, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hood inner shadow
-      ctx.fillStyle = "#0a0a12";
-      px(ctx, x+s*0.30, y+s*0.30+bob, s*0.40, s*0.04, "#0a0a12");
-      // white skull mask covering face
-      ctx.fillStyle = "#f0ece0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // skull jaw extending down
-      ctx.fillStyle = "#f0ece0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // mask shading
-      ctx.fillStyle = "#c8c2b0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.46+bob, s*0.18, s*0.04, 0, 0, Math.PI*2);
-      ctx.fill();
-      // dark eye sockets
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.40, y+s*0.40+bob, s*0.046, s*0.040, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.60, y+s*0.40+bob, s*0.046, s*0.040, 0, 0, Math.PI*2);
-      ctx.fill();
-      // tiny red eye glow inside sockets
-      ctx.fillStyle = `rgba(255,40,40,${eyeGlow})`;
-      ctx.beginPath();
-      ctx.arc(x+s*0.40, y+s*0.40+bob, s*0.014, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.60, y+s*0.40+bob, s*0.014, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.40, y+s*0.40+bob, s*0.005, 0, Math.PI*2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x+s*0.60, y+s*0.40+bob, s*0.005, 0, Math.PI*2);
-      ctx.fill();
-      // nose hole (triangular)
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.475, y+s*0.52+bob);
-      ctx.lineTo(x+s*0.525, y+s*0.52+bob);
-      ctx.closePath();
-      ctx.fill();
-      // vertical stripe teeth
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.41, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      ctx.fillStyle = "#f0ece0";
-      px(ctx, x+s*0.428, y+s*0.55+bob, s*0.014, s*0.07, "#f0ece0");
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.442, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      ctx.fillStyle = "#f0ece0";
-      px(ctx, x+s*0.460, y+s*0.55+bob, s*0.014, s*0.07, "#f0ece0");
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.474, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      ctx.fillStyle = "#f0ece0";
-      px(ctx, x+s*0.492, y+s*0.55+bob, s*0.014, s*0.07, "#f0ece0");
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.506, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      ctx.fillStyle = "#f0ece0";
-      px(ctx, x+s*0.524, y+s*0.55+bob, s*0.014, s*0.07, "#f0ece0");
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.538, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      ctx.fillStyle = "#f0ece0";
-      px(ctx, x+s*0.556, y+s*0.55+bob, s*0.014, s*0.07, "#f0ece0");
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.570, y+s*0.55+bob, s*0.018, s*0.07, "#000");
-      // WOS badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.86+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("WOS", x+s*0.50, y+s*0.905+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Benji_YT", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#dadce0";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("WOS", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.020, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "#1a1a1a";
-        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    ALRAYS(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const tailWag = Math.sin(t*0.005) * (s*0.04);
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // chubby orange tabby body
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.68+bob, s*0.34, s*0.26, 0, 0, Math.PI*2);
-      ctx.fill();
-      // belly stripes
-      ctx.fillStyle = "#c06820";
-      for (let i = 0; i < 4; i++) {
-        ctx.fillRect(x+s*(0.32 + i*0.10), y+s*0.74+bob, s*0.04, s*0.10);
-      }
-      // tail
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.82, y+s*0.66+bob);
-      ctx.quadraticCurveTo(x+s*0.96+tailWag, y+s*0.50+bob, x+s*0.88+tailWag, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.84+tailWag, y+s*0.38+bob);
-      ctx.lineTo(x+s*0.80, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      // tail stripes
-      ctx.fillStyle = "#c06820";
-      ctx.fillRect(x+s*0.86, y+s*0.50+bob, s*0.04, s*0.04);
-      ctx.fillRect(x+s*0.86+tailWag*0.5, y+s*0.42+bob, s*0.04, s*0.04);
-      // head
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.40+bob, s*0.24, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // triangle ears
-      ctx.fillStyle = "#ff9540";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.22+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.24+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.22+bob);
-      ctx.closePath();
-      ctx.fill();
-      // pink inner ears
-      ctx.fillStyle = "#ffb0c0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.34, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.66, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.14+bob);
-      ctx.lineTo(x+s*0.60, y+s*0.20+bob);
-      ctx.closePath();
-      ctx.fill();
-      // happy closed eyes (curved arcs)
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.014);
-      ctx.beginPath();
-      ctx.arc(x+s*0.42, y+s*0.40+bob, s*0.030, Math.PI*1.1, Math.PI*1.9);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x+s*0.58, y+s*0.40+bob, s*0.030, Math.PI*1.1, Math.PI*1.9);
-      ctx.stroke();
-      // pink nose
-      ctx.fillStyle = "#ff80a0";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // small smile
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.54+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.46, y+s*0.56+bob, x+s*0.44, y+s*0.54+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.54, y+s*0.56+bob, x+s*0.56, y+s*0.54+bob);
-      ctx.stroke();
-      // flower crown - ring of white flowers around head
-      const crownCx = x+s*0.50, crownCy = y+s*0.20+bob;
-      const flowerPositions = [
-        {ang: Math.PI*1.05, r: s*0.24},
-        {ang: Math.PI*1.20, r: s*0.22},
-        {ang: Math.PI*1.40, r: s*0.20},
-        {ang: Math.PI*1.60, r: s*0.20},
-        {ang: Math.PI*1.80, r: s*0.22},
-        {ang: Math.PI*1.95, r: s*0.24},
-      ];
-      for (const fp of flowerPositions) {
-        const fx = crownCx + Math.cos(fp.ang)*fp.r;
-        const fy = y+s*0.40+bob + Math.sin(fp.ang)*fp.r;
-        // 5 white petals
-        ctx.fillStyle = "#fff";
-        for (let p = 0; p < 5; p++) {
-          const pa = (p/5)*Math.PI*2;
-          ctx.beginPath();
-          ctx.arc(fx + Math.cos(pa)*s*0.022, fy + Math.sin(pa)*s*0.022, s*0.018, 0, Math.PI*2);
-          ctx.fill();
-        }
-        // yellow center
-        ctx.fillStyle = "#ffd040";
-        ctx.beginPath();
-        ctx.arc(fx, fy, s*0.014, 0, Math.PI*2);
-        ctx.fill();
-      }
-      // MILK badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.90+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("MILK", x+s*0.50, y+s*0.945+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("alrays", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#fee75c";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("MILK", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        for (let __k=0; __k<5; __k++) {
-          const __ang = __k * Math.PI*2/5;
-          ctx.beginPath();
-          ctx.arc(x+s*0.06+Math.cos(__ang)*s*0.012, y+s*0.10+Math.sin(__ang)*s*0.012, s*0.008, 0, Math.PI*2);
-          ctx.fill();
-        }
-        ctx.fillStyle = "#fee75c";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.008, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    _1DAM(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const aura = 0.4 + Math.sin(t*0.006)*0.3;
-      const eyeGlow = 0.6 + Math.sin(t*0.009)*0.4;
-      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // soft white aura behind
-      ctx.fillStyle = `rgba(255,255,255,${aura*0.5})`;
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.5+bob, s*0.42, s*0.46, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = `rgba(255,255,255,${aura*0.3})`;
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.5+bob, s*0.46, s*0.50, 0, 0, Math.PI*2);
-      ctx.fill();
-      // dark body (jacket)
-      ctx.fillStyle = "#0e0e18";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // body white edge highlight
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-      ctx.stroke();
+      // misty grey background
+      px(ctx, x+2, y+2, s-4, s-4, '#7d8590');
+      px(ctx, x+6, y+10, 4, 3, '#9aa3ad');
+      px(ctx, x+s-14, y+18, 5, 2, '#9aa3ad');
+      px(ctx, x+10, y+s-20, 6, 2, '#9aa3ad');
+      // umbrella canopy (clear/grey)
+      const cy = y + 14 + bob;
+      px(ctx, x+s/2-14, cy, 28, 3, '#c0c8d0');
+      px(ctx, x+s/2-12, cy+3, 24, 2, '#aab2bc');
+      px(ctx, x+s/2-9, cy-3, 18, 3, '#d8dde3');
+      // umbrella ribs
+      px(ctx, x+s/2-7, cy+5, 1, 2, '#5a6068');
+      px(ctx, x+s/2+6, cy+5, 1, 2, '#5a6068');
+      // pole
+      px(ctx, x+s/2, cy+5, 1, 18, '#3a3f45');
+      // figure - dark coat
+      px(ctx, x+s/2-5, y+30+bob, 10, 16, '#1a1d22');
       // pale face
-      ctx.fillStyle = "#f0e8e0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.46+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // dark long hair behind/around (large mass)
-      ctx.fillStyle = "#0e0e18";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.70+bob);
-      ctx.lineTo(x+s*0.22, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.26, y+s*0.16+bob, x+s*0.50, y+s*0.14+bob);
-      ctx.quadraticCurveTo(x+s*0.74, y+s*0.16+bob, x+s*0.78, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.70+bob);
-      ctx.lineTo(x+s*0.70, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.40+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.28+bob, x+s*0.38, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.40+bob);
-      ctx.lineTo(x+s*0.30, y+s*0.62+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hair white edge stroke
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = Math.max(2, s*0.014);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.22, y+s*0.70+bob);
-      ctx.lineTo(x+s*0.22, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.26, y+s*0.16+bob, x+s*0.50, y+s*0.14+bob);
-      ctx.quadraticCurveTo(x+s*0.74, y+s*0.16+bob, x+s*0.78, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.78, y+s*0.70+bob);
-      ctx.stroke();
-      // hair front bangs
-      ctx.fillStyle = "#0e0e18";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.30+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.22+bob, x+s*0.32, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // bangs white edge
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.34+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.36+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.42+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.30+bob);
-      ctx.stroke();
-      // sharp slit white-glowing eyes
-      ctx.fillStyle = "#0e0e18";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.54, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.46+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.50+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.50+bob);
-      ctx.closePath();
-      ctx.fill();
-      // white glow inside eyes
-      ctx.fillStyle = `rgba(255,255,255,${eyeGlow})`;
-      ctx.fillRect(x+s*0.38, y+s*0.475+bob, s*0.06, s*0.014);
-      ctx.fillRect(x+s*0.56, y+s*0.475+bob, s*0.06, s*0.014);
+      px(ctx, x+s/2-3, y+26+bob, 6, 5, '#e8d8c8');
+      px(ctx, x+s/2-3, y+22+bob, 6, 4, '#2a2520');
+      // tiny eyes
+      px(ctx, x+s/2-2, y+28+bob, 1, 1, '#1a1a1a');
+      px(ctx, x+s/2+1, y+28+bob, 1, 1, '#1a1a1a');
+    },
+    ADOT(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark side-lit background
+      px(ctx, x+2, y+2, s-4, s-4, '#15171c');
+      px(ctx, x+s-14, y+4, 12, s-8, '#22252c');
+      // hair - black flopping
+      px(ctx, x+12, y+8+bob, s-24, 18, '#0a0a10');
+      px(ctx, x+10, y+14+bob, 8, 14, '#0a0a10');
+      px(ctx, x+s-18, y+14+bob, 8, 16, '#0a0a10');
+      // hair flop over eye
+      px(ctx, x+18, y+18+bob, 14, 6, '#15151a');
+      // pale face
+      px(ctx, x+16, y+22+bob, s-32, 22, '#d8c2b0');
+      // shadow on one side
+      px(ctx, x+16, y+22+bob, 6, 22, '#9a8474');
+      // dark eyes (left covered by hair)
+      px(ctx, x+s-26, y+30+bob, 3, 3, '#1a1a22');
+      // mouth neutral
+      px(ctx, x+26, y+38+bob, 8, 1, '#5a3830');
+      // neck/shoulders dark
+      px(ctx, x+18, y+44+bob, s-36, 18, '#0a0a12');
+    },
+    IMOH(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      const glow = (Math.sin(t / 200) + 1) / 2;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark fog background
+      px(ctx, x+2, y+2, s-4, s-4, '#1a0d22');
+      px(ctx, x+6, y+s-14, s-12, 4, '#2a1a35');
+      px(ctx, x+10, y+s-8, s-20, 2, '#3a2545');
+      // hood silhouette
+      px(ctx, x+12, y+10+bob, s-24, 12, '#2a1635');
+      px(ctx, x+8, y+18+bob, s-16, 24, '#2a1635');
+      px(ctx, x+14, y+42+bob, s-28, 14, '#2a1635');
+      // inner shadow of hood
+      px(ctx, x+18, y+22+bob, s-36, 18, '#0a0512');
+      // glowing purple eyes
+      const eg = `rgba(190,120,255,${0.7 + glow*0.3})`;
+      px(ctx, x+22, y+28+bob, 5, 3, eg);
+      px(ctx, x+s-27, y+28+bob, 5, 3, eg);
+      px(ctx, x+23, y+29+bob, 3, 1, '#ffffff');
+      px(ctx, x+s-26, y+29+bob, 3, 1, '#ffffff');
+      // pixelated tag
+      px(ctx, x+4, y+s-6, 6, 3, '#7a55a5');
+    },
+    DOSEY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // background warm
+      px(ctx, x+2, y+2, s-4, s-4, '#3a3028');
+      // red Supreme cap
+      px(ctx, x+10, y+10+bob, s-20, 12, '#d8202a');
+      px(ctx, x+8, y+12+bob, 4, 8, '#a01820');
+      px(ctx, x+s-12, y+12+bob, 4, 8, '#a01820');
+      // brim
+      px(ctx, x+8, y+22+bob, s-16, 4, '#1a1010');
+      // white "Supreme" hint
+      px(ctx, x+18, y+15+bob, 28, 3, '#ffffff');
+      px(ctx, x+20, y+16+bob, 2, 1, '#d8202a');
+      px(ctx, x+26, y+16+bob, 2, 1, '#d8202a');
+      px(ctx, x+34, y+16+bob, 2, 1, '#d8202a');
+      // brown skin face
+      px(ctx, x+14, y+26+bob, s-28, 24, '#7a4d2e');
+      // shadow under brim
+      px(ctx, x+14, y+26+bob, s-28, 3, '#4a2d1c');
+      // eyes
+      px(ctx, x+22, y+34+bob, 3, 3, '#1a1208');
+      px(ctx, x+s-25, y+34+bob, 3, 3, '#1a1208');
+      // mouth neutral
+      px(ctx, x+26, y+44+bob, 12, 1, '#3a1a10');
+    },
+    EDWIN(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // soft background
+      px(ctx, x+2, y+2, s-4, s-4, '#e8e2dc');
+      // floppy ears
+      px(ctx, x+6, y+18+bob, 10, 18, '#fafafa');
+      px(ctx, x+s-16, y+18+bob, 10, 18, '#fafafa');
+      px(ctx, x+8, y+28+bob, 6, 8, '#e8e2dc');
+      // round fluffy white head
+      px(ctx, x+12, y+14+bob, s-24, s-26, '#fafafa');
+      px(ctx, x+10, y+22+bob, 4, 22, '#fafafa');
+      px(ctx, x+s-14, y+22+bob, 4, 22, '#fafafa');
+      // fluff bumps
+      px(ctx, x+18, y+12+bob, 4, 4, '#fafafa');
+      px(ctx, x+s-22, y+12+bob, 4, 4, '#fafafa');
+      // small black eyes
+      px(ctx, x+22, y+32+bob, 4, 4, '#0a0a0a');
+      px(ctx, x+s-26, y+32+bob, 4, 4, '#0a0a0a');
+      px(ctx, x+23, y+32+bob, 1, 1, '#ffffff');
+      px(ctx, x+s-25, y+32+bob, 1, 1, '#ffffff');
+      // small black nose
+      px(ctx, x+s/2-2, y+40+bob, 4, 3, '#1a1010');
+      // pink tongue
+      px(ctx, x+s/2-2, y+44+bob, 4, 4, '#ff8aa0');
+      px(ctx, x+s/2-1, y+45+bob, 1, 3, '#d85a78');
+    },
+    BYTE(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      const glow = (Math.sin(t / 180) + 1) / 2;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark cyber background
+      px(ctx, x+2, y+2, s-4, s-4, '#0a0c12');
+      // angular grey helmet
+      px(ctx, x+12, y+8+bob, s-24, 6, '#3a3f48');
+      px(ctx, x+8, y+12+bob, s-16, 30, '#4a505a');
+      px(ctx, x+10, y+42+bob, s-20, 10, '#3a3f48');
+      // jagged top
+      px(ctx, x+14, y+6+bob, 4, 4, '#5a606a');
+      px(ctx, x+s-18, y+6+bob, 4, 4, '#5a606a');
+      // jaw plate
+      px(ctx, x+18, y+44+bob, s-36, 6, '#2a2f38');
+      // glowing red slit eyes
+      const eg = `rgba(255,80,40,${0.7 + glow*0.3})`;
+      px(ctx, x+16, y+24+bob, 10, 2, eg);
+      px(ctx, x+s-26, y+24+bob, 10, 2, eg);
+      px(ctx, x+18, y+24+bob, 6, 1, '#ffd0a0');
+      px(ctx, x+s-24, y+24+bob, 6, 1, '#ffd0a0');
+      // panel lines
+      px(ctx, x+s/2-1, y+28+bob, 2, 14, '#22262e');
+      px(ctx, x+12, y+34+bob, s-24, 1, '#22262e');
+      // neon accent
+      px(ctx, x+s-12, y+s-14, 4, 6, '#ff5028');
+    },
+    CALICSIZED(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.5;
+      const glow = (Math.sin(t / 220) + 1) / 2;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // background
+      px(ctx, x+2, y+2, s-4, s-4, '#0a1530');
+      // ears pointing up
+      px(ctx, x+10, y+6+bob, 6, 12, '#2a8aff');
+      px(ctx, x+s-16, y+6+bob, 6, 12, '#2a8aff');
+      px(ctx, x+11, y+10+bob, 3, 6, '#5aaaff');
+      px(ctx, x+s-15, y+10+bob, 3, 6, '#5aaaff');
+      // bright blue cat head
+      px(ctx, x+10, y+14+bob, s-20, s-26, '#3a9aff');
+      // highlights
+      px(ctx, x+14, y+18+bob, 6, 4, '#7accff');
+      px(ctx, x+s-22, y+18+bob, 6, 4, '#7accff');
+      // glowing cyan eyes
+      const eg = `rgba(220,255,255,${0.8 + glow*0.2})`;
+      px(ctx, x+18, y+28+bob, 8, 8, eg);
+      px(ctx, x+s-26, y+28+bob, 8, 8, eg);
+      px(ctx, x+20, y+30+bob, 4, 4, '#0a8aff');
+      px(ctx, x+s-24, y+30+bob, 4, 4, '#0a8aff');
+      // fierce mouth
+      px(ctx, x+s/2-1, y+44+bob, 2, 2, '#1a3060');
+      px(ctx, x+s/2-4, y+46+bob, 8, 1, '#1a3060');
+      // mace tag
+      px(ctx, x+4, y+s-8, 6, 4, '#aabbdd');
+    },
+    BUTTKUN(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.2;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // gradient sky to deeper blue
+      const grad = ctx.createLinearGradient(x, y, x, y+s);
+      grad.addColorStop(0, '#a8d8f0');
+      grad.addColorStop(0.5, '#5a9ad8');
+      grad.addColorStop(1, '#1a3a78');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x+2, y+2, s-4, s-4);
+      // horizon line
+      px(ctx, x+2, y+s/2, s-4, 1, '#3a6aa8');
+      // tiny pixel character at bottom
+      px(ctx, x+s/2-2, y+s-14+bob, 4, 6, '#2a2030');
+      px(ctx, x+s/2-1, y+s-16+bob, 2, 2, '#e8c8a0');
+      // GIANT BTR text hint
+      px(ctx, x+8, y+10, 18, 3, '#ffffff');
+      px(ctx, x+8, y+15, 12, 2, '#ffffff');
+      // small clouds
+      px(ctx, x+10, y+22+bob, 8, 2, '#d8e8f8');
+      px(ctx, x+s-22, y+30-bob, 12, 2, '#d8e8f8');
+    },
+    BLU(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark background fading edges
+      px(ctx, x+2, y+2, s-4, s-4, '#1a1a22');
+      px(ctx, x+2, y+2, s-4, 4, '#2a2a35');
+      px(ctx, x+2, y+s-6, s-4, 4, '#2a2a35');
+      // pointed ears
+      px(ctx, x+10, y+8+bob, 6, 10, '#0a0a0a');
+      px(ctx, x+s-16, y+8+bob, 6, 10, '#0a0a0a');
+      px(ctx, x+12, y+12+bob, 2, 4, '#2a2030');
+      px(ctx, x+s-14, y+12+bob, 2, 4, '#2a2030');
+      // black cat head silhouette
+      px(ctx, x+10, y+16+bob, s-20, s-26, '#0a0a0a');
+      // small white dot eyes
+      px(ctx, x+22, y+30+bob, 3, 3, '#ffffff');
+      px(ctx, x+s-25, y+30+bob, 3, 3, '#ffffff');
+      // tiny mouth
+      px(ctx, x+s/2-1, y+40+bob, 2, 1, '#3a3a45');
+      // cute sticker
+      px(ctx, x+s-14, y+s-12, 10, 6, '#ff8aa8');
+      px(ctx, x+s-12, y+s-10, 2, 1, '#ffffff');
+    },
+    BENJI_YT(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // pure black background
+      px(ctx, x+2, y+2, s-4, s-4, '#000000');
+      // white round skull face
+      px(ctx, x+12, y+10+bob, s-24, 4, '#f0f0e8');
+      px(ctx, x+10, y+14+bob, s-20, 32, '#f0f0e8');
+      px(ctx, x+12, y+46+bob, s-24, 4, '#f0f0e8');
+      // jaw
+      px(ctx, x+16, y+50+bob, s-32, 4, '#e0e0d8');
+      // hollow black eye sockets
+      px(ctx, x+16, y+22+bob, 10, 8, '#000000');
+      px(ctx, x+s-26, y+22+bob, 10, 8, '#000000');
+      // nose hole (none, but small triangle)
+      px(ctx, x+s/2-2, y+34+bob, 4, 3, '#000000');
+      // teeth grin row
+      const ty = y + 42 + bob;
+      px(ctx, x+18, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+22, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+26, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+30, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+34, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+38, ty, 2, 4, '#f0f0e8');
+      px(ctx, x+42, ty, 2, 4, '#f0f0e8');
+      // teeth gap line
+      px(ctx, x+16, ty-1, s-32, 1, '#000000');
+    },
+    ALRAYS(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.5;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // warm orange background
+      px(ctx, x+2, y+2, s-4, s-4, '#3a1a18');
+      // cat ears up
+      px(ctx, x+10, y+4+bob, 8, 12, '#e85020');
+      px(ctx, x+s-18, y+4+bob, 8, 12, '#e85020');
+      px(ctx, x+12, y+8+bob, 4, 6, '#ff8050');
+      px(ctx, x+s-16, y+8+bob, 4, 6, '#ff8050');
+      // orange/red hair
+      px(ctx, x+8, y+12+bob, s-16, 14, '#e85020');
+      px(ctx, x+10, y+22+bob, s-20, 4, '#ff7048');
+      // pale face
+      px(ctx, x+14, y+22+bob, s-28, 26, '#ffd8b8');
+      // hair bangs
+      px(ctx, x+14, y+22+bob, s-28, 5, '#e85020');
+      px(ctx, x+18, y+24+bob, 4, 6, '#e85020');
+      px(ctx, x+s-22, y+24+bob, 4, 6, '#e85020');
+      // big anime eyes
+      px(ctx, x+18, y+30+bob, 6, 7, '#ffffff');
+      px(ctx, x+s-24, y+30+bob, 6, 7, '#ffffff');
+      px(ctx, x+19, y+31+bob, 4, 5, '#a83018');
+      px(ctx, x+s-23, y+31+bob, 4, 5, '#a83018');
+      px(ctx, x+20, y+32+bob, 1, 1, '#ffffff');
+      px(ctx, x+s-22, y+32+bob, 1, 1, '#ffffff');
+      // freckles
+      px(ctx, x+24, y+40+bob, 1, 1, '#a85020');
+      px(ctx, x+s-26, y+40+bob, 1, 1, '#a85020');
+      // mouth
+      px(ctx, x+s/2-1, y+44+bob, 3, 1, '#a02020');
+    },
+    _1DAM(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark moody background
+      px(ctx, x+2, y+2, s-4, s-4, '#15182a');
+      // crescent moon in background
+      px(ctx, x+s-18, y+8, 10, 10, '#e8e0c0');
+      px(ctx, x+s-15, y+10, 8, 6, '#15182a');
+      // dark hair flowing
+      px(ctx, x+10, y+10+bob, s-20, 12, '#0a0a18');
+      px(ctx, x+8, y+18+bob, 8, 22, '#0a0a18');
+      px(ctx, x+s-16, y+18+bob, 8, 22, '#0a0a18');
+      // hair bangs over eyes
+      px(ctx, x+14, y+20+bob, s-28, 8, '#0a0a18');
+      // pale face
+      px(ctx, x+16, y+24+bob, s-32, 22, '#e8d0c0');
+      // soft shadow side
+      px(ctx, x+16, y+24+bob, 5, 22, '#a89888');
+      // large eyes looking down
+      px(ctx, x+20, y+32+bob, 5, 5, '#ffffff');
+      px(ctx, x+s-25, y+32+bob, 5, 5, '#ffffff');
+      px(ctx, x+21, y+34+bob, 3, 3, '#3a2030');
+      px(ctx, x+s-24, y+34+bob, 3, 3, '#3a2030');
       // small mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.58+bob);
-      ctx.stroke();
-      // JEW badge
-      ctx.fillStyle = "#5865f2";
-      ctx.fillRect(x+s*0.38, y+s*0.90+bob, s*0.24, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("JEW", x+s*0.50, y+s*0.945+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("1dam", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a4b3c8";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("JEW", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath();
-        ctx.arc(x+s*0.06-s*0.012, y+s*0.10+s*0.012, s*0.008, 0, Math.PI*2); ctx.fill();
-        ctx.fillRect(x+s*0.06-s*0.005, y+s*0.10-s*0.018, s*0.004, s*0.030);
-        ctx.fillRect(x+s*0.06-s*0.005, y+s*0.10-s*0.018, s*0.020, s*0.005);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-  BREEZY(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // light blue hoodie body
-    ctx.fillStyle = "#9ecaff";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-    ctx.fill();
-    // arms
-    px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#9ecaff");
-    px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#9ecaff");
-    // hoodie strings
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = Math.max(1, s*0.010);
-    ctx.beginPath(); ctx.moveTo(x+s*0.46, y+s*0.60+bob); ctx.lineTo(x+s*0.46, y+s*0.70+bob); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x+s*0.54, y+s*0.60+bob); ctx.lineTo(x+s*0.54, y+s*0.70+bob); ctx.stroke();
-    // face — peach skin
-    ctx.fillStyle = "#ffd0a8";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.19, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // messy brown hair (jagged tufts)
-    ctx.fillStyle = "#6a4020";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.32, y+s*0.36+bob);
-    ctx.lineTo(x+s*0.30, y+s*0.22+bob);
-    ctx.lineTo(x+s*0.38, y+s*0.26+bob);
-    ctx.lineTo(x+s*0.42, y+s*0.18+bob);
-    ctx.lineTo(x+s*0.50, y+s*0.24+bob);
-    ctx.lineTo(x+s*0.58, y+s*0.18+bob);
-    ctx.lineTo(x+s*0.62, y+s*0.26+bob);
-    ctx.lineTo(x+s*0.70, y+s*0.22+bob);
-    ctx.lineTo(x+s*0.68, y+s*0.36+bob);
-    ctx.closePath();
-    ctx.fill();
-    // hair highlight
-    px(ctx, x+s*0.40, y+s*0.24+bob, s*0.04, s*0.03, "#8a5830");
-    px(ctx, x+s*0.56, y+s*0.22+bob, s*0.04, s*0.03, "#8a5830");
-    // headphone band
-    ctx.fillStyle = "#1a1a1a";
-    ctx.fillRect(x+s*0.28, y+s*0.28+bob, s*0.44, s*0.04);
-    // headphone cups
-    ctx.fillStyle = "#2a2a2a";
-    ctx.beginPath(); ctx.ellipse(x+s*0.26, y+s*0.42+bob, s*0.06, s*0.08, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(x+s*0.74, y+s*0.42+bob, s*0.06, s*0.08, 0, 0, Math.PI*2); ctx.fill();
-    // cup detail
-    ctx.fillStyle = "#444";
-    ctx.beginPath(); ctx.ellipse(x+s*0.26, y+s*0.42+bob, s*0.03, s*0.04, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(x+s*0.74, y+s*0.42+bob, s*0.03, s*0.04, 0, 0, Math.PI*2); ctx.fill();
-    // shades (sunglasses)
-    ctx.fillStyle = "#1a1a1a";
-    ctx.fillRect(x+s*0.34, y+s*0.40+bob, s*0.13, s*0.06);
-    ctx.fillRect(x+s*0.53, y+s*0.40+bob, s*0.13, s*0.06);
-    // bridge
-    ctx.fillRect(x+s*0.47, y+s*0.42+bob, s*0.06, s*0.02);
-    // shade highlights
-    ctx.fillStyle = "rgba(255,255,255,0.3)";
-    px(ctx, x+s*0.36, y+s*0.41+bob, s*0.03, s*0.012, "rgba(255,255,255,0.3)");
-    px(ctx, x+s*0.55, y+s*0.41+bob, s*0.03, s*0.012, "rgba(255,255,255,0.3)");
-    // closed eyes hint behind shades (relaxed arcs above)
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(1, s*0.010);
-    ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.39+bob, s*0.020, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.39+bob, s*0.020, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    // slight relaxed smile
-    ctx.lineWidth = Math.max(1, s*0.012);
-    ctx.beginPath();
-    ctx.arc(x+s*0.50, y+s*0.52+bob, s*0.04, Math.PI*0.10, Math.PI*0.90);
-    ctx.stroke();
-    // floating animated music note
-    const noteY = y+s*0.16 + Math.sin(t*0.005)*s*0.04;
-    const noteX = x+s*0.78 + Math.sin(t*0.003)*s*0.02;
-    ctx.fillStyle = "#3a8aff";
-    ctx.fillRect(noteX, noteY, s*0.018, s*0.10);
-    ctx.beginPath();
-    ctx.ellipse(noteX-s*0.014, noteY+s*0.10, s*0.026, s*0.018, 0, 0, Math.PI*2);
-    ctx.fill();
-    // note flag
-    ctx.beginPath();
-    ctx.moveTo(noteX+s*0.018, noteY);
-    ctx.quadraticCurveTo(noteX+s*0.06, noteY+s*0.02, noteX+s*0.04, noteY+s*0.05);
-    ctx.lineTo(noteX+s*0.018, noteY+s*0.04);
-    ctx.closePath();
-    ctx.fill();
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("breezy", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("VIBE", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.055))}px monospace`;
-        ctx.fillText("zzz", x+s*0.06-s*0.025, y+s*0.10+s*0.015);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  LOHR(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // soft glow backdrop
-    const pulse = 0.5 + Math.sin(t*0.005)*0.5;
-    const glow = ctx.createRadialGradient(x+s*0.5, y+s*0.18, s*0.04, x+s*0.5, y+s*0.18, s*0.40);
-    glow.addColorStop(0, `rgba(255,230,140,${pulse*0.6})`);
-    glow.addColorStop(1, "rgba(255,230,140,0)");
-    ctx.fillStyle = glow;
-    ctx.fillRect(x, y, s, s);
-    // left wing (white feathered)
-    ctx.fillStyle = "#fff";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.22, y+s*0.40+bob);
-    ctx.quadraticCurveTo(x+s*0.00, y+s*0.28+bob, x+s*0.06, y+s*0.66+bob);
-    ctx.quadraticCurveTo(x+s*0.16, y+s*0.54+bob, x+s*0.30, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    // right wing
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.78, y+s*0.40+bob);
-    ctx.quadraticCurveTo(x+s*1.00, y+s*0.28+bob, x+s*0.94, y+s*0.66+bob);
-    ctx.quadraticCurveTo(x+s*0.84, y+s*0.54+bob, x+s*0.70, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    // feather lines
-    ctx.strokeStyle = "#d8dce4";
-    ctx.lineWidth = Math.max(1, s*0.008);
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.10, y+s*0.36+bob); ctx.lineTo(x+s*0.20, y+s*0.48+bob);
-    ctx.moveTo(x+s*0.08, y+s*0.46+bob); ctx.lineTo(x+s*0.18, y+s*0.54+bob);
-    ctx.moveTo(x+s*0.10, y+s*0.56+bob); ctx.lineTo(x+s*0.22, y+s*0.58+bob);
-    ctx.moveTo(x+s*0.90, y+s*0.36+bob); ctx.lineTo(x+s*0.80, y+s*0.48+bob);
-    ctx.moveTo(x+s*0.92, y+s*0.46+bob); ctx.lineTo(x+s*0.82, y+s*0.54+bob);
-    ctx.moveTo(x+s*0.90, y+s*0.56+bob); ctx.lineTo(x+s*0.78, y+s*0.58+bob);
-    ctx.stroke();
-    // white robe with gold trim
-    ctx.fillStyle = "#fafafa";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-    ctx.fill();
-    // gold trim
-    ctx.fillStyle = "#e6c14a";
-    ctx.fillRect(x+s*0.22, y+s*0.62+bob, s*0.56, s*0.02);
-    ctx.fillRect(x+s*0.42, y+s*0.66+bob, s*0.16, s*0.02);
-    // arms
-    px(ctx, x+s*0.18, y+s*0.62+bob, s*0.10, s*0.18, "#fafafa");
-    px(ctx, x+s*0.72, y+s*0.62+bob, s*0.10, s*0.18, "#fafafa");
-    // gold cuffs
-    px(ctx, x+s*0.18, y+s*0.78+bob, s*0.10, s*0.02, "#e6c14a");
-    px(ctx, x+s*0.72, y+s*0.78+bob, s*0.10, s*0.02, "#e6c14a");
-    // face
-    ctx.fillStyle = "#ffe0c8";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.42+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // white short hair
-    ctx.fillStyle = "#f4f4f4";
-    px(ctx, x+s*0.32, y+s*0.24+bob, s*0.36, s*0.10, "#f4f4f4");
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.34, y+s*0.32+bob);
-    ctx.lineTo(x+s*0.40, y+s*0.26+bob);
-    ctx.lineTo(x+s*0.46, y+s*0.32+bob);
-    ctx.lineTo(x+s*0.52, y+s*0.26+bob);
-    ctx.lineTo(x+s*0.58, y+s*0.32+bob);
-    ctx.lineTo(x+s*0.64, y+s*0.26+bob);
-    ctx.lineTo(x+s*0.66, y+s*0.32+bob);
-    ctx.closePath();
-    ctx.fill();
-    // glowing pulsing gold halo
-    ctx.strokeStyle = `rgba(255,220,90,${pulse})`;
-    ctx.lineWidth = Math.max(2, s*0.020);
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.16+bob, s*0.16, s*0.05, 0, 0, Math.PI*2);
-    ctx.stroke();
-    // halo inner glow
-    ctx.strokeStyle = `rgba(255,255,200,${pulse*0.6})`;
-    ctx.lineWidth = Math.max(1, s*0.010);
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.16+bob, s*0.13, s*0.04, 0, 0, Math.PI*2);
-    ctx.stroke();
-    // calm closed eyes (arcs)
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(1, s*0.012);
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.026, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.026, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    // serene smile
-    ctx.beginPath();
-    ctx.arc(x+s*0.50, y+s*0.52+bob, s*0.030, Math.PI*0.15, Math.PI*0.85);
-    ctx.stroke();
-    // day-counter scroll (held in hands)
-    ctx.fillStyle = "#f8e8c4";
-    ctx.fillRect(x+s*0.36, y+s*0.80+bob, s*0.28, s*0.10);
-    // scroll ends
-    ctx.fillStyle = "#c89848";
-    ctx.fillRect(x+s*0.34, y+s*0.80+bob, s*0.02, s*0.10);
-    ctx.fillRect(x+s*0.64, y+s*0.80+bob, s*0.02, s*0.10);
-    // scroll text
-    ctx.fillStyle = "#1a1a1a";
-    ctx.font = `bold ${Math.floor(s*0.05)}px monospace`;
-    ctx.textAlign = "center";
-    ctx.fillText("1855", x+s*0.50, y+s*0.872+bob);
-    ctx.textAlign = "start";
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Lohr", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ffd700";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("A$AP", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.025, s*0.010, 0, 0, Math.PI*2);
-        ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  JACKY(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // blue pants
-    ctx.fillStyle = "#3a6acc";
-    ctx.fillRect(x+s*0.34, y+s*0.78+bob, s*0.32, s*0.14);
-    // orange shirt
-    ctx.fillStyle = "#ff8a30";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.72+bob, s*0.30, s*0.18, 0, 0, Math.PI*2);
-    ctx.fill();
-    // arms in orange
-    px(ctx, x+s*0.18, y+s*0.62+bob, s*0.10, s*0.18, "#ff8a30");
-    px(ctx, x+s*0.72, y+s*0.62+bob, s*0.10, s*0.18, "#ff8a30");
-    // peach face
-    ctx.fillStyle = "#ffd8b0";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.19, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // crazy spiky blonde hair — many radiating triangles
-    ctx.fillStyle = "#ffd14a";
-    const sp_cx = x+s*0.50, sp_cy = y+s*0.30+bob;
-    const spikes = [
-      [-0.30, 0.34, -0.36, 0.10, -0.20, 0.20],
-      [-0.18, 0.24, -0.20, 0.04, -0.08, 0.18],
-      [-0.06, 0.20, -0.04, 0.00, 0.04, 0.18],
-      [0.06, 0.20, 0.10, 0.02, 0.16, 0.20],
-      [0.18, 0.22, 0.24, 0.04, 0.30, 0.22],
-      [0.30, 0.30, 0.36, 0.12, 0.22, 0.20]
-    ];
-    for (const sk of spikes) {
-      ctx.beginPath();
-      ctx.moveTo(sp_cx+s*sk[0], y+s*sk[1]+bob);
-      ctx.lineTo(sp_cx+s*sk[2], y+s*sk[3]+bob);
-      ctx.lineTo(sp_cx+s*sk[4], y+s*sk[5]+bob);
-      ctx.closePath();
-      ctx.fill();
-    }
-    // base hair
-    ctx.fillStyle = "#ffd14a";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.30+bob, s*0.20, s*0.10, 0, 0, Math.PI);
-    ctx.fill();
-    // hair highlight
-    ctx.fillStyle = "#ffe888";
-    px(ctx, x+s*0.40, y+s*0.26+bob, s*0.06, s*0.02, "#ffe888");
-    px(ctx, x+s*0.54, y+s*0.24+bob, s*0.06, s*0.02, "#ffe888");
-    // big sparkly anime eyes (blue with white sparkles)
-    ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.44+bob, s*0.058, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.44+bob, s*0.058, 0, Math.PI*2); ctx.fill();
-    // blue iris
-    ctx.fillStyle = "#3aaaff";
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.44+bob, s*0.044, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.44+bob, s*0.044, 0, Math.PI*2); ctx.fill();
-    // pupil
-    ctx.fillStyle = "#1a1a3a";
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.44+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.44+bob, s*0.022, 0, Math.PI*2); ctx.fill();
-    // big white sparkles
-    ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.42+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.56, y+s*0.42+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.44, y+s*0.46+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.46+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-    // pink cheeks
-    ctx.fillStyle = "rgba(255,140,160,0.7)";
-    ctx.beginPath(); ctx.ellipse(x+s*0.34, y+s*0.52+bob, s*0.04, s*0.025, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(x+s*0.66, y+s*0.52+bob, s*0.04, s*0.025, 0, 0, Math.PI*2); ctx.fill();
-    // BIG OPEN smile showing teeth
-    ctx.fillStyle = "#3a1a1a";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.56+bob, s*0.07, s*0.04, 0, 0, Math.PI);
-    ctx.fill();
-    // teeth (white bar across top of mouth)
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(x+s*0.44, y+s*0.555+bob, s*0.12, s*0.014);
-    // teeth divisions
-    ctx.strokeStyle = "#aaa";
-    ctx.lineWidth = Math.max(1, s*0.005);
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.48, y+s*0.555+bob); ctx.lineTo(x+s*0.48, y+s*0.569+bob);
-    ctx.moveTo(x+s*0.52, y+s*0.555+bob); ctx.lineTo(x+s*0.52, y+s*0.569+bob);
-    ctx.stroke();
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Jacky", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#fee75c";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("BL", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        for (let __i=0; __i<4; __i++) {
-          ctx.beginPath();
-          ctx.moveTo(x+s*0.06-s*0.018+__i*s*0.012, y+s*0.10+s*0.012);
-          ctx.lineTo(x+s*0.06-s*0.012+__i*s*0.012, y+s*0.10-s*0.018);
-          ctx.lineTo(x+s*0.06-s*0.006+__i*s*0.012, y+s*0.10+s*0.012);
-          ctx.closePath(); ctx.fill();
-        }
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  MILOSIVIC(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.010);
-    // starry night background
-    ctx.fillStyle = "#0a0a2a";
-    ctx.fillRect(x, y, s, s);
-    // twinkling stars
-    const starPos = [
-      [0.10, 0.12], [0.20, 0.30], [0.08, 0.50], [0.14, 0.74],
-      [0.86, 0.18], [0.92, 0.40], [0.84, 0.60], [0.90, 0.82],
-      [0.30, 0.08], [0.70, 0.10], [0.50, 0.06], [0.40, 0.86],
-      [0.62, 0.88], [0.26, 0.94]
-    ];
-    for (let i = 0; i < starPos.length; i++) {
-      const tw = 0.5 + Math.sin(t*0.004 + i) * 0.5;
-      ctx.fillStyle = `rgba(255,255,200,${tw})`;
-      const sxp = x + s*starPos[i][0];
-      const syp = y + s*starPos[i][1];
-      ctx.beginPath(); ctx.arc(sxp, syp, s*0.010, 0, Math.PI*2); ctx.fill();
-      // star cross
-      ctx.fillRect(sxp-s*0.014, syp-s*0.002, s*0.028, s*0.004);
-      ctx.fillRect(sxp-s*0.002, syp-s*0.014, s*0.004, s*0.028);
-    }
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // moon body — navy-blue rounded full moon
-    const mcx = x+s*0.50, mcy = y+s*0.50+bob;
-    ctx.fillStyle = "#3a4a8c";
-    ctx.beginPath();
-    ctx.arc(mcx, mcy, s*0.34, 0, Math.PI*2);
-    ctx.fill();
-    // moon highlight
-    ctx.fillStyle = "#5a6abc";
-    ctx.beginPath();
-    ctx.ellipse(mcx-s*0.10, mcy-s*0.10, s*0.10, s*0.08, 0, 0, Math.PI*2);
-    ctx.fill();
-    // soft inner glow
-    const glow = ctx.createRadialGradient(mcx-s*0.08, mcy-s*0.08, s*0.02, mcx, mcy, s*0.34);
-    glow.addColorStop(0, "rgba(180,200,255,0.4)");
-    glow.addColorStop(1, "rgba(180,200,255,0)");
-    ctx.fillStyle = glow;
-    ctx.beginPath();
-    ctx.arc(mcx, mcy, s*0.34, 0, Math.PI*2);
-    ctx.fill();
-    // moon craters
-    ctx.fillStyle = "#2a3a6c";
-    ctx.beginPath(); ctx.arc(mcx-s*0.12, mcy+s*0.06, s*0.030, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(mcx+s*0.10, mcy+s*0.14, s*0.022, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(mcx+s*0.16, mcy-s*0.06, s*0.018, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(mcx-s*0.04, mcy+s*0.18, s*0.014, 0, Math.PI*2); ctx.fill();
-    // crater shading
-    ctx.fillStyle = "#4a5a9c";
-    ctx.beginPath(); ctx.arc(mcx-s*0.115, mcy+s*0.052, s*0.018, 0, Math.PI*2); ctx.fill();
-    // closed sleepy eye-arcs
-    ctx.strokeStyle = "#1a1a2a";
-    ctx.lineWidth = Math.max(2, s*0.014);
-    ctx.beginPath(); ctx.arc(mcx-s*0.10, mcy-s*0.04, s*0.040, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    ctx.beginPath(); ctx.arc(mcx+s*0.10, mcy-s*0.04, s*0.040, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    // eyelashes
-    ctx.lineWidth = Math.max(1, s*0.008);
-    ctx.beginPath();
-    ctx.moveTo(mcx-s*0.13, mcy-s*0.07); ctx.lineTo(mcx-s*0.15, mcy-s*0.10);
-    ctx.moveTo(mcx-s*0.07, mcy-s*0.07); ctx.lineTo(mcx-s*0.05, mcy-s*0.10);
-    ctx.moveTo(mcx+s*0.07, mcy-s*0.07); ctx.lineTo(mcx+s*0.05, mcy-s*0.10);
-    ctx.moveTo(mcx+s*0.13, mcy-s*0.07); ctx.lineTo(mcx+s*0.15, mcy-s*0.10);
-    ctx.stroke();
-    // tiny serene mouth
-    ctx.lineWidth = Math.max(1, s*0.012);
-    ctx.beginPath();
-    ctx.arc(mcx, mcy+s*0.08, s*0.020, Math.PI*0.20, Math.PI*0.80);
-    ctx.stroke();
-    // blush
-    ctx.fillStyle = "rgba(180,140,200,0.5)";
-    ctx.beginPath(); ctx.ellipse(mcx-s*0.18, mcy+s*0.04, s*0.034, s*0.020, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(mcx+s*0.18, mcy+s*0.04, s*0.034, s*0.020, 0, 0, Math.PI*2); ctx.fill();
-    // floating animated Z
-    const zY = y+s*0.18 + Math.sin(t*0.004)*s*0.04;
-    const zX = x+s*0.78 + Math.cos(t*0.003)*s*0.02;
-    ctx.fillStyle = "#fff";
-    ctx.font = `bold ${Math.floor(s*0.10)}px monospace`;
-    ctx.textAlign = "center";
-    ctx.fillText("Z", zX, zY);
-    // smaller Z
-    const zY2 = y+s*0.10 + Math.sin(t*0.004 + 1)*s*0.03;
-    ctx.font = `bold ${Math.floor(s*0.06)}px monospace`;
-    ctx.fillText("z", x+s*0.86, zY2);
-    ctx.textAlign = "start";
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Milosivic", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("BLU", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.022, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "rgba(0,0,0,0.5)";
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.008, y+s*0.10-s*0.004, s*0.018, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  SEA11(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    // sunset gradient backdrop
-    const sky = ctx.createLinearGradient(x, y, x, y+s);
-    sky.addColorStop(0, "#ffb060");
-    sky.addColorStop(0.5, "#ff80a0");
-    sky.addColorStop(1, "#a060c0");
-    ctx.fillStyle = sky;
-    ctx.fillRect(x, y, s, s);
-    // sun behind
-    const sunY = y+s*0.34;
-    const sunGrad = ctx.createRadialGradient(x+s*0.5, sunY, s*0.04, x+s*0.5, sunY, s*0.34);
-    sunGrad.addColorStop(0, "rgba(255,240,180,0.95)");
-    sunGrad.addColorStop(1, "rgba(255,200,120,0)");
-    ctx.fillStyle = sunGrad;
-    ctx.fillRect(x, y, s, s);
-    ctx.fillStyle = "#ffe888";
-    ctx.beginPath();
-    ctx.arc(x+s*0.50, sunY, s*0.16, 0, Math.PI*2);
-    ctx.fill();
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // pulsing pink/orange wings (left)
-    const pulse = 0.5 + Math.sin(t*0.005)*0.5;
-    ctx.fillStyle = "#ffb0c8";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.22, y+s*0.42+bob);
-    ctx.quadraticCurveTo(x+s*0.00, y+s*0.30+bob, x+s*0.06, y+s*0.66+bob);
-    ctx.quadraticCurveTo(x+s*0.16, y+s*0.54+bob, x+s*0.30, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    // wing inner orange tint
-    ctx.fillStyle = "#ffc88a";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.22, y+s*0.44+bob);
-    ctx.quadraticCurveTo(x+s*0.10, y+s*0.40+bob, x+s*0.14, y+s*0.58+bob);
-    ctx.quadraticCurveTo(x+s*0.20, y+s*0.52+bob, x+s*0.28, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    // right wing
-    ctx.fillStyle = "#ffb0c8";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.78, y+s*0.42+bob);
-    ctx.quadraticCurveTo(x+s*1.00, y+s*0.30+bob, x+s*0.94, y+s*0.66+bob);
-    ctx.quadraticCurveTo(x+s*0.84, y+s*0.54+bob, x+s*0.70, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    ctx.fillStyle = "#ffc88a";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.78, y+s*0.44+bob);
-    ctx.quadraticCurveTo(x+s*0.90, y+s*0.40+bob, x+s*0.86, y+s*0.58+bob);
-    ctx.quadraticCurveTo(x+s*0.80, y+s*0.52+bob, x+s*0.72, y+s*0.52+bob);
-    ctx.closePath();
-    ctx.fill();
-    // feather lines
-    ctx.strokeStyle = "rgba(255,140,160,0.8)";
-    ctx.lineWidth = Math.max(1, s*0.008);
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.10, y+s*0.40+bob); ctx.lineTo(x+s*0.20, y+s*0.50+bob);
-    ctx.moveTo(x+s*0.08, y+s*0.50+bob); ctx.lineTo(x+s*0.20, y+s*0.56+bob);
-    ctx.moveTo(x+s*0.90, y+s*0.40+bob); ctx.lineTo(x+s*0.80, y+s*0.50+bob);
-    ctx.moveTo(x+s*0.92, y+s*0.50+bob); ctx.lineTo(x+s*0.80, y+s*0.56+bob);
-    ctx.stroke();
-    // pink robe
-    ctx.fillStyle = "#ffc8d8";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.22, 0, 0, Math.PI*2);
-    ctx.fill();
-    // arms
-    px(ctx, x+s*0.20, y+s*0.62+bob, s*0.10, s*0.18, "#ffc8d8");
-    px(ctx, x+s*0.70, y+s*0.62+bob, s*0.10, s*0.18, "#ffc8d8");
-    // face
-    ctx.fillStyle = "#ffe0d0";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.18, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // pink-tinged hair
-    ctx.fillStyle = "#ffa0c0";
-    px(ctx, x+s*0.30, y+s*0.24+bob, s*0.40, s*0.10, "#ffa0c0");
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.30, y+s*0.34+bob);
-    ctx.quadraticCurveTo(x+s*0.22, y+s*0.50+bob, x+s*0.30, y+s*0.56+bob);
-    ctx.lineTo(x+s*0.34, y+s*0.46+bob);
-    ctx.closePath();
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.70, y+s*0.34+bob);
-    ctx.quadraticCurveTo(x+s*0.78, y+s*0.50+bob, x+s*0.70, y+s*0.56+bob);
-    ctx.lineTo(x+s*0.66, y+s*0.46+bob);
-    ctx.closePath();
-    ctx.fill();
-    // orange/pink halo
-    ctx.strokeStyle = `rgba(255,160,90,${pulse})`;
-    ctx.lineWidth = Math.max(2, s*0.018);
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.16+bob, s*0.16, s*0.05, 0, 0, Math.PI*2);
-    ctx.stroke();
-    ctx.strokeStyle = `rgba(255,200,140,${pulse*0.6})`;
-    ctx.lineWidth = Math.max(1, s*0.010);
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.16+bob, s*0.13, s*0.04, 0, 0, Math.PI*2);
-    ctx.stroke();
-    // big closed-arc happy eyes
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(2, s*0.016);
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.42+bob, s*0.034, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.42+bob, s*0.034, Math.PI*1.1, Math.PI*1.9); ctx.stroke();
-    // blush
-    ctx.fillStyle = "rgba(255,140,160,0.7)";
-    ctx.beginPath(); ctx.ellipse(x+s*0.34, y+s*0.50+bob, s*0.04, s*0.025, 0, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(x+s*0.66, y+s*0.50+bob, s*0.04, s*0.025, 0, 0, Math.PI*2); ctx.fill();
-    // big smile
-    ctx.lineWidth = Math.max(2, s*0.014);
-    ctx.beginPath();
-    ctx.arc(x+s*0.50, y+s*0.52+bob, s*0.05, Math.PI*0.10, Math.PI*0.90);
-    ctx.stroke();
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("sea11", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ffd700";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("SAINT", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
-        ctx.beginPath();
-        ctx.ellipse(x+s*0.06, y+s*0.10, s*0.025, s*0.010, 0, 0, Math.PI*2);
-        ctx.stroke();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  WIFI(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // shirt
-    ctx.fillStyle = "#3a8aff";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-    ctx.fill();
-    // arms
-    px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#3a8aff");
-    px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#3a8aff");
-    // face
-    ctx.fillStyle = "#ffd0a8";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.19, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // dark hair fringe under cap
-    ctx.fillStyle = "#2a1a08";
-    px(ctx, x+s*0.32, y+s*0.32+bob, s*0.36, s*0.06, "#2a1a08");
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.32, y+s*0.34+bob);
-    ctx.lineTo(x+s*0.38, y+s*0.40+bob);
-    ctx.lineTo(x+s*0.44, y+s*0.34+bob);
-    ctx.lineTo(x+s*0.50, y+s*0.40+bob);
-    ctx.lineTo(x+s*0.56, y+s*0.34+bob);
-    ctx.lineTo(x+s*0.62, y+s*0.40+bob);
-    ctx.lineTo(x+s*0.68, y+s*0.34+bob);
-    ctx.closePath();
-    ctx.fill();
-    // red baseball cap (crown)
-    ctx.fillStyle = "#d83030";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.50, y+s*0.28+bob, s*0.22, s*0.12, 0, Math.PI, Math.PI*2);
-    ctx.fill();
-    // cap brim
-    ctx.fillStyle = "#a82020";
-    ctx.fillRect(x+s*0.50, y+s*0.30+bob, s*0.30, s*0.04);
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.65, y+s*0.32+bob, s*0.15, s*0.03, 0, 0, Math.PI*2);
-    ctx.fill();
-    // cap highlight
-    ctx.fillStyle = "#f04848";
-    px(ctx, x+s*0.40, y+s*0.20+bob, s*0.06, s*0.02, "#f04848");
-    // cap button
-    ctx.fillStyle = "#a82020";
-    ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.18+bob, s*0.014, 0, Math.PI*2); ctx.fill();
-    // eyes
-    ctx.fillStyle = "#1a1a1a";
-    ctx.beginPath(); ctx.arc(x+s*0.42, y+s*0.46+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.58, y+s*0.46+bob, s*0.018, 0, Math.PI*2); ctx.fill();
-    // eye shine
-    ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.arc(x+s*0.425, y+s*0.455+bob, s*0.006, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.585, y+s*0.455+bob, s*0.006, 0, Math.PI*2); ctx.fill();
-    // smirk (asymmetric)
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(1, s*0.012);
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.46, y+s*0.55+bob);
-    ctx.quadraticCurveTo(x+s*0.52, y+s*0.58+bob, x+s*0.58, y+s*0.54+bob);
-    ctx.stroke();
-    // phone (held in hand)
-    const phx = x+s*0.30, phy = y+s*0.66+bob;
-    ctx.fillStyle = "#1a1a1a";
-    ctx.fillRect(phx, phy, s*0.16, s*0.22);
-    // cyan screen
-    ctx.fillStyle = "#1ad8e8";
-    ctx.fillRect(phx+s*0.012, phy+s*0.014, s*0.136, s*0.18);
-    // wifi signal — center dot
-    const wcx = phx+s*0.080, wcy = phy+s*0.13;
-    ctx.fillStyle = "#fff";
-    ctx.beginPath(); ctx.arc(wcx, wcy, s*0.012, 0, Math.PI*2); ctx.fill();
-    // wifi arcs (3 arcs radiating)
-    ctx.strokeStyle = "#fff";
-    ctx.lineWidth = Math.max(2, s*0.010);
-    const pulse = (Math.sin(t*0.005) + 1) / 2;
-    ctx.globalAlpha = 0.5 + pulse*0.5;
-    ctx.beginPath(); ctx.arc(wcx, wcy, s*0.024, Math.PI*1.25, Math.PI*1.75); ctx.stroke();
-    ctx.globalAlpha = 0.3 + pulse*0.4;
-    ctx.beginPath(); ctx.arc(wcx, wcy, s*0.040, Math.PI*1.25, Math.PI*1.75); ctx.stroke();
-    ctx.globalAlpha = 0.2 + pulse*0.3;
-    ctx.beginPath(); ctx.arc(wcx, wcy, s*0.056, Math.PI*1.25, Math.PI*1.75); ctx.stroke();
-    ctx.globalAlpha = 1;
-    // phone home button
-    ctx.fillStyle = "#444";
-    ctx.beginPath(); ctx.arc(phx+s*0.080, phy+s*0.20, s*0.008, 0, Math.PI*2); ctx.fill();
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("wifi", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#5fc8ff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("3MS", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.strokeStyle = "#7fdc6a"; ctx.lineWidth = Math.max(1, s*0.006);
-        for (let __i=1; __i<=3; __i++) {
-          ctx.beginPath();
-          ctx.arc(x+s*0.06, y+s*0.10+s*0.015, s*0.008*__i, -Math.PI*0.85, -Math.PI*0.15);
-          ctx.stroke();
-        }
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10+s*0.015, s*0.004, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-  XKING(ctx, sp, x, y, s, t) {
-    const bob = Math.sin(t*0.003) * (s*0.012);
-    shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-    // purple robe
-    ctx.fillStyle = "#7040c0";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.32, s*0.22, 0, 0, Math.PI*2);
-    ctx.fill();
-    // robe trim
-    ctx.fillStyle = "#a070e0";
-    ctx.fillRect(x+s*0.20, y+s*0.62+bob, s*0.60, s*0.02);
-    // arms
-    px(ctx, x+s*0.16, y+s*0.62+bob, s*0.10, s*0.20, "#7040c0");
-    px(ctx, x+s*0.74, y+s*0.62+bob, s*0.10, s*0.20, "#7040c0");
-    // face
-    ctx.fillStyle = "#ffd0a8";
-    ctx.beginPath();
-    ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.19, s*0.20, 0, 0, Math.PI*2);
-    ctx.fill();
-    // brown hair fringe
-    ctx.fillStyle = "#5a3818";
-    px(ctx, x+s*0.32, y+s*0.30+bob, s*0.36, s*0.08, "#5a3818");
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.32, y+s*0.36+bob);
-    ctx.lineTo(x+s*0.38, y+s*0.42+bob);
-    ctx.lineTo(x+s*0.44, y+s*0.36+bob);
-    ctx.lineTo(x+s*0.50, y+s*0.42+bob);
-    ctx.lineTo(x+s*0.56, y+s*0.36+bob);
-    ctx.lineTo(x+s*0.62, y+s*0.42+bob);
-    ctx.lineTo(x+s*0.68, y+s*0.36+bob);
-    ctx.closePath();
-    ctx.fill();
-    // gold crown — 3-pointed
-    ctx.fillStyle = "#ffcc30";
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.30, y+s*0.30+bob);
-    ctx.lineTo(x+s*0.34, y+s*0.10+bob);
-    ctx.lineTo(x+s*0.42, y+s*0.22+bob);
-    ctx.lineTo(x+s*0.50, y+s*0.06+bob);
-    ctx.lineTo(x+s*0.58, y+s*0.22+bob);
-    ctx.lineTo(x+s*0.66, y+s*0.10+bob);
-    ctx.lineTo(x+s*0.70, y+s*0.30+bob);
-    ctx.closePath();
-    ctx.fill();
-    // crown band
-    ctx.fillStyle = "#e0aa10";
-    ctx.fillRect(x+s*0.30, y+s*0.26+bob, s*0.40, s*0.04);
-    // crown jewels
-    ctx.fillStyle = "#e83040";
-    ctx.beginPath(); ctx.arc(x+s*0.34, y+s*0.16+bob, s*0.020, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = "#1ad8e8";
-    ctx.beginPath(); ctx.arc(x+s*0.50, y+s*0.12+bob, s*0.024, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = "#e83040";
-    ctx.beginPath(); ctx.arc(x+s*0.66, y+s*0.16+bob, s*0.020, 0, Math.PI*2); ctx.fill();
-    // jewel shines
-    ctx.fillStyle = "rgba(255,255,255,0.6)";
-    ctx.beginPath(); ctx.arc(x+s*0.335, y+s*0.155+bob, s*0.006, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.495, y+s*0.115+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.655, y+s*0.155+bob, s*0.006, 0, Math.PI*2); ctx.fill();
-    // crown highlight
-    ctx.fillStyle = "#fff080";
-    px(ctx, x+s*0.36, y+s*0.27+bob, s*0.04, s*0.012, "#fff080");
-    // big rectangular glasses
-    ctx.fillStyle = "rgba(180,200,220,0.25)";
-    ctx.fillRect(x+s*0.32, y+s*0.40+bob, s*0.16, s*0.10);
-    ctx.fillRect(x+s*0.52, y+s*0.40+bob, s*0.16, s*0.10);
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(2, s*0.014);
-    ctx.strokeRect(x+s*0.32, y+s*0.40+bob, s*0.16, s*0.10);
-    ctx.strokeRect(x+s*0.52, y+s*0.40+bob, s*0.16, s*0.10);
-    // glasses bridge
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.48, y+s*0.45+bob); ctx.lineTo(x+s*0.52, y+s*0.45+bob);
-    ctx.stroke();
-    // glasses temples
-    ctx.beginPath();
-    ctx.moveTo(x+s*0.32, y+s*0.45+bob); ctx.lineTo(x+s*0.28, y+s*0.46+bob);
-    ctx.moveTo(x+s*0.68, y+s*0.45+bob); ctx.lineTo(x+s*0.72, y+s*0.46+bob);
-    ctx.stroke();
-    // eyes behind glasses
-    ctx.fillStyle = "#1a1a1a";
-    ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.45+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.45+bob, s*0.012, 0, Math.PI*2); ctx.fill();
-    // glass shine
-    ctx.fillStyle = "rgba(255,255,255,0.5)";
-    px(ctx, x+s*0.34, y+s*0.41+bob, s*0.04, s*0.014, "rgba(255,255,255,0.5)");
-    px(ctx, x+s*0.54, y+s*0.41+bob, s*0.04, s*0.014, "rgba(255,255,255,0.5)");
-    // smile
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = Math.max(1, s*0.012);
-    ctx.beginPath();
-    ctx.arc(x+s*0.50, y+s*0.55+bob, s*0.04, Math.PI*0.15, Math.PI*0.85);
-    ctx.stroke();
-    // JEW badge
-    ctx.fillStyle = "#5865f2";
-    ctx.fillRect(x+s*0.40, y+s*0.84+bob, s*0.20, s*0.06);
-    ctx.fillStyle = "#fff";
-    ctx.font = `bold ${Math.floor(s*0.045)}px monospace`;
-    ctx.textAlign = "center";
-    ctx.fillText("JEW", x+s*0.50, y+s*0.885+bob);
-    ctx.textAlign = "start";
-        // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("xking", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#7fdcff";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("JEW", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#ffd700";
-        ctx.beginPath();
-        ctx.moveTo(x+s*0.06-s*0.025, y+s*0.10+s*0.012);
-        ctx.lineTo(x+s*0.06-s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06, y+s*0.10-s*0.005);
-        ctx.lineTo(x+s*0.06+s*0.020, y+s*0.10-s*0.020);
-        ctx.lineTo(x+s*0.06+s*0.025, y+s*0.10+s*0.012);
-        ctx.closePath(); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-    HEADBAND_GUY(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const tailWave = Math.sin(t*0.005) * (s*0.025);
-      const tailWave2 = Math.cos(t*0.007) * (s*0.018);
+      px(ctx, x+s/2-2, y+42+bob, 4, 1, '#a06070');
+      // hourglass tag
+      px(ctx, x+4, y+s-8, 4, 5, '#c8a878');
+    },
+    BREEZY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // white gi (karate uniform) body
-      ctx.fillStyle = "#f4f0e6";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.34, s*0.22, 0, 0, Math.PI*2);
-      ctx.fill();
-      // gi shadow/folds
-      ctx.fillStyle = "#d8d0bc";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.32, y+s*0.62+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.96+bob);
-      ctx.lineTo(x+s*0.34, y+s*0.96+bob);
-      ctx.closePath();
-      ctx.fill();
-      // gi V-collar (crossover)
-      ctx.fillStyle = "#f4f0e6";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.78+bob);
-      ctx.lineTo(x+s*0.42, y+s*0.84+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.66+bob);
-      ctx.lineTo(x+s*0.58, y+s*0.84+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.78+bob);
-      ctx.closePath();
-      ctx.fill();
-      // collar trim
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.36, y+s*0.78+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.58+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.78+bob);
-      ctx.stroke();
-      // arms in gi sleeves
-      px(ctx, x+s*0.14, y+s*0.62+bob, s*0.12, s*0.20, "#f4f0e6");
-      px(ctx, x+s*0.74, y+s*0.62+bob, s*0.12, s*0.20, "#f4f0e6");
-      // sleeve cuffs (darker)
-      px(ctx, x+s*0.14, y+s*0.78+bob, s*0.12, s*0.04, "#d8d0bc");
-      px(ctx, x+s*0.74, y+s*0.78+bob, s*0.12, s*0.04, "#d8d0bc");
-      // BLACK BELT around waist
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.20, y+s*0.84+bob, s*0.60, s*0.06);
-      // black belt knot in front (square knot)
-      ctx.fillStyle = "#0a0a0a";
-      ctx.fillRect(x+s*0.44, y+s*0.82+bob, s*0.12, s*0.10);
-      ctx.fillStyle = "#1a1a1a";
-      ctx.fillRect(x+s*0.46, y+s*0.83+bob, s*0.08, s*0.08);
-      // belt knot tails dangling
-      px(ctx, x+s*0.45, y+s*0.90+bob, s*0.025, s*0.06, "#1a1a1a");
-      px(ctx, x+s*0.525, y+s*0.90+bob, s*0.025, s*0.06, "#1a1a1a");
-      // knot highlight
-      ctx.fillStyle = "#3a3a3a";
-      ctx.fillRect(x+s*0.465, y+s*0.835+bob, s*0.07, s*0.012);
-      // peach skin face
-      ctx.fillStyle = "#ffd0a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.44+bob, s*0.20, s*0.21, 0, 0, Math.PI*2);
-      ctx.fill();
-      // dark spiky hair tuft (sticking up out of headband)
-      ctx.fillStyle = "#1a1208";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.34, y+s*0.30+bob);
-      ctx.lineTo(x+s*0.32, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.40, y+s*0.22+bob);
-      ctx.lineTo(x+s*0.44, y+s*0.10+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.56, y+s*0.08+bob);
-      ctx.lineTo(x+s*0.62, y+s*0.20+bob);
-      ctx.lineTo(x+s*0.68, y+s*0.16+bob);
-      ctx.lineTo(x+s*0.66, y+s*0.30+bob);
-      ctx.closePath();
-      ctx.fill();
-      // hair shadow streaks
-      ctx.fillStyle = "#000";
-      px(ctx, x+s*0.42, y+s*0.18+bob, s*0.012, s*0.06, "#000");
-      px(ctx, x+s*0.54, y+s*0.16+bob, s*0.012, s*0.06, "#000");
-      // RED HEADBAND across forehead
-      ctx.fillStyle = "#d61f1f";
-      ctx.fillRect(x+s*0.28, y+s*0.32+bob, s*0.44, s*0.07);
-      // headband shadow line
-      ctx.fillStyle = "#9a1414";
-      ctx.fillRect(x+s*0.28, y+s*0.38+bob, s*0.44, s*0.012);
-      // white circle (rising sun) in middle of headband
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.50, y+s*0.355+bob, s*0.030, 0, Math.PI*2);
-      ctx.fill();
-      // sun rays around circle (subtle)
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = Math.max(1, s*0.006);
-      for (let i = 0; i < 8; i++) {
-        const ra = (i / 8) * Math.PI * 2;
-        const rx1 = x+s*0.50 + Math.cos(ra)*s*0.034;
-        const ry1 = y+s*0.355+bob + Math.sin(ra)*s*0.034;
-        const rx2 = x+s*0.50 + Math.cos(ra)*s*0.040;
-        const ry2 = y+s*0.355+bob + Math.sin(ra)*s*0.040;
-        ctx.beginPath();
-        ctx.moveTo(rx1, ry1);
-        ctx.lineTo(rx2, ry2);
-        ctx.stroke();
+      // space bg
+      px(ctx, x, y, s, s, '#1a0a2a');
+      px(ctx, x, y, s, s*0.4, '#3a1a5a');
+      // stars
+      for (let i=0; i<14; i++) {
+        const sx = x + ((i*23) % s);
+        const sy = y + ((i*31) % s);
+        const tw = (Math.sin(t/300+i)+1)*0.5;
+        px(ctx, sx, sy, 2, 2, `rgba(255,255,255,${0.4+tw*0.6})`);
       }
-      // headband tail flowing back (animated)
-      ctx.fillStyle = "#d61f1f";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.34+bob);
-      ctx.quadraticCurveTo(x+s*0.10+tailWave, y+s*0.30+bob+tailWave2, x+s*0.04+tailWave, y+s*0.42+bob);
-      ctx.quadraticCurveTo(x+s*0.12+tailWave, y+s*0.40+bob+tailWave2, x+s*0.28, y+s*0.39+bob);
-      ctx.closePath();
-      ctx.fill();
-      // second tail layer
-      ctx.fillStyle = "#9a1414";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.28, y+s*0.36+bob);
-      ctx.quadraticCurveTo(x+s*0.08+tailWave2, y+s*0.36+bob+tailWave, x+s*0.06+tailWave2, y+s*0.46+bob);
-      ctx.quadraticCurveTo(x+s*0.16+tailWave2, y+s*0.42+bob, x+s*0.28, y+s*0.40+bob);
-      ctx.closePath();
-      ctx.fill();
-      // sharp determined eye-slits (thick angled lines)
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.022);
-      ctx.lineCap = "round";
-      // left slit (angled down toward center = determined)
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.36, y+s*0.45+bob);
-      ctx.lineTo(x+s*0.46, y+s*0.48+bob);
-      ctx.stroke();
-      // right slit
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.54, y+s*0.48+bob);
-      ctx.lineTo(x+s*0.64, y+s*0.45+bob);
-      ctx.stroke();
-      ctx.lineCap = "butt";
-      // small eyebrows above slits (more intensity)
-      ctx.fillStyle = "#1a1208";
-      ctx.fillRect(x+s*0.36, y+s*0.41+bob, s*0.10, s*0.012);
-      ctx.fillRect(x+s*0.54, y+s*0.41+bob, s*0.10, s*0.012);
-      // tight determined mouth
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.46, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.54, y+s*0.56+bob);
-      ctx.stroke();
-      // CYAN sweat drop on temple (animated drip)
-      const dropY = Math.sin(t*0.004) * (s*0.008);
-      ctx.fillStyle = "#5fd8ff";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.43+bob+dropY);
-      ctx.quadraticCurveTo(x+s*0.74, y+s*0.48+bob+dropY, x+s*0.71, y+s*0.51+bob+dropY);
-      ctx.quadraticCurveTo(x+s*0.68, y+s*0.48+bob+dropY, x+s*0.70, y+s*0.43+bob+dropY);
-      ctx.fill();
-      // sweat drop highlight
-      ctx.fillStyle = "#bff0ff";
-      ctx.beginPath();
-      ctx.arc(x+s*0.705, y+s*0.46+bob+dropY, s*0.008, 0, Math.PI*2);
-      ctx.fill();
-      // KARATE badge on gi
-      ctx.fillStyle = "#d61f1f";
-      ctx.fillRect(x+s*0.66, y+s*0.66+bob, s*0.10, s*0.06);
-      ctx.fillStyle = "#fff";
-      ctx.font = `bold ${Math.floor(s*0.035)}px monospace`;
-      ctx.textAlign = "center";
-      ctx.fillText("KI", x+s*0.71, y+s*0.705+bob);
-      ctx.textAlign = "start";
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#a4b3c8";
-        ctx.shadowColor = "#a4b3c8";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("headband_guy", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#ed4245";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#a4b3c8";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("HB", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#a4b3c8";
-        ctx.fillRect(x+s*0.06-s*0.025, y+s*0.10-s*0.005, s*0.050, s*0.010);
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
-
-    KOYLY(ctx, sp, x, y, s, t) {
-      const bob = Math.sin(t*0.003) * (s*0.012);
-      const earWobble = Math.sin(t*0.004) * (s*0.008);
-      const zPulse = (Math.sin(t*0.002) + 1) * 0.5;
-      const zFloat = Math.sin(t*0.0035) * (s*0.015);
+      // shooting star streak
+      const stt = (t/30) % (s+20);
+      px(ctx, x+stt-20, y+s*0.30+bob*0.5, 16, 2, '#ffeebb');
+      px(ctx, x+stt-12, y+s*0.30+bob*0.5-1, 8, 4, '#fff');
+      px(ctx, x+stt-4, y+s*0.30+bob*0.5-2, 6, 6, '#ffffaa');
+      // zZz
+      px(ctx, x+s*0.16, y+s*0.66+bob, s*0.06, s*0.02, '#fff');
+      px(ctx, x+s*0.20, y+s*0.68+bob, s*0.02, s*0.04, '#fff');
+      px(ctx, x+s*0.16, y+s*0.72+bob, s*0.06, s*0.02, '#fff');
+      px(ctx, x+s*0.26, y+s*0.78+bob, s*0.04, s*0.02, '#aaa');
+    },
+    LOHR(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // chubby puppy body (light cream/tan)
-      ctx.fillStyle = "#f4d8a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.74+bob, s*0.30, s*0.20, 0, 0, Math.PI*2);
-      ctx.fill();
-      // belly highlight
-      ctx.fillStyle = "#fce8c4";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.78+bob, s*0.20, s*0.10, 0, 0, Math.PI*2);
-      ctx.fill();
-      // stubby legs (4 little nubs)
-      px(ctx, x+s*0.26, y+s*0.86+bob, s*0.08, s*0.08, "#f4d8a8");
-      px(ctx, x+s*0.40, y+s*0.88+bob, s*0.08, s*0.07, "#f4d8a8");
-      px(ctx, x+s*0.52, y+s*0.88+bob, s*0.08, s*0.07, "#f4d8a8");
-      px(ctx, x+s*0.66, y+s*0.86+bob, s*0.08, s*0.08, "#f4d8a8");
-      // tiny paw pads on front legs
-      px(ctx, x+s*0.28, y+s*0.92+bob, s*0.04, s*0.02, "#d4b888");
-      px(ctx, x+s*0.68, y+s*0.92+bob, s*0.04, s*0.02, "#d4b888");
-      // puppy head — big round
-      ctx.fillStyle = "#f4d8a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.46+bob, s*0.22, s*0.21, 0, 0, Math.PI*2);
-      ctx.fill();
-      // muzzle (lighter)
-      ctx.fillStyle = "#fce8c4";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.55+bob, s*0.10, s*0.07, 0, 0, Math.PI*2);
-      ctx.fill();
-      // FLOPPY EARS (long, droopy down past cheeks)
-      // left ear
-      ctx.fillStyle = "#c89868";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.32+bob);
-      ctx.quadraticCurveTo(x+s*0.20+earWobble, y+s*0.42+bob, x+s*0.22+earWobble, y+s*0.58+bob);
-      ctx.quadraticCurveTo(x+s*0.30, y+s*0.60+bob, x+s*0.36, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.34, y+s*0.38+bob, x+s*0.30, y+s*0.32+bob);
-      ctx.fill();
-      // left ear inner (pink)
-      ctx.fillStyle = "#e8b098";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.30, y+s*0.36+bob);
-      ctx.quadraticCurveTo(x+s*0.26+earWobble, y+s*0.44+bob, x+s*0.27+earWobble, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.32, y+s*0.50+bob, x+s*0.32, y+s*0.40+bob);
-      ctx.fill();
-      // right ear
-      ctx.fillStyle = "#c89868";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.32+bob);
-      ctx.quadraticCurveTo(x+s*0.80-earWobble, y+s*0.42+bob, x+s*0.78-earWobble, y+s*0.58+bob);
-      ctx.quadraticCurveTo(x+s*0.70, y+s*0.60+bob, x+s*0.64, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.66, y+s*0.38+bob, x+s*0.70, y+s*0.32+bob);
-      ctx.fill();
-      // right ear inner
-      ctx.fillStyle = "#e8b098";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.70, y+s*0.36+bob);
-      ctx.quadraticCurveTo(x+s*0.74-earWobble, y+s*0.44+bob, x+s*0.73-earWobble, y+s*0.54+bob);
-      ctx.quadraticCurveTo(x+s*0.68, y+s*0.50+bob, x+s*0.68, y+s*0.40+bob);
-      ctx.fill();
-      // top of head fluff
-      ctx.fillStyle = "#f4d8a8";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.5, y+s*0.30+bob, s*0.10, s*0.04, 0, 0, Math.PI*2);
-      ctx.fill();
-      // sleepy closed eyes (gentle arcs ^_^ but flat)
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(2, s*0.018);
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.arc(x+s*0.42, y+s*0.46+bob, s*0.030, Math.PI*1.2, Math.PI*1.8);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x+s*0.58, y+s*0.46+bob, s*0.030, Math.PI*1.2, Math.PI*1.8);
-      ctx.stroke();
-      // little eyelashes/sleep marks
-      ctx.lineWidth = Math.max(1, s*0.010);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.40, y+s*0.49+bob);
-      ctx.lineTo(x+s*0.39, y+s*0.51+bob);
-      ctx.moveTo(x+s*0.60, y+s*0.49+bob);
-      ctx.lineTo(x+s*0.61, y+s*0.51+bob);
-      ctx.stroke();
-      ctx.lineCap = "butt";
-      // black nose (rounded triangle)
-      ctx.fillStyle = "#1a1a1a";
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.50+bob);
-      ctx.quadraticCurveTo(x+s*0.46, y+s*0.52+bob, x+s*0.48, y+s*0.55+bob);
-      ctx.quadraticCurveTo(x+s*0.50, y+s*0.56+bob, x+s*0.52, y+s*0.55+bob);
-      ctx.quadraticCurveTo(x+s*0.54, y+s*0.52+bob, x+s*0.50, y+s*0.50+bob);
-      ctx.fill();
-      // nose highlight
-      ctx.fillStyle = "#666";
-      ctx.beginPath();
-      ctx.arc(x+s*0.49, y+s*0.515+bob, s*0.006, 0, Math.PI*2);
-      ctx.fill();
-      // tiny droop mouth (sad-ish little frown)
-      ctx.strokeStyle = "#1a1a1a";
-      ctx.lineWidth = Math.max(1, s*0.012);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.56+bob);
-      ctx.lineTo(x+s*0.50, y+s*0.59+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.59+bob);
-      ctx.quadraticCurveTo(x+s*0.46, y+s*0.61+bob, x+s*0.44, y+s*0.60+bob);
-      ctx.moveTo(x+s*0.50, y+s*0.59+bob);
-      ctx.quadraticCurveTo(x+s*0.54, y+s*0.61+bob, x+s*0.56, y+s*0.60+bob);
-      ctx.stroke();
-      // DARK COLLAR around neck
-      ctx.fillStyle = "#2a1a1a";
-      ctx.fillRect(x+s*0.28, y+s*0.62+bob, s*0.44, s*0.05);
-      ctx.fillStyle = "#1a0a0a";
-      ctx.fillRect(x+s*0.28, y+s*0.66+bob, s*0.44, s*0.012);
-      // collar studs
-      ctx.fillStyle = "#888";
-      ctx.beginPath(); ctx.arc(x+s*0.34, y+s*0.645+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.40, y+s*0.645+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.60, y+s*0.645+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.66, y+s*0.645+bob, s*0.008, 0, Math.PI*2); ctx.fill();
-      // SKULL CHARM pendant hanging off collar
-      ctx.fillStyle = "#888";
-      ctx.fillRect(x+s*0.498, y+s*0.66+bob, s*0.004, s*0.03);
-      // skull body (white circle/square)
-      ctx.fillStyle = "#f0f0f0";
-      ctx.beginPath();
-      ctx.ellipse(x+s*0.50, y+s*0.71+bob, s*0.045, s*0.045, 0, 0, Math.PI*2);
-      ctx.fill();
-      // skull jaw bottom (square)
-      ctx.fillRect(x+s*0.475, y+s*0.72+bob, s*0.05, s*0.025);
-      // skull eye sockets (black)
-      ctx.fillStyle = "#000";
-      ctx.beginPath(); ctx.arc(x+s*0.485, y+s*0.705+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x+s*0.515, y+s*0.705+bob, s*0.010, 0, Math.PI*2); ctx.fill();
-      // skull nose (small triangle)
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.50, y+s*0.715+bob);
-      ctx.lineTo(x+s*0.495, y+s*0.725+bob);
-      ctx.lineTo(x+s*0.505, y+s*0.725+bob);
-      ctx.closePath();
-      ctx.fill();
-      // skull teeth (vertical lines on jaw)
-      ctx.strokeStyle = "#000";
-      ctx.lineWidth = Math.max(1, s*0.005);
-      ctx.beginPath();
-      ctx.moveTo(x+s*0.485, y+s*0.725+bob); ctx.lineTo(x+s*0.485, y+s*0.74+bob);
-      ctx.moveTo(x+s*0.495, y+s*0.725+bob); ctx.lineTo(x+s*0.495, y+s*0.74+bob);
-      ctx.moveTo(x+s*0.505, y+s*0.725+bob); ctx.lineTo(x+s*0.505, y+s*0.74+bob);
-      ctx.moveTo(x+s*0.515, y+s*0.725+bob); ctx.lineTo(x+s*0.515, y+s*0.74+bob);
-      ctx.stroke();
-      // floating Z (sleepy)
-      ctx.fillStyle = `rgba(127,180,255,${0.5 + zPulse*0.5})`;
-      ctx.font = `bold ${Math.floor(s*0.10)}px monospace`;
-      ctx.fillText("Z", x+s*0.74, y+s*0.20+bob+zFloat);
-      // smaller Z
-      ctx.fillStyle = `rgba(127,180,255,${0.3 + zPulse*0.4})`;
-      ctx.font = `bold ${Math.floor(s*0.06)}px monospace`;
-      ctx.fillText("z", x+s*0.82, y+s*0.12+bob-zFloat);
-      // tiniest Z
-      ctx.fillStyle = `rgba(127,180,255,${0.2 + zPulse*0.3})`;
-      ctx.font = `bold ${Math.floor(s*0.04)}px monospace`;
-      ctx.fillText("z", x+s*0.88, y+s*0.06+bob+zFloat*0.5);
-          // === auto-flourish: identifier overlay ===
-      try {
-        ctx.save();
-        const __fb = Math.sin(t*0.0035) * (s*0.008);
-        // Tier-glow username label (below sprite)
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.060))}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillStyle = "rgba(0,0,0,0.55)";
-        ctx.fillRect(x+s*0.10, y+s*0.965, s*0.80, s*0.075);
-        ctx.fillStyle = "#7fdc6a";
-        ctx.shadowColor = "#7fdc6a";
-        ctx.shadowBlur = Math.max(2, s*0.012);
-        ctx.fillText("Koyly", x+s*0.50, y+s*1.020);
-        ctx.shadowBlur = 0;
-        // Floating role badge tag (top-right corner)
-        const __bx = x+s*0.66, __by = y+s*0.05+__fb;
-        const __bw = s*0.32, __bh = s*0.10;
-        ctx.fillStyle = "#a4b3c8";
-        ctx.fillRect(__bx, __by, __bw, __bh);
-        ctx.strokeStyle = "#7fdc6a";
-        ctx.lineWidth = Math.max(1, s*0.008);
-        ctx.strokeRect(__bx, __by, __bw, __bh);
-        ctx.fillStyle = "#0a0a14";
-        ctx.font = `bold ${Math.max(7, Math.floor(s*0.058))}px monospace`;
-        ctx.fillText("PTV", __bx+__bw/2, __by+__bh*0.74);
-        ctx.textAlign = "start";
-        ctx.fillStyle = "#7fdc6a";
-        ctx.beginPath(); ctx.arc(x+s*0.06, y+s*0.10, s*0.020, 0, Math.PI*2); ctx.fill();
-        ctx.fillStyle = "#1a1a1a";
-        ctx.beginPath(); ctx.arc(x+s*0.06-s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
-        ctx.beginPath(); ctx.arc(x+s*0.06+s*0.007, y+s*0.10-s*0.004, s*0.004, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-      } catch(__e) { /* flourish fail-safe */ }
-},
+      // sky/snow bg
+      px(ctx, x, y, s, s*0.6, '#1a2848');
+      px(ctx, x, y+s*0.6, s, s*0.4, '#e8eef8');
+      // snow flakes
+      for (let i=0; i<6; i++) {
+        const fx = x + ((i*13 + (t/100|0)) % s);
+        const fy = y + ((i*17 + (t/80|0)) % (s*0.6));
+        px(ctx, fx, fy, 2, 2, '#fff');
+      }
+      const cx = x + s/2, cy = y + s/2 + bob;
+      // head
+      px(ctx, cx-s*0.16, cy-s*0.10, s*0.32, s*0.30, '#f0c8a8');
+      // santa hat
+      px(ctx, cx-s*0.18, cy-s*0.24, s*0.36, s*0.10, '#cc1a1a');
+      px(ctx, cx-s*0.18, cy-s*0.30, s*0.20, s*0.08, '#cc1a1a');
+      px(ctx, cx-s*0.20, cy-s*0.16, s*0.40, s*0.04, '#fff');
+      px(ctx, cx-s*0.04, cy-s*0.34, s*0.06, s*0.06, '#fff');
+      // beard
+      px(ctx, cx-s*0.14, cy+s*0.10, s*0.28, s*0.14, '#fff');
+      // streak counter
+      px(ctx, x+s*0.04, y+s*0.84, s*0.30, s*0.10, '#cc1a1a');
+      px(ctx, x+s*0.06, y+s*0.86, s*0.04, s*0.06, '#fff');
+      px(ctx, x+s*0.12, y+s*0.86, s*0.04, s*0.06, '#fff');
+      px(ctx, x+s*0.18, y+s*0.86, s*0.04, s*0.06, '#fff');
+    },
+    JACKY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // soft anime background
+      px(ctx, x+2, y+2, s-4, s-4, '#e8d8b8');
+      // blonde messy hair
+      px(ctx, x+10, y+6+bob, s-20, 18, '#f8d050');
+      px(ctx, x+8, y+10+bob, 6, 18, '#f8d050');
+      px(ctx, x+s-14, y+10+bob, 6, 18, '#f8d050');
+      // messy spikes
+      px(ctx, x+14, y+4+bob, 4, 4, '#ffe070');
+      px(ctx, x+22, y+3+bob, 4, 4, '#f8d050');
+      px(ctx, x+34, y+3+bob, 4, 4, '#f8d050');
+      px(ctx, x+s-18, y+4+bob, 4, 4, '#ffe070');
+      // hair bangs
+      px(ctx, x+14, y+18+bob, s-28, 6, '#d8a830');
+      // pale face
+      px(ctx, x+14, y+22+bob, s-28, 22, '#ffe0c8');
+      // anime eyes
+      px(ctx, x+18, y+30+bob, 6, 5, '#ffffff');
+      px(ctx, x+s-24, y+30+bob, 6, 5, '#ffffff');
+      px(ctx, x+19, y+31+bob, 4, 4, '#5a3818');
+      px(ctx, x+s-23, y+31+bob, 4, 4, '#5a3818');
+      px(ctx, x+20, y+32+bob, 1, 1, '#ffffff');
+      px(ctx, x+s-22, y+32+bob, 1, 1, '#ffffff');
+      // mouth neutral
+      px(ctx, x+26, y+40+bob, 8, 1, '#a06848');
+      // brown jacket collar
+      px(ctx, x+8, y+s-18+bob, s-16, 14, '#5a3018');
+      px(ctx, x+14, y+s-16+bob, s-28, 4, '#7a4828');
+      px(ctx, x+s/2-3, y+s-18+bob, 6, 6, '#ffe0c8');
+      // blood drop tag
+      px(ctx, x+4, y+s-8, 4, 5, '#c8202a');
+    },
+    MILOSIVIC(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark gradient ocean
+      for (let i=0; i<16; i++) {
+        const sh = Math.floor(40 - i*2.2);
+        px(ctx, x, y+i*s/16, s, s/16, `rgb(0,${Math.max(sh-10,0)},${Math.max(sh+10,5)})`);
+      }
+      // moon glow top
+      const mx = x + s*0.7, my = y + s*0.18 + bob*0.5;
+      px(ctx, mx-s*0.08, my-s*0.08, s*0.16, s*0.16, '#d8e8ff');
+      px(ctx, mx-s*0.06, my-s*0.06, s*0.12, s*0.12, '#f8fcff');
+      // ripples
+      const rp = Math.sin(t/600) * 2;
+      px(ctx, x+s*0.10, y+s*0.65+rp, s*0.30, s*0.02, '#1a3a5a');
+      px(ctx, x+s*0.50, y+s*0.78-rp, s*0.30, s*0.02, '#1a3a5a');
+      px(ctx, x+s*0.20, y+s*0.88+rp, s*0.40, s*0.02, '#22466e');
+    },
+    SEA11(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // sky gradient
+      for (let i=0; i<8; i++) {
+        const r = 255, g = 140 + i*8, b = 100 + i*12;
+        px(ctx, x, y+i*s/16, s, s/16, `rgb(${r},${g},${b})`);
+      }
+      // sun
+      px(ctx, x+s*0.40, y+s*0.30+bob*0.3, s*0.20, s*0.16, '#fff2a8');
+      // water
+      for (let i=8; i<16; i++) {
+        const r = 200 - (i-8)*12, g = 90 + (i-8)*4, b = 110 + (i-8)*8;
+        px(ctx, x, y+i*s/16, s, s/16, `rgb(${r},${g},${b})`);
+      }
+      // halo floating
+      const hy = y + s*0.20 + bob;
+      px(ctx, x+s*0.18, hy, s*0.18, s*0.04, '#ffe680');
+      px(ctx, x+s*0.20, hy+s*0.02, s*0.14, s*0.02, '#fff5b0');
+      // bird
+      px(ctx, x+s*0.70, y+s*0.45+bob*0.4, s*0.04, s*0.02, '#222');
+      px(ctx, x+s*0.74, y+s*0.43+bob*0.4, s*0.04, s*0.02, '#222');
+    },
+    WIFI(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      const cx = x + s/2, cy = y + s/2 + bob;
+      // skull dome
+      px(ctx, cx-s*0.28, cy-s*0.30, s*0.56, s*0.50, '#c41e1e');
+      px(ctx, cx-s*0.32, cy-s*0.20, s*0.06, s*0.30, '#8a0000');
+      px(ctx, cx+s*0.26, cy-s*0.20, s*0.06, s*0.30, '#8a0000');
+      // dark eye sockets
+      px(ctx, cx-s*0.20, cy-s*0.12, s*0.14, s*0.14, '#1a0000');
+      px(ctx, cx+s*0.06, cy-s*0.12, s*0.14, s*0.14, '#1a0000');
+      // glow eyes
+      px(ctx, cx-s*0.16, cy-0.06*s, s*0.05, s*0.05, '#ff8800');
+      px(ctx, cx+s*0.10, cy-0.06*s, s*0.05, s*0.05, '#ff8800');
+      // jaw + jagged teeth
+      px(ctx, cx-s*0.22, cy+s*0.08, s*0.44, s*0.14, '#e84545');
+      for (let i=0; i<5; i++) {
+        px(ctx, cx-s*0.20+i*s*0.09, cy+s*0.16, s*0.04, s*0.08, '#fff5e0');
+      }
+      // HK tag
+      px(ctx, x+s*0.05, y+s*0.78, s*0.18, s*0.10, '#00aaff');
+      px(ctx, x+s*0.07, y+s*0.80, s*0.04, s*0.04, '#fff');
+    },
+    XKING(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // light bg
+      px(ctx, x, y, s, s, '#e8e4d8');
+      const cx = x + s/2, cy = y + s/2 + bob;
+      // face
+      px(ctx, cx-s*0.24, cy-s*0.22, s*0.48, s*0.44, '#d4a578');
+      // hair
+      px(ctx, cx-s*0.26, cy-s*0.30, s*0.52, s*0.14, '#2a1810');
+      px(ctx, cx-s*0.22, cy-s*0.34, s*0.44, s*0.06, '#2a1810');
+      // glasses
+      px(ctx, cx-s*0.22, cy-s*0.10, s*0.18, s*0.12, '#1a1a1a');
+      px(ctx, cx+s*0.04, cy-s*0.10, s*0.18, s*0.12, '#1a1a1a');
+      px(ctx, cx-s*0.20, cy-s*0.08, s*0.14, s*0.08, '#e8c8a8');
+      px(ctx, cx+s*0.06, cy-s*0.08, s*0.14, s*0.08, '#e8c8a8');
+      px(ctx, cx-s*0.04, cy-s*0.06, s*0.08, s*0.02, '#1a1a1a');
+      // mouth
+      px(ctx, cx-s*0.06, cy+s*0.10, s*0.12, s*0.02, '#7a4030');
+      // flag accent corner
+      px(ctx, x+s*0.78, y+s*0.04, s*0.18, s*0.06, '#fff');
+      px(ctx, x+s*0.78, y+s*0.06, s*0.18, s*0.02, '#0066cc');
+    },
+    HEADBAND_GUY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.5;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // dark background
+      px(ctx, x+2, y+2, s-4, s-4, '#1a0808');
+      // dark hair top
+      px(ctx, x+10, y+6+bob, s-20, 8, '#1a0a0a');
+      // bright red headband
+      px(ctx, x+6, y+14+bob, s-12, 8, '#e02018');
+      px(ctx, x+6, y+15+bob, s-12, 1, '#ff5040');
+      px(ctx, x+6, y+20+bob, s-12, 2, '#a01010');
+      // headband stripes (samurai)
+      px(ctx, x+18, y+16+bob, 2, 4, '#ffffff');
+      px(ctx, x+s-20, y+16+bob, 2, 4, '#ffffff');
+      px(ctx, x+s/2-1, y+16+bob, 2, 4, '#ffffff');
+      // headband ties hanging
+      px(ctx, x+4, y+22+bob, 3, 10, '#e02018');
+      px(ctx, x+s-7, y+22+bob, 3, 10, '#e02018');
+      // dark/red face
+      px(ctx, x+12, y+22+bob, s-24, 26, '#7a4030');
+      // shadow under headband
+      px(ctx, x+12, y+22+bob, s-24, 3, '#3a1810');
+      // eyes peering out fierce
+      px(ctx, x+20, y+30+bob, 5, 3, '#ffffff');
+      px(ctx, x+s-25, y+30+bob, 5, 3, '#ffffff');
+      px(ctx, x+22, y+30+bob, 2, 3, '#1a0a0a');
+      px(ctx, x+s-24, y+30+bob, 2, 3, '#1a0a0a');
+      // mouth determined
+      px(ctx, x+24, y+42+bob, 14, 1, '#3a1810');
+    },
+    KOYLY(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.4;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // soft tan background
+      px(ctx, x+2, y+2, s-4, s-4, '#d8b888');
+      // brown cowboy hat - wide brim
+      px(ctx, x+2, y+18+bob, s-4, 5, '#5a3018');
+      px(ctx, x+4, y+22+bob, s-8, 2, '#3a1808');
+      // hat crown
+      px(ctx, x+16, y+8+bob, s-32, 12, '#7a4020');
+      px(ctx, x+18, y+6+bob, s-36, 4, '#7a4020');
+      // hat band
+      px(ctx, x+16, y+16+bob, s-32, 2, '#3a1808');
+      px(ctx, x+22, y+16+bob, 2, 2, '#d8a060');
+      // dog face peeking out
+      px(ctx, x+12, y+24+bob, s-24, 26, '#fafafa');
+      // brown patches
+      px(ctx, x+12, y+24+bob, 12, 12, '#a87048');
+      px(ctx, x+s-20, y+30+bob, 8, 8, '#a87048');
+      // dog eyes (emote :( )
+      px(ctx, x+20, y+32+bob, 2, 4, '#0a0a0a');
+      px(ctx, x+s-22, y+32+bob, 2, 4, '#0a0a0a');
+      // snout
+      px(ctx, x+s/2-4, y+40+bob, 8, 6, '#e8d8c0');
+      // black nose
+      px(ctx, x+s/2-2, y+40+bob, 4, 3, '#1a1010');
+      // pink tongue out
+      px(ctx, x+s/2-2, y+46+bob, 4, 4, '#ff8aa0');
+      px(ctx, x+s/2-1, y+47+bob, 2, 2, '#d85a78');
+    },
 
     W0RTH(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t*0.003) * (s*0.012);
@@ -6640,5 +1853,45 @@ EDWIN(ctx, sp, x, y, s, t) {
         ctx.restore();
       } catch(__e) { /* flourish fail-safe */ }
 },
+    SIGSTICK(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // blue circle bg
+      px(ctx, x, y, s, s, '#5865f2');
+      const cx = x + s/2, cy = y + s/2 + bob;
+      // round white head
+      px(ctx, cx-s*0.26, cy-s*0.20, s*0.52, s*0.42, '#fff');
+      px(ctx, cx-s*0.30, cy-s*0.14, s*0.04, s*0.30, '#fff');
+      px(ctx, cx+s*0.26, cy-s*0.14, s*0.04, s*0.30, '#fff');
+      px(ctx, cx-s*0.22, cy-s*0.24, s*0.44, s*0.04, '#fff');
+      // eyes
+      px(ctx, cx-s*0.14, cy-s*0.06, s*0.06, s*0.06, '#1a1a1a');
+      px(ctx, cx+s*0.08, cy-s*0.06, s*0.06, s*0.06, '#1a1a1a');
+      // smile (curved)
+      px(ctx, cx-s*0.10, cy+s*0.10, s*0.04, s*0.04, '#1a1a1a');
+      px(ctx, cx-s*0.06, cy+s*0.14, s*0.12, s*0.04, '#1a1a1a');
+      px(ctx, cx+s*0.06, cy+s*0.10, s*0.04, s*0.04, '#1a1a1a');
+    },
+    CAST(ctx, sp, x, y, s, t) {
+      const bob = Math.sin(t / 320) * 1.6;
+      shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
+      // green bg
+      px(ctx, x, y, s, s, '#43b581');
+      const cx = x + s/2, cy = y + s/2 + bob;
+      // wumpus body
+      px(ctx, cx-s*0.20, cy-s*0.12, s*0.40, s*0.32, '#ffffff');
+      px(ctx, cx-s*0.16, cy-s*0.18, s*0.32, s*0.08, '#ffffff');
+      px(ctx, cx-s*0.22, cy-s*0.24, s*0.10, s*0.12, '#ffffff');
+      px(ctx, cx+s*0.12, cy-s*0.24, s*0.10, s*0.12, '#ffffff');
+      // eyes
+      px(ctx, cx-s*0.10, cy-s*0.06, s*0.06, s*0.10, '#1a1a1a');
+      px(ctx, cx+s*0.04, cy-s*0.06, s*0.06, s*0.10, '#1a1a1a');
+      // mouth
+      px(ctx, cx-s*0.06, cy+s*0.08, s*0.12, s*0.06, '#1a1a1a');
+      // feet
+      px(ctx, cx-s*0.14, cy+s*0.20, s*0.10, s*0.06, '#ffffff');
+      px(ctx, cx+s*0.04, cy+s*0.20, s*0.10, s*0.06, '#ffffff');
+    },
+
   };
 })();

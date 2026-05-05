@@ -383,10 +383,10 @@
     game.mode = "starter";
     game.starterIdx = 0;
     showDialog([
-      "PROFESSOR PARMIGIANO:",
-      "Ah! A new challenger! In this world, brain rot creatures roam the lands.",
-      "Capture them. Train them. Climb the Espresso Four.\nDefeat the Brainrot Queen.",
-      "Pick your starter, my dear traveler:",
+      "PROFESSOR DISCORD:",
+      "Welcome to the monkey guild! In this world, every server member is a catchable mon.",
+      "Catch your friends. Train them up. Beat the gym leaders.\nClimb to the top and face Karl himself.",
+      "Pick your starter, future champion:",
     ], () => {
       game.mode = "starter";
       showStarterDom(true);
@@ -567,38 +567,38 @@
     const entries = [];
     entries.push("═══ LORE JOURNAL ═══");
     entries.push(
-      "PROFESSOR PARMIGIANO'S NOTES:\n" +
-      "The brainrot creatures are a 2026 phenomenon — born of memes, " +
-      "amplified by the algorithm, given form by something deeper. " +
-      "I suspect a sentient cosmic force is involved."
+      "PROFESSOR DISCORD'S NOTES:\n" +
+      "The monkey guild is a strange Discord server. Every member, " +
+      "every shitposter, every gym leader — they're all here, " +
+      "and somehow they've all become catchable mons. Karl is the king."
     );
     if (beat >= 2) entries.push(
-      "BEAT 2 — CULTIST VELVELO:\n" +
-      "A man in purple robes shouted GLORBO and attacked. " +
-      "On defeat he dropped a torn page that read: \"the call grows louder.\""
+      "BEAT 2 — sapwn (Gym 1):\n" +
+      "Gym 1 done. sapwn yelled JUNE 5TH!! and threw an hourglass. " +
+      "He muttered something about 'the call grows louder' before disappearing."
     );
     if (beat >= 3) entries.push(
-      "BEAT 3 — LIEUTENANT GORM, CERULEAN:\n" +
-      "The Cult of Glorbo is real and structured. Gorm called the " +
-      "brainrot a CALL, not a curse. Said Glorbo HEARS US."
+      "BEAT 3 — LSM253 (Gym 2):\n" +
+      "Gym 2 cleared. LSM253 said the monkey guild was older than " +
+      "anyone realized. Karl HEARS US, he said. Karl is always watching."
     );
     if (beat >= 4) entries.push(
-      "BEAT 4 — CAPTAIN VESSI, ROUTE 4 BEACH:\n" +
-      "They tried to summon Glorbnoxion at the tide. The Tralalero " +
-      "pods sang back. Vessi mentioned a 'vessel.' She didn't say who."
+      "BEAT 4 — ronic (Gym 3):\n" +
+      "Gym 3 cleared on Feather. ronic mentioned a 'vessel' and tipped " +
+      "his hat. He didn't say who the vessel was."
     );
     if (beat >= 5) entries.push(
-      "BEAT 5 — CULT LEADER VIBRIUS, VERMILION:\n" +
-      "Glorbnoxion is awake. The vessel is sealed. Vibrius said the " +
-      "vessel is 'at the top.' The only thing at the top is the Champion."
+      "BEAT 5 — dr.yeet (Gym 4):\n" +
+      "Gym 4 cleared. dr.yeet said the monkey guild has a king at the " +
+      "top, and the only thing at the top is Karl."
     );
     if (game.beatenChampion) entries.push(
-      "FINAL — THE BRAINROT QUEEN:\n" +
-      "She was the vessel. She is also Glorbnoxion. On her defeat " +
-      "the cosmic force withdrew — the world kept its brainrots, " +
-      "but the world stayed the world."
+      "FINAL — KARL:\n" +
+      "Karl was the king. The monkey guild bows to him. On his defeat " +
+      "the lobby went quiet for one full second — then the shitposting " +
+      "resumed, louder than ever."
     );
-    if (entries.length === 1) entries.push("(No story beats unlocked yet.\nDefeat Cultist Velvelo in Viridian Forest to begin.)");
+    if (entries.length === 1) entries.push("(No story beats unlocked yet.\nDefeat sapwn at Gym 1 to begin.)");
     showDialog(entries, () => {});
   }
 
@@ -1213,7 +1213,7 @@
       } else if (npc.type === "ferry") {
         // Post-game ferry: gated by beating the Champion
         if (!game.beatenChampion) {
-          showDialog(["Ferry Captain: I don't sail for trainers without a Champion ribbon.\nCome back when you've beaten the Brainrot Queen."], () => {});
+          showDialog(["Ferry Captain: I don't sail for trainers without a Champion ribbon.\nCome back when you've beaten Karl."], () => {});
           return;
         }
         showDialog(npc.dialog, () => {
@@ -1268,10 +1268,10 @@
           }
           if (data.isChampion) {
             game.beatenChampion = true;
-            lines.push("You defeated the BRAINROT QUEEN!");
-            lines.push("You are the Brainrot Champion!");
-            lines.push("...The credits would roll, but the lore continues.");
-            lines.push("Legendaries (Tralatitan, Braincore, Ohio) appear in deep grass now. Hunt them!");
+            lines.push("You defeated KARL — the king of the monkey guild!");
+            lines.push("You are the MONKEY GUILD CHAMPION!");
+            lines.push("...The credits would roll, but the lobby never closes.");
+            lines.push("Rare members appear in deeper channels now. Catch 'em all!");
           }
           if (lines.length) showDialog(lines, () => {});
         }
