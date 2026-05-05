@@ -9,7 +9,7 @@ import {
 } from "remotion";
 import { Audio } from "@remotion/media";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
-import { MonSprite } from "./MonSprite";
+import { MonSprite, GameScriptsLoader } from "./MonSprite";
 
 loadInter("normal", { weights: ["400", "700", "900"] });
 
@@ -33,6 +33,11 @@ export const MonkeyGuildAd: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a14", overflow: "hidden" }}>
+      {/* Loads game data.js + sprites.js + extra_sprites.js exactly once
+          and bridges classic-script consts onto window. Must mount before
+          any <MonSprite> on the first frame. */}
+      <GameScriptsLoader />
+
       <Audio src={staticFile("pretend.mp3")} loop volume={musicVol} />
 
       {/* SCENE 1: COLD OPEN — title fades in (0–3s) */}
