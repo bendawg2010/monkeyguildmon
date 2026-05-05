@@ -9,3 +9,4 @@ out/
 !ad/out/
 ad/out/*
 !ad/out/*.mp4
+.deploy/
