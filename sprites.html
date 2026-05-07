@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>monkeyguildmon — sprite gallery</title>
+  <style>
+    :root {
+      --bg: #0a0a14;
+      --bg2: #1a1a2e;
+      --fg: #e6e9f2;
+      --muted: #8b9bbb;
+      --accent: #ffd755;
+      --tier-rookie: #9aa0a8;
+      --tier-common: #7fdcff;
+      --tier-rare: #c9a4ff;
+      --tier-epic: #ff80c0;
+      --tier-legendary: #ffd755;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(ellipse at top, #1a1a3a 0%, transparent 60%),
+        radial-gradient(ellipse at bottom, #2a1a3a 0%, transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      min-height: 100vh;
+    }
+    header {
+      padding: 32px 24px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(10,10,20,0.7);
+    }
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      font-family: monospace;
+    }
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .toolbar input, .toolbar select, .toolbar button {
+      background: rgba(255,255,255,0.06);
+      color: var(--fg);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .toolbar input:focus, .toolbar select:focus {
+      border-color: var(--accent);
+    }
+    .toolbar input { min-width: 220px; }
+    .toolbar button { cursor: pointer; }
+    .toolbar button:hover { background: rgba(255,255,255,0.12); }
+    .stats { color: var(--muted); margin-left: auto; font-family: monospace; font-size: 13px; }
+
+    main { padding: 24px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .card.hidden { display: none; }
+    .card canvas {
+      width: 128px;
+      height: 128px;
+      image-rendering: pixelated;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02), rgba(255,255,255,0.02) 8px, transparent 8px, transparent 16px),
+        rgba(0,0,0,0.2);
+      border-radius: 8px;
+    }
+    .card .name {
+      font-weight: 700;
+      font-size: 14px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .card .id {
+      color: var(--muted);
+      font-family: monospace;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-family: monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tier-rookie    { background: rgba(154,160,168,0.18); color: var(--tier-rookie); }
+    .tier-common    { background: rgba(127,220,255,0.15); color: var(--tier-common); }
+    .tier-rare      { background: rgba(201,164,255,0.15); color: var(--tier-rare); }
+    .tier-epic      { background: rgba(255,128,192,0.15); color: var(--tier-epic); }
+    .tier-legendary { background: rgba(255,215,85,0.18);  color: var(--tier-legendary); }
+    .tier-starter   { background: rgba(255,215,85,0.28);  color: var(--tier-legendary); }
+    .group-title {
+      grid-column: 1 / -1;
+      margin: 12px 0 0;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+    /* Modal for zoomed view */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 24px;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal.active { display: flex; }
+    .modal canvas {
+      width: 360px;
+      height: 360px;
+      image-rendering: pixelated;
+      background: #0a0a14;
+      border: 2px solid rgba(255,255,255,0.16);
+      border-radius: 12px;
+    }
+    .modal .info { text-align: center; }
+    .modal .info h2 { margin: 0; font-size: 28px; }
+    .modal .info p  { margin: 8px 0; color: var(--muted); font-family: monospace; }
+    .modal .close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      cursor: pointer;
+      font-size: 28px;
+      color: var(--muted);
+      background: none;
+      border: none;
+    }
+    .modal .close:hover { color: var(--fg); }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>monkeyguildmon — sprite gallery</h1>
+    <div class="subtitle">
+      Live preview of every monkeyguildmon sprite. Same sprite functions
+      the game uses (<code>js/sprites.js</code> + <code>js/extra_sprites.js</code>).
+      Click a sprite to zoom. <a href="index.html">← back to game</a>
+    </div>
+    <div class="toolbar">
+      <input id="search" type="text" placeholder="Search by name or ID…" />
+      <select id="filter-tier">
+        <option value="">All tiers</option>
+        <option value="starter">Starters</option>
+        <option value="rookie">Rookie</option>
+        <option value="common">Common</option>
+        <option value="rare">Rare</option>
+        <option value="epic">Epic</option>
+        <option value="legendary">Legendary</option>
+      </select>
+      <select id="sort">
+        <option value="default">Default order</option>
+        <option value="alpha">Alphabetical</option>
+        <option value="tier">By tier</option>
+      </select>
+      <span class="stats" id="stats">— mons</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <div id="modal" class="modal">
+    <button class="close" aria-label="close">×</button>
+    <canvas id="modal-canvas" width="360" height="360"></canvas>
+    <div class="info">
+      <h2 id="modal-name"></h2>
+      <p id="modal-meta"></p>
+      <p id="modal-flavor"></p>
+    </div>
+  </div>
+
+  <!-- Game scripts: load in same order as index.html -->
+  <script src="js/data.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/extra_sprites.js"></script>
+
+  <script>
+    (function () {
+      const grid = document.getElementById("grid");
+      const search = document.getElementById("search");
+      const filterTier = document.getElementById("filter-tier");
+      const sort = document.getElementById("sort");
+      const stats = document.getElementById("stats");
+      const modal = document.getElementById("modal");
+      const modalCanvas = document.getElementById("modal-canvas");
+      const modalName = document.getElementById("modal-name");
+      const modalMeta = document.getElementById("modal-meta");
+      const modalFlavor = document.getElementById("modal-flavor");
+
+      if (typeof SPECIES === "undefined") {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "SPECIES not loaded — check that data.js loads correctly.";
+        grid.appendChild(empty);
+        return;
+      }
+
+      const allMons = Object.values(SPECIES).map((sp) => ({
+        id: sp.id,
+        name: sp.name || sp.id,
+        tier: sp.tier || "rookie",
+        types: Array.isArray(sp.types) ? sp.types : [],
+        flavor: sp.flavor || sp.dex || "",
+      }));
+
+      const startersIds = ["NOTALI", "MXRIO", "STEEL"];
+      const tierOrder = { starter: 0, legendary: 1, epic: 2, rare: 3, common: 4, rookie: 5 };
+
+      function tierOf(m) {
+        if (startersIds.includes(m.id)) return "starter";
+        return m.tier;
+      }
+
+      function makeCard(m) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.id = m.id;
+        card.dataset.name = m.name.toLowerCase();
+        card.dataset.tier = tierOf(m);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 128;
+        canvas.height = 128;
+        canvas.dataset.id = m.id;
+        card.appendChild(canvas);
+
+        const tier = tierOf(m);
+        const tierClass = "tier-" + tier;
+        const badge = document.createElement("span");
+        badge.className = "tier-badge " + tierClass;
+        badge.textContent = tier;
+        card.appendChild(badge);
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = m.name;
+        card.appendChild(name);
+
+        const id = document.createElement("div");
+        id.className = "id";
+        id.textContent = m.id + (m.types.length ? " · " + m.types.join("/") : "");
+        card.appendChild(id);
+
+        card.addEventListener("click", () => openModal(m));
+        return card;
+      }
+
+      function openModal(m) {
+        modal.classList.add("active");
+        modalName.textContent = m.name;
+        modalMeta.textContent =
+          m.id +
+          " · " +
+          tierOf(m) +
+          (m.types.length ? " · " + m.types.join(" / ") : "");
+        modalFlavor.textContent = m.flavor || "";
+        if (window.__galleryModalRAF) cancelAnimationFrame(window.__galleryModalRAF);
+        const ctx = modalCanvas.getContext("2d");
+        ctx.imageSmoothingEnabled = false;
+        function tick(time) {
+          ctx.clearRect(0, 0, 360, 360);
+          if (typeof SpriteRenderer !== "undefined" && SpriteRenderer.drawMon) {
+            SpriteRenderer.drawMon(ctx, m.id, 0, 0, 360, time);
+          }
+          window.__galleryModalRAF = requestAnimationFrame(tick);
+        }
+        tick(performance.now());
+      }
+
+      function closeModal() {
+        modal.classList.remove("active");
+        if (window.__galleryModalRAF) {
+          cancelAnimationFrame(window.__galleryModalRAF);
+          window.__galleryModalRAF = null;
+        }
+      }
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.querySelector(".modal .close").addEventListener("click", closeModal);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      // Initial render
+      allMons.forEach((m) => grid.appendChild(makeCard(m)));
+
+      // Animation loop: redraw every visible canvas
+      function tickAll(time) {
+        if (typeof SpriteRenderer === "undefined" || !SpriteRenderer.drawMon) {
+          requestAnimationFrame(tickAll);
+          return;
+        }
+        const canvases = grid.querySelectorAll("canvas");
+        for (const cvs of canvases) {
+          const card = cvs.closest(".card");
+          if (!card || card.classList.contains("hidden")) continue;
+          const r = cvs.getBoundingClientRect();
+          if (r.bottom < -100 || r.top > window.innerHeight + 100) continue;
+          const ctx = cvs.getContext("2d");
+          ctx.imageSmoothingEnabled = false;
+          ctx.clearRect(0, 0, 128, 128);
+          try {
+            // Stagger time by hashing the id so nothing bobs in lockstep
+            let h = 0;
+            for (let i = 0; i < cvs.dataset.id.length; i++) {
+              h = (h * 31 + cvs.dataset.id.charCodeAt(i)) & 0xffff;
+            }
+            SpriteRenderer.drawMon(ctx, cvs.dataset.id, 0, 0, 128, time + h);
+          } catch (e) {
+            ctx.fillStyle = "#ff5555";
+            ctx.font = "10px monospace";
+            ctx.fillText("err", 6, 18);
+          }
+        }
+        requestAnimationFrame(tickAll);
+      }
+      requestAnimationFrame(tickAll);
+
+      // Filtering / sorting
+      function applyFilters() {
+        const q = search.value.trim().toLowerCase();
+        const tierFilter = filterTier.value;
+        let visible = 0;
+        const cards = Array.from(grid.children).filter((c) => c.classList.contains("card"));
+        for (const c of cards) {
+          let show = true;
+          if (q && !(c.dataset.name.includes(q) || c.dataset.id.toLowerCase().includes(q))) show = false;
+          if (tierFilter && c.dataset.tier !== tierFilter) show = false;
+          c.classList.toggle("hidden", !show);
+          if (show) visible++;
+        }
+        stats.textContent = visible + " / " + cards.length + " mons";
+      }
+
+      function applySort() {
+        const mode = sort.value;
+        const cards = Array.from(grid.querySelectorAll(".card"));
+        const titles = Array.from(grid.querySelectorAll(".group-title"));
+        titles.forEach((t) => t.remove());
+        cards.forEach((c) => c.remove());
+        if (mode === "alpha") {
+          cards.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+          cards.forEach((c) => grid.appendChild(c));
+        } else if (mode === "tier") {
+          cards.sort((a, b) => {
+            const ta = tierOrder[a.dataset.tier] ?? 99;
+            const tb = tierOrder[b.dataset.tier] ?? 99;
+            if (ta !== tb) return ta - tb;
+            return a.dataset.name.localeCompare(b.dataset.name);
+          });
+          let lastTier = null;
+          cards.forEach((c) => {
+            if (c.dataset.tier !== lastTier) {
+              const h = document.createElement("div");
+              h.className = "group-title";
+              h.textContent = c.dataset.tier;
+              grid.appendChild(h);
+              lastTier = c.dataset.tier;
+            }
+            grid.appendChild(c);
+          });
+        } else {
+          // Default: starters first, then everything else in registration order
+          const starters = cards.filter((c) => startersIds.includes(c.dataset.id));
+          const rest = cards.filter((c) => !startersIds.includes(c.dataset.id));
+          starters.forEach((c) => grid.appendChild(c));
+          rest.forEach((c) => grid.appendChild(c));
+        }
+      }
+
+      search.addEventListener("input", applyFilters);
+      filterTier.addEventListener("change", applyFilters);
+      sort.addEventListener("change", () => {
+        applySort();
+        applyFilters();
+      });
+      applySort();
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>

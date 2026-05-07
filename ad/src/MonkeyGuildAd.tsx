@@ -72,13 +72,18 @@ export const MonkeyGuildAd: React.FC = () => {
         <BigGridScene />
       </Sequence>
 
-      {/* SCENE 7: BATTLE HERO (50–55s) */}
-      <Sequence from={50 * fps} durationInFrames={5 * fps}>
+      {/* SCENE 7: FEATURED FRIENDS — Myself + notaim hero shots (50–54s) */}
+      <Sequence from={50 * fps} durationInFrames={4 * fps}>
+        <FeaturedFriends />
+      </Sequence>
+
+      {/* SCENE 8: BATTLE HERO (54–59s) */}
+      <Sequence from={54 * fps} durationInFrames={5 * fps}>
         <BattleHero />
       </Sequence>
 
-      {/* SCENE 8: END CARD (55–60s) */}
-      <Sequence from={55 * fps} durationInFrames={5 * fps}>
+      {/* SCENE 9: END CARD (59–64s) */}
+      <Sequence from={59 * fps} durationInFrames={5 * fps}>
         <EndCard />
       </Sequence>
 
@@ -683,6 +688,140 @@ const BigGridScene: React.FC = () => {
             );
           })}
         </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// FeaturedFriends — hero shots of Myself + notaim with their names. Two
+// of the harder-to-spot friends; this scene gives them their own moment.
+const FeaturedFriends: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  const featured = [
+    {
+      id: "MYSELF",
+      name: "Myself",
+      flavor: "ELECTRIC CRYSTAL · ADMIN/MOD",
+      color: "#5cdcff",
+    },
+    {
+      id: "NOTAIM",
+      name: "notaim",
+      flavor: "DARK FLUFF · GAMER/BOT",
+      color: "#c9a4ff",
+    },
+  ];
+
+  // Title fades in/out across the 4s scene
+  const titleIn = interpolate(frame, [0, fps * 0.4], [0, 1], { extrapolateRight: "clamp" });
+  const titleOut = interpolate(frame, [fps * 3.4, fps * 4], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const titleOpacity = Math.min(titleIn, titleOut);
+
+  return (
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(180deg, #1a1a3a 0%, #0a0a14 100%)",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 60,
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          fontFamily: "Inter",
+          fontSize: 64,
+          fontWeight: 900,
+          color: "#ffffff",
+          opacity: titleOpacity,
+        }}
+      >
+        Featuring…
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 120,
+          marginTop: 60,
+        }}
+      >
+        {featured.map((f, i) => {
+          const start = (0.5 + i * 0.5) * fps;
+          const sp = spring({
+            frame: frame - start,
+            fps,
+            config: { damping: 12, stiffness: 180 },
+          });
+          const opacity = interpolate(frame, [start, start + 6], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          const fadeOut = interpolate(frame, [fps * 3.4, fps * 4], [1, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          return (
+            <div
+              key={f.id}
+              style={{
+                opacity: opacity * fadeOut,
+                transform: `translateY(${(1 - sp) * 60}px) scale(${0.7 + sp * 0.3})`,
+                width: 360,
+                textAlign: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: 360,
+                  height: 360,
+                  background: `radial-gradient(circle at 50% 50%, ${f.color}33 0%, transparent 75%)`,
+                  borderRadius: 28,
+                  border: `3px solid ${f.color}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: `0 0 60px ${f.color}55`,
+                }}
+              >
+                <MonSprite speciesId={f.id} size={280} timeOffset={i * 263} />
+              </div>
+              <div
+                style={{
+                  marginTop: 22,
+                  fontFamily: "Inter",
+                  fontSize: 56,
+                  fontWeight: 900,
+                  color: f.color,
+                  letterSpacing: -0.5,
+                }}
+              >
+                {f.name}
+              </div>
+              <div
+                style={{
+                  marginTop: 4,
+                  fontFamily: "monospace",
+                  fontSize: 18,
+                  color: "#a4b3c8",
+                  letterSpacing: 1,
+                }}
+              >
+                {f.flavor}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );

@@ -73,36 +73,69 @@
     MYSELF(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t / 320) * 1.0;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark navy bg
-      px(ctx, x, y, s, s, '#0a0e2e');
-      const pulse = 0.6 + Math.sin(t/200) * 0.4;
-      // electric sparks/rays
-      ctx.fillStyle = `rgba(120,200,255,${0.5*pulse})`;
-      ctx.fillRect(x+s*0.48, y+s*0.05, s*0.04, s*0.18);
-      ctx.fillRect(x+s*0.48, y+s*0.77, s*0.04, s*0.18);
-      ctx.fillRect(x+s*0.05, y+s*0.48, s*0.18, s*0.04);
-      ctx.fillRect(x+s*0.77, y+s*0.48, s*0.18, s*0.04);
-      ctx.fillRect(x+s*0.18, y+s*0.20, s*0.08, s*0.04);
-      ctx.fillRect(x+s*0.74, y+s*0.76, s*0.08, s*0.04);
-      // diamond shape
+      // electric-blue radial bg
+      const grad = ctx.createRadialGradient(
+        x+s*0.5, y+s*0.5, s*0.05,
+        x+s*0.5, y+s*0.5, s*0.55
+      );
+      grad.addColorStop(0, '#3a6ed8');
+      grad.addColorStop(0.5, '#0e1f5a');
+      grad.addColorStop(1, '#040820');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, y, s, s);
+      const pulse = 0.6 + Math.sin(t/180) * 0.4;
       const cx = x+s*0.5, cy = y+s*0.5+bob;
-      ctx.fillStyle = '#1ea7e8';
+      // outer glow halo
+      ctx.fillStyle = `rgba(120,210,255,${0.18*pulse})`;
       ctx.beginPath();
-      ctx.moveTo(cx, cy-s*0.22);
-      ctx.lineTo(cx+s*0.18, cy);
-      ctx.lineTo(cx, cy+s*0.22);
-      ctx.lineTo(cx-s*0.18, cy);
+      ctx.arc(cx, cy, s*0.40, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = `rgba(180,230,255,${0.30*pulse})`;
+      ctx.beginPath();
+      ctx.arc(cx, cy, s*0.30, 0, Math.PI*2);
+      ctx.fill();
+      // electric sparks/rays — 8 directions
+      ctx.fillStyle = `rgba(180,230,255,${0.85*pulse})`;
+      ctx.fillRect(x+s*0.48, y+s*0.02, s*0.04, s*0.20);
+      ctx.fillRect(x+s*0.48, y+s*0.78, s*0.04, s*0.20);
+      ctx.fillRect(x+s*0.02, y+s*0.48, s*0.20, s*0.04);
+      ctx.fillRect(x+s*0.78, y+s*0.48, s*0.20, s*0.04);
+      // diagonals
+      ctx.fillStyle = `rgba(150,210,250,${0.65*pulse})`;
+      ctx.fillRect(x+s*0.18, y+s*0.18, s*0.06, s*0.06);
+      ctx.fillRect(x+s*0.76, y+s*0.18, s*0.06, s*0.06);
+      ctx.fillRect(x+s*0.18, y+s*0.76, s*0.06, s*0.06);
+      ctx.fillRect(x+s*0.76, y+s*0.76, s*0.06, s*0.06);
+      // outer crystal facet (cyan)
+      ctx.fillStyle = '#5cdcff';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy-s*0.28);
+      ctx.lineTo(cx+s*0.22, cy);
+      ctx.lineTo(cx, cy+s*0.28);
+      ctx.lineTo(cx-s*0.22, cy);
       ctx.closePath();
       ctx.fill();
-      // bright core
-      ctx.fillStyle = `rgba(255,255,255,${pulse})`;
+      // inner facet (deep blue)
+      ctx.fillStyle = '#1e6fdc';
+      ctx.beginPath();
+      ctx.moveTo(cx, cy-s*0.20);
+      ctx.lineTo(cx+s*0.15, cy);
+      ctx.lineTo(cx, cy+s*0.20);
+      ctx.lineTo(cx-s*0.15, cy);
+      ctx.closePath();
+      ctx.fill();
+      // bright white core
+      ctx.fillStyle = `rgba(255,255,255,${0.85+0.15*pulse})`;
       ctx.beginPath();
       ctx.moveTo(cx, cy-s*0.10);
-      ctx.lineTo(cx+s*0.08, cy);
+      ctx.lineTo(cx+s*0.07, cy);
       ctx.lineTo(cx, cy+s*0.10);
-      ctx.lineTo(cx-s*0.08, cy);
+      ctx.lineTo(cx-s*0.07, cy);
       ctx.closePath();
       ctx.fill();
+      // sparkle highlight
+      ctx.fillStyle = `rgba(255,255,255,${pulse})`;
+      ctx.fillRect(cx-s*0.04, cy-s*0.12, s*0.02, s*0.06);
     },
     STEEL_GAMER(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t / 320) * 1.6;
@@ -808,26 +841,49 @@
     NOTAIM(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t / 320) * 1.6;
       shadow(ctx, x+s/2, y+s-4, s*0.34, 5);
-      // dark fluffy blob
-      px(ctx, x+s*0.18, y+s*0.22+bob, s*0.64, s*0.66, '#1a1208');
-      px(ctx, x+s*0.14, y+s*0.34+bob, s*0.06, s*0.46, '#1a1208');
-      px(ctx, x+s*0.8, y+s*0.34+bob, s*0.06, s*0.46, '#1a1208');
-      px(ctx, x+s*0.26, y+s*0.16+bob, s*0.48, s*0.08, '#1a1208');
-      // fuzzy texture (pseudo-random small dark rects)
-      px(ctx, x+s*0.24, y+s*0.28+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.4, y+s*0.24+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.6, y+s*0.28+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.7, y+s*0.4+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.22, y+s*0.5+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.5, y+s*0.5+bob, s*0.04, s*0.04, '#0a0604');
-      px(ctx, x+s*0.34, y+s*0.6+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.66, y+s*0.62+bob, s*0.04, s*0.04, '#0a0604');
-      px(ctx, x+s*0.28, y+s*0.72+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.56, y+s*0.74+bob, s*0.04, s*0.04, '#2a2018');
-      px(ctx, x+s*0.74, y+s*0.74+bob, s*0.04, s*0.04, '#0a0604');
-      // very subtle eye glints
-      px(ctx, x+s*0.36, y+s*0.46+bob, s*0.04, s*0.02, '#403830');
-      px(ctx, x+s*0.6, y+s*0.46+bob, s*0.04, s*0.02, '#403830');
+      // soft warm bg so the dark fluff actually pops
+      const grad = ctx.createRadialGradient(
+        x+s*0.5, y+s*0.55, s*0.05,
+        x+s*0.5, y+s*0.55, s*0.55
+      );
+      grad.addColorStop(0, '#3a2a1a');
+      grad.addColorStop(1, '#0a0604');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, y, s, s);
+      // ear tufts (peaked dog/puppy)
+      px(ctx, x+s*0.22, y+s*0.10+bob, s*0.10, s*0.14, '#3a2a18');
+      px(ctx, x+s*0.68, y+s*0.10+bob, s*0.10, s*0.14, '#3a2a18');
+      px(ctx, x+s*0.24, y+s*0.12+bob, s*0.06, s*0.10, '#1a1208');
+      px(ctx, x+s*0.70, y+s*0.12+bob, s*0.06, s*0.10, '#1a1208');
+      // main fluffy body — slightly lighter so it's visible
+      px(ctx, x+s*0.16, y+s*0.22+bob, s*0.68, s*0.62, '#3a2a18');
+      px(ctx, x+s*0.12, y+s*0.32+bob, s*0.06, s*0.44, '#3a2a18');
+      px(ctx, x+s*0.82, y+s*0.32+bob, s*0.06, s*0.44, '#3a2a18');
+      // inner darker shade for depth
+      px(ctx, x+s*0.22, y+s*0.30+bob, s*0.56, s*0.50, '#2a1c10');
+      // fluff highlights
+      px(ctx, x+s*0.26, y+s*0.30+bob, s*0.06, s*0.04, '#5a3e22');
+      px(ctx, x+s*0.46, y+s*0.26+bob, s*0.06, s*0.04, '#5a3e22');
+      px(ctx, x+s*0.66, y+s*0.30+bob, s*0.06, s*0.04, '#5a3e22');
+      px(ctx, x+s*0.30, y+s*0.66+bob, s*0.06, s*0.04, '#5a3e22');
+      px(ctx, x+s*0.62, y+s*0.66+bob, s*0.06, s*0.04, '#5a3e22');
+      // fluff scatter shadows
+      px(ctx, x+s*0.34, y+s*0.78+bob, s*0.06, s*0.04, '#1a1208');
+      px(ctx, x+s*0.58, y+s*0.78+bob, s*0.06, s*0.04, '#1a1208');
+      // eyes — slightly bigger + subtle white glint so they read
+      px(ctx, x+s*0.34, y+s*0.46+bob, s*0.10, s*0.06, '#000');
+      px(ctx, x+s*0.56, y+s*0.46+bob, s*0.10, s*0.06, '#000');
+      px(ctx, x+s*0.36, y+s*0.46+bob, s*0.04, s*0.04, '#fff');
+      px(ctx, x+s*0.58, y+s*0.46+bob, s*0.04, s*0.04, '#fff');
+      px(ctx, x+s*0.37, y+s*0.47+bob, s*0.02, s*0.02, '#3aa0ff');
+      px(ctx, x+s*0.59, y+s*0.47+bob, s*0.02, s*0.02, '#3aa0ff');
+      // tiny black nose
+      px(ctx, x+s*0.46, y+s*0.58+bob, s*0.08, s*0.05, '#000');
+      px(ctx, x+s*0.48, y+s*0.59+bob, s*0.02, s*0.02, '#5a3e22');
+      // mouth (small W)
+      px(ctx, x+s*0.42, y+s*0.66+bob, s*0.04, s*0.02, '#000');
+      px(ctx, x+s*0.54, y+s*0.66+bob, s*0.04, s*0.02, '#000');
+      px(ctx, x+s*0.48, y+s*0.68+bob, s*0.04, s*0.02, '#000');
     },
     OANEXITY(ctx, sp, x, y, s, t) {
       const bob = Math.sin(t / 320) * 1.6;
